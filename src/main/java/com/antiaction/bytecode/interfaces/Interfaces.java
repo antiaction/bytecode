@@ -15,10 +15,13 @@ import com.antiaction.bytecode.ByteCodeState;
 
 public class Interfaces {
 
-	public static void parseInterfaces(ByteCodeState bcs, int interfaces_count) throws ByteCodeException {
+	public List<Interface> interface_list;
+
+	public static Interfaces parseInterfaces(ByteCodeState bcs, int interfaces_count) throws ByteCodeException {
 		bcs.assert_unexpected_eof( interfaces_count * 2 );
 
-		List<String> interface_list = new ArrayList<String>();
+		List<Interface> interface_list = new ArrayList<Interface>();
+		Interface interfaceObj;
 
 		int interface_index;
 		String interface_name;
@@ -29,9 +32,18 @@ public class Interfaces {
 			// debug
 			System.out.println( "interfaces index: " + interface_index + "=" + interface_name );
 
-			interface_list.add( interface_name );
+			interfaceObj = new Interface();
+			interfaceObj.interface_index = interface_index;
+			interfaceObj.interface_name = interface_name;
+
+			interface_list.add( interfaceObj );
 			--interfaces_count;
 		}
+
+		Interfaces interfaces = new Interfaces();
+		interfaces.interface_list = interface_list;
+
+		return interfaces;
 	}
 
 }

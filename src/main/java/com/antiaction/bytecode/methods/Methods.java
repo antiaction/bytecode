@@ -1,11 +1,11 @@
 /*
- * Created on 10/10/2008
+ * Created on 18/10/2008
  *
  * TODO To change the template for this generated file go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
 
-package com.antiaction.bytecode.fields;
+package com.antiaction.bytecode.methods;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,14 +17,15 @@ import com.antiaction.bytecode.ByteCodeState;
 import com.antiaction.bytecode.IDescriptor;
 import com.antiaction.bytecode.attributes.Attributes;
 import com.antiaction.bytecode.descriptors.Descriptors;
+import com.antiaction.bytecode.fields.Field;
 
-public class Fields {
+public class Methods {
 
-	public List<Field> fields_list;
+	public List<Method> methods_list;
 
-	public static Fields parseFields(ByteCodeState bcs, int fields_count) throws ByteCodeException {
-		List<Field> fields_list = new ArrayList<Field>();
-		Field field;
+	public static Methods parseMethods(ByteCodeState bcs, int methods_count) throws ByteCodeException {
+		List<Method> methods_list = new ArrayList<Method>();
+		Method method;
 
 		int access_flags;
 		int name_index;
@@ -37,7 +38,7 @@ public class Fields {
 		int attribute_name_index;
 		String attribute_name;
 
-		while( fields_count > 0 ) {
+		while( methods_count > 0 ) {
 			bcs.assert_unexpected_eof( 8 );
 
 			access_flags = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
@@ -45,7 +46,7 @@ public class Fields {
 			descriptor_index = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
 			attributes_count = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
 
-			if ( (access_flags & ~ByteCode.FIELD_ACCESS_FLAGS_MASK) != 0 ) {
+			if ( (access_flags & ~ByteCode.METHOD_ACCESS_FLAGS_MASK) != 0 ) {
 				throw new ByteCodeException( "Invalid access flags: 0x" + Integer.toHexString( access_flags & ~ByteCode.FIELD_ACCESS_FLAGS_MASK ) );
 			}
 
@@ -68,16 +69,16 @@ public class Fields {
 			descriptor_string = bcs.constantpool.getUtf8( descriptor_index );
 
 			// debug
-			System.out.println( "Field: " + name_index + "=" + name + " of type " + descriptor_index + "=" + descriptor_string );
+			System.out.println( "Method: " + name_index + "=" + name + " of type " + descriptor_index + "=" + descriptor_string );
 
-			field = new Field();
-			field.access_flags = access_flags;
-			field.name_index = name_index;
-			field.descriptor_index = descriptor_index;
-			field.name = name;
-			field.descriptor_string = descriptor_string;
+			method = new Method();
+			method.access_flags = access_flags;
+			method.name_index = name_index;
+			method.descriptor_index = descriptor_index;
+			method.name = name;
+			method.descriptor_string = descriptor_string;
 
-			IDescriptor descriptor = Descriptors.parseFieldDescriptor( descriptor_string );
+			//IDescriptor descriptor = Descriptors.parseFieldDescriptor( descriptor_string );
 
 			// debug
 			System.out.println( "Attributes: " + attributes_count );
@@ -96,13 +97,13 @@ public class Fields {
 				--attributes_count;
 			}
 
-			--fields_count;
+			--methods_count;
 		}
 
-		Fields fields = new Fields();
-		fields.fields_list = fields_list;
+		Methods methods = new Methods();
+		methods.methods_list = methods_list;
 
-		return fields;
+		return null;
 	}
 
 }

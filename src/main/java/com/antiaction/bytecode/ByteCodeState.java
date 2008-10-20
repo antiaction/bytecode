@@ -7,13 +7,32 @@
 
 package com.antiaction.bytecode;
 
+import com.antiaction.bytecode.constantpool.ConstantPool;
+import com.antiaction.bytecode.fields.Fields;
+import com.antiaction.bytecode.interfaces.Interfaces;
+import com.antiaction.bytecode.methods.Methods;
+
 
 public class ByteCodeState {
 
 	public byte[] bytes;
 	public int index = 0;
 
+	public boolean bClass = false;
+
+	public boolean bFinal = false;
+
+	public boolean bInterface = false;
+
+	public boolean bAbstract = false;
+
 	public ConstantPool constantpool;
+
+	public Interfaces interfaces;
+
+	public Fields fields;
+
+	public Methods methods;
 
 	public ByteCodeState(byte[] bytes) {
 		this.bytes = bytes;

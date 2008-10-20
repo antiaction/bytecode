@@ -9,4 +9,7 @@ package com.antiaction.bytecode.interfaces;
 
 public class Interface {
 
+	public int interface_index;
+	public String interface_name;
+
 }

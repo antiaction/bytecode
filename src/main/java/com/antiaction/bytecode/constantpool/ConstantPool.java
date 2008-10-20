@@ -5,22 +5,14 @@
  * Window - Preferences - Java - Code Style - Code Templates
  */
 
-package com.antiaction.bytecode;
+package com.antiaction.bytecode.constantpool;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.antiaction.bytecode.constantpool.ConstantPool_Class;
-import com.antiaction.bytecode.constantpool.ConstantPool_Double;
-import com.antiaction.bytecode.constantpool.ConstantPool_Fieldref;
-import com.antiaction.bytecode.constantpool.ConstantPool_Float;
-import com.antiaction.bytecode.constantpool.ConstantPool_Integer;
-import com.antiaction.bytecode.constantpool.ConstantPool_InterfaceMethodref;
-import com.antiaction.bytecode.constantpool.ConstantPool_Long;
-import com.antiaction.bytecode.constantpool.ConstantPool_Methodref;
-import com.antiaction.bytecode.constantpool.ConstantPool_NameAndType;
-import com.antiaction.bytecode.constantpool.ConstantPool_String;
-import com.antiaction.bytecode.constantpool.ConstantPool_Utf8;
+import com.antiaction.bytecode.ByteCodeException;
+import com.antiaction.bytecode.ByteCodeState;
+import com.antiaction.bytecode.IConstantPool_Info;
 
 public class ConstantPool {
 
@@ -39,7 +31,7 @@ public class ConstantPool {
 
 	public List<IConstantPool_Info> constantpool_infolist = null;
 
-	public static void parseConstantPool(ByteCodeState bcs, int constant_pool_count) throws ByteCodeException {
+	public static ConstantPool parseConstantPool(ByteCodeState bcs, int constant_pool_count) throws ByteCodeException {
 		List<IConstantPool_Info> constantpool_infolist = new ArrayList<IConstantPool_Info>();
 		constantpool_infolist.add( null );
 
@@ -99,10 +91,75 @@ public class ConstantPool {
 			constantpool_infolist.add( cp_info );
 		}
 
-		bcs.constantpool = new ConstantPool();
-		bcs.constantpool.constantpool_infolist = constantpool_infolist;
+		ConstantPool constantpool = new ConstantPool();
+		constantpool.constantpool_infolist = constantpool_infolist;
 
-		return;
+		return constantpool;
+	}
+
+	public String getUtf8(int index) throws ByteCodeException {
+		if ( index <= 0 || index >= constantpool_infolist.size() ) {
+			throw new ByteCodeException( "cp_info index out of bounds" );
+		}
+
+		IConstantPool_Info cp_info = constantpool_infolist.get( index );
+		if ( !(cp_info instanceof ConstantPool_Utf8) ) {
+			throw new ByteCodeException( "cp_info utf-8 type expected" );
+		}
+
+		return ((ConstantPool_Utf8)cp_info).utf8;
+	}
+
+	public int getInteger(int index) throws ByteCodeException {
+		if ( index <= 0 || index >= constantpool_infolist.size() ) {
+			throw new ByteCodeException( "cp_info index out of bounds" );
+		}
+
+		IConstantPool_Info cp_info = constantpool_infolist.get( index );
+		if ( !(cp_info instanceof ConstantPool_Integer) ) {
+			throw new ByteCodeException( "cp_info integer type expected" );
+		}
+
+		return ((ConstantPool_Integer)cp_info).i;
+	}
+
+	public float getFloat(int index) throws ByteCodeException {
+		if ( index <= 0 || index >= constantpool_infolist.size() ) {
+			throw new ByteCodeException( "cp_info index out of bounds" );
+		}
+
+		IConstantPool_Info cp_info = constantpool_infolist.get( index );
+		if ( !(cp_info instanceof ConstantPool_Float) ) {
+			throw new ByteCodeException( "cp_info float type expected" );
+		}
+
+		return ((ConstantPool_Float)cp_info).f;
+	}
+
+	public long getLong(int index) throws ByteCodeException {
+		if ( index <= 0 || index >= constantpool_infolist.size() ) {
+			throw new ByteCodeException( "cp_info index out of bounds" );
+		}
+
+		IConstantPool_Info cp_info = constantpool_infolist.get( index );
+		if ( !(cp_info instanceof ConstantPool_Long) ) {
+			throw new ByteCodeException( "cp_info long type expected" );
+		}
+
+		return ((ConstantPool_Long)cp_info).l;
+	}
+
+	public double getDouble(int index) throws ByteCodeException {
+		if ( index <= 0 || index >= constantpool_infolist.size() ) {
+			throw new ByteCodeException( "cp_info index out of bounds" );
+		}
+
+		IConstantPool_Info cp_info = constantpool_infolist.get( index );
+		if ( !(cp_info instanceof ConstantPool_Double) ) {
+			throw new ByteCodeException( "cp_info double type expected" );
+		}
+
+		return ((ConstantPool_Double)cp_info).d;
 	}
 
 	public String getClassName(int index) throws ByteCodeException {

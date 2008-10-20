@@ -12,8 +12,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
+import com.antiaction.bytecode.constantpool.ConstantPool;
 import com.antiaction.bytecode.fields.Fields;
 import com.antiaction.bytecode.interfaces.Interfaces;
+import com.antiaction.bytecode.methods.Methods;
 
 public class ByteCode {
 
@@ -33,6 +35,10 @@ public class ByteCode {
 	//public static final int ACC_ = ;
 
 	public static final int ACCESS_FLAGS_MASK = ACC_PUBLIC | ACC_FINAL | ACC_SUPER | ACC_INTERFACE | ACC_ABSTRACT;
+
+	public static final int FIELD_ACCESS_FLAGS_MASK = ACC_PUBLIC | ACC_PRIVATE | ACC_PROTECTED | ACC_STATIC | ACC_FINAL | ACC_VOLATILE | ACC_TRANSIENT;
+
+	public static final int METHOD_ACCESS_FLAGS_MASK = ACC_PUBLIC | ACC_PRIVATE | ACC_PROTECTED | ACC_STATIC | ACC_FINAL | ACC_SYNCHRONIZED | ACC_NATIVE | ACC_ABSTRACT | ACC_STRICT;
 
 	public static ByteCode parseClassFile(String filename) throws ByteCodeException {
 		File classFile = new File( filename );
@@ -117,7 +123,7 @@ public class ByteCode {
 		// debug
 		System.out.println( "constant pool count: " + constant_pool_count );
 
-		ConstantPool.parseConstantPool( bcs, constant_pool_count );
+		bcs.constantpool = ConstantPool.parseConstantPool( bcs, constant_pool_count );
 
 		/*
 		 * Access flags, This Class and Super Class.
@@ -131,7 +137,25 @@ public class ByteCode {
 		System.out.println( "access flags: 0x" + Integer.toHexString( access_flags ) );
 
 		if ( (access_flags & ~ACCESS_FLAGS_MASK) != 0 ) {
-			System.out.println( "Invalid access flags: 0x" + Integer.toHexString( access_flags & ~ACCESS_FLAGS_MASK ) );
+			throw new ByteCodeException( "Invalid access flags: 0x" + Integer.toHexString( access_flags & ~ACCESS_FLAGS_MASK ) );
+		}
+
+		if ( (access_flags & ACC_INTERFACE) == 0 ) {
+			// Class
+			if ( (access_flags & ( ACC_FINAL | ACC_ABSTRACT )) == ( ACC_FINAL | ACC_ABSTRACT ) ) {
+				throw new ByteCodeException( "Invalid access flags combination: 0x" + Integer.toHexString( access_flags & ( ACC_FINAL | ACC_ABSTRACT ) ) );
+			}
+			bcs.bClass = true;
+			bcs.bFinal = ((access_flags & ACC_FINAL) != 0);
+			bcs.bAbstract = ((access_flags & ACC_ABSTRACT) != 0);
+		}
+		else {
+			// Interface
+			if ( (access_flags & ( ACC_FINAL | ACC_INTERFACE | ACC_ABSTRACT )) != ( ACC_INTERFACE | ACC_ABSTRACT ) ) {
+				throw new ByteCodeException( "Invalid access flags combination: 0x" + Integer.toHexString( access_flags & ( ACC_FINAL | ACC_INTERFACE | ACC_ABSTRACT ) ) );
+			}
+			bcs.bInterface = true;
+			bcs.bAbstract = true;
 		}
 
 		int this_class_index = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
@@ -157,7 +181,7 @@ public class ByteCode {
 		// debug
 		System.out.println( "interfaces count: " + interfaces_count );
 
-		Interfaces.parseInterfaces( bcs, interfaces_count );
+		bcs.interfaces = Interfaces.parseInterfaces( bcs, interfaces_count );
 
 		/*
 		 * Fields.
@@ -168,7 +192,16 @@ public class ByteCode {
 		// debug
 		System.out.println( "fields count: " + fields_count );
 
-		Fields.parseFields( bcs, fields_count );
+		bcs.fields = Fields.parseFields( bcs, fields_count );
+
+		// Methods.
+
+		int methods_count = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+
+		// debug
+		System.out.println( "methods count: " + methods_count );
+
+		bcs.methods = Methods.parseMethods( bcs, methods_count );
 
 		return null;
 	}
