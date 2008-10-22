@@ -1,5 +1,5 @@
 /*
- * Created on 14/10/2008
+ * Created on 22/10/2008
  *
  * TODO To change the template for this generated file go to
  * Window - Preferences - Java - Code Style - Code Templates
@@ -7,8 +7,15 @@
 
 package com.antiaction.bytecode.attributes;
 
-import com.antiaction.bytecode.IAttribute;
+public class LocalVariableTable {
 
-public class Attribute_InnerClasses implements IAttribute {
+	int start_pc;
+	int length;
+	int name_index;
+	int descriptor_index;
+	int index;
+
+	String name;
+	String descriptor_string;
 
 }

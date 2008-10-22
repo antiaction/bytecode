@@ -33,6 +33,7 @@ public class Fields {
 
 		String name;
 		String descriptor_string;
+		IDescriptor descriptor;
 
 		int attribute_name_index;
 		String attribute_name;
@@ -67,6 +68,8 @@ public class Fields {
 
 			descriptor_string = bcs.constantpool.getUtf8( descriptor_index );
 
+			descriptor = Descriptors.parseFieldDescriptor( descriptor_string );
+
 			// debug
 			System.out.println( "Field: " + name_index + "=" + name + " of type " + descriptor_index + "=" + descriptor_string );
 
@@ -76,8 +79,6 @@ public class Fields {
 			field.descriptor_index = descriptor_index;
 			field.name = name;
 			field.descriptor_string = descriptor_string;
-
-			IDescriptor descriptor = Descriptors.parseFieldDescriptor( descriptor_string );
 
 			// debug
 			System.out.println( "Attributes: " + attributes_count );

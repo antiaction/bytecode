@@ -21,31 +21,31 @@ public class Attributes {
 		bcs.assert_unexpected_eof( attribute_length );
 
 		if ( "Code".compareToIgnoreCase( attribute_name ) == 0 ) {
-			Attribute_Code.parseCode( bcs );
+			attribute = Attribute_Code.parseCode( bcs );
 		}
 		else if ( "ConstantValue".compareToIgnoreCase( attribute_name ) == 0 ) {
 			attribute = Attribute_ConstantValue.parseConstantValue( bcs );
 		}
 		else if ( "Deprecated".compareToIgnoreCase( attribute_name ) == 0 ) {
-			//Attribute_Deprecated.parse( bcs );
+			attribute = Attribute_Deprecated.parseDeprecated( bcs );
 		}
 		else if ( "Exceptions".compareToIgnoreCase( attribute_name ) == 0 ) {
-			//Attribute_Exceptions.parse( bcs );
+			attribute = Attribute_Exceptions.parseExceptions( bcs );
 		}
 		else if ( "InnerClasses".compareToIgnoreCase( attribute_name ) == 0 ) {
 			//Attribute_InnerClasses.parse( bcs );
 		}
 		else if ( "LineNumberTable".compareToIgnoreCase( attribute_name ) == 0 ) {
-			//Attribute_LineNumberTable.parse( bcs );
+			attribute = Attribute_LineNumberTable.parseLineNumberTable( bcs );
 		}
 		else if ( "LocalVariableTable".compareToIgnoreCase( attribute_name ) == 0 ) {
-			//Attribute_LocalVariableTable.parse( bcs );
+			attribute = Attribute_LocalVariableTable.parseLocalVariableTable( bcs );
 		}
 		else if ( "SourceFile".compareToIgnoreCase( attribute_name ) == 0 ) {
-			//Attribute_SourceFile.parse( bcs );
+			attribute = Attribute_SourceFile.parseSourceFile( bcs );
 		}
 		else if ( "Synthetic".compareToIgnoreCase( attribute_name ) == 0 ) {
-			//Attribute_Synthetic.parse( bcs );
+			attribute = Attribute_Synthetic.parseSynthetic( bcs );
 		}
 
 		return attribute;

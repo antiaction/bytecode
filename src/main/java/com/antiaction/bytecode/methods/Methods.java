@@ -14,10 +14,7 @@ import com.antiaction.bytecode.Bits;
 import com.antiaction.bytecode.ByteCode;
 import com.antiaction.bytecode.ByteCodeException;
 import com.antiaction.bytecode.ByteCodeState;
-import com.antiaction.bytecode.IDescriptor;
 import com.antiaction.bytecode.attributes.Attributes;
-import com.antiaction.bytecode.descriptors.Descriptors;
-import com.antiaction.bytecode.fields.Field;
 
 public class Methods {
 
