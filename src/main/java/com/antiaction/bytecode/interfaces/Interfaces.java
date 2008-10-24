@@ -10,14 +10,14 @@ package com.antiaction.bytecode.interfaces;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.antiaction.bytecode.ByteCodeException;
-import com.antiaction.bytecode.ByteCodeState;
+import com.antiaction.bytecode.ClassFileException;
+import com.antiaction.bytecode.ClassFileState;
 
 public class Interfaces {
 
 	public List<Interface> interface_list;
 
-	public static Interfaces parseInterfaces(ByteCodeState bcs, int interfaces_count) throws ByteCodeException {
+	public static Interfaces parseInterfaces(ClassFileState bcs, int interfaces_count) throws ClassFileException {
 		bcs.assert_unexpected_eof( interfaces_count * 2 );
 
 		List<Interface> interface_list = new ArrayList<Interface>();

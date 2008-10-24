@@ -10,8 +10,8 @@ package com.antiaction.bytecode.constantpool;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.antiaction.bytecode.ByteCodeException;
-import com.antiaction.bytecode.ByteCodeState;
+import com.antiaction.bytecode.ClassFileException;
+import com.antiaction.bytecode.ClassFileState;
 import com.antiaction.bytecode.IConstantPool_Info;
 
 public class ConstantPool {
@@ -31,7 +31,7 @@ public class ConstantPool {
 
 	public List<IConstantPool_Info> constantpool_infolist = null;
 
-	public static ConstantPool parseConstantPool(ByteCodeState bcs, int constant_pool_count) throws ByteCodeException {
+	public static ConstantPool parseConstantPool(ClassFileState bcs, int constant_pool_count) throws ClassFileException {
 		List<IConstantPool_Info> constantpool_infolist = new ArrayList<IConstantPool_Info>();
 		constantpool_infolist.add( null );
 
@@ -41,7 +41,7 @@ public class ConstantPool {
 		int tag;
 		while ( --constant_pool_count > 0 ) {
 			if ( bcs.index + 1 > bcs.bytes.length ) {
-				throw new ByteCodeException( "Unexpected eof reading constant pool info tag", bcs.index );
+				throw new ClassFileException( "Unexpected eof reading constant pool info tag", bcs.index );
 			}
 			tag = bcs.bytes[ bcs.index++ ] & 255;
 
@@ -83,7 +83,7 @@ public class ConstantPool {
 				cp_info = ConstantPool_NameAndType.parseNameAndType( bcs );
 				break;
 			default:
-				throw new ByteCodeException( "Unknown constant pool info tag (" + tag + ")", bcs.index );
+				throw new ClassFileException( "Unknown constant pool info tag (" + tag + ")", bcs.index );
 			}
 
 			++constantpool_index;
@@ -97,90 +97,90 @@ public class ConstantPool {
 		return constantpool;
 	}
 
-	public String getUtf8(int index) throws ByteCodeException {
+	public String getUtf8(int index) throws ClassFileException {
 		if ( index <= 0 || index >= constantpool_infolist.size() ) {
-			throw new ByteCodeException( "cp_info index out of bounds" );
+			throw new ClassFileException( "cp_info index out of bounds" );
 		}
 
 		IConstantPool_Info cp_info = constantpool_infolist.get( index );
 		if ( !(cp_info instanceof ConstantPool_Utf8) ) {
-			throw new ByteCodeException( "cp_info utf-8 type expected" );
+			throw new ClassFileException( "cp_info utf-8 type expected" );
 		}
 
 		return ((ConstantPool_Utf8)cp_info).utf8;
 	}
 
-	public int getInteger(int index) throws ByteCodeException {
+	public int getInteger(int index) throws ClassFileException {
 		if ( index <= 0 || index >= constantpool_infolist.size() ) {
-			throw new ByteCodeException( "cp_info index out of bounds" );
+			throw new ClassFileException( "cp_info index out of bounds" );
 		}
 
 		IConstantPool_Info cp_info = constantpool_infolist.get( index );
 		if ( !(cp_info instanceof ConstantPool_Integer) ) {
-			throw new ByteCodeException( "cp_info integer type expected" );
+			throw new ClassFileException( "cp_info integer type expected" );
 		}
 
 		return ((ConstantPool_Integer)cp_info).i;
 	}
 
-	public float getFloat(int index) throws ByteCodeException {
+	public float getFloat(int index) throws ClassFileException {
 		if ( index <= 0 || index >= constantpool_infolist.size() ) {
-			throw new ByteCodeException( "cp_info index out of bounds" );
+			throw new ClassFileException( "cp_info index out of bounds" );
 		}
 
 		IConstantPool_Info cp_info = constantpool_infolist.get( index );
 		if ( !(cp_info instanceof ConstantPool_Float) ) {
-			throw new ByteCodeException( "cp_info float type expected" );
+			throw new ClassFileException( "cp_info float type expected" );
 		}
 
 		return ((ConstantPool_Float)cp_info).f;
 	}
 
-	public long getLong(int index) throws ByteCodeException {
+	public long getLong(int index) throws ClassFileException {
 		if ( index <= 0 || index >= constantpool_infolist.size() ) {
-			throw new ByteCodeException( "cp_info index out of bounds" );
+			throw new ClassFileException( "cp_info index out of bounds" );
 		}
 
 		IConstantPool_Info cp_info = constantpool_infolist.get( index );
 		if ( !(cp_info instanceof ConstantPool_Long) ) {
-			throw new ByteCodeException( "cp_info long type expected" );
+			throw new ClassFileException( "cp_info long type expected" );
 		}
 
 		return ((ConstantPool_Long)cp_info).l;
 	}
 
-	public double getDouble(int index) throws ByteCodeException {
+	public double getDouble(int index) throws ClassFileException {
 		if ( index <= 0 || index >= constantpool_infolist.size() ) {
-			throw new ByteCodeException( "cp_info index out of bounds" );
+			throw new ClassFileException( "cp_info index out of bounds" );
 		}
 
 		IConstantPool_Info cp_info = constantpool_infolist.get( index );
 		if ( !(cp_info instanceof ConstantPool_Double) ) {
-			throw new ByteCodeException( "cp_info double type expected" );
+			throw new ClassFileException( "cp_info double type expected" );
 		}
 
 		return ((ConstantPool_Double)cp_info).d;
 	}
 
-	public String getClassName(int index) throws ByteCodeException {
+	public String getClassName(int index) throws ClassFileException {
 		if ( index <= 0 || index >= constantpool_infolist.size() ) {
-			throw new ByteCodeException( "cp_info index out of bounds" );
+			throw new ClassFileException( "cp_info index out of bounds" );
 		}
 
 		IConstantPool_Info cp_info = constantpool_infolist.get( index );
 		if ( !(cp_info instanceof ConstantPool_Class) ) {
-			throw new ByteCodeException( "cp_info class type expected" );
+			throw new ClassFileException( "cp_info class type expected" );
 		}
 
 		ConstantPool_Class cp_class = (ConstantPool_Class)cp_info;
 
 		if ( cp_class.name_index <= 0 || cp_class.name_index >= constantpool_infolist.size() ) {
-			throw new ByteCodeException( "cp_info name index out of bounds" );
+			throw new ClassFileException( "cp_info name index out of bounds" );
 		}
 
 		cp_info = constantpool_infolist.get( cp_class.name_index );
 		if ( !(cp_info instanceof ConstantPool_Utf8) ) {
-			throw new ByteCodeException( "cp_info utf-8 type expected" );
+			throw new ClassFileException( "cp_info utf-8 type expected" );
 		}
 
 		return ((ConstantPool_Utf8)cp_info).utf8;

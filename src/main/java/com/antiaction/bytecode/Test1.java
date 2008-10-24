@@ -20,7 +20,7 @@ public class Test1 {
 
 			bytecode = ByteCode.parseClassFile( "bin/com/antiaction/bytecode/ByteCodeException.class" );
 		}
-		catch (ByteCodeException e) {
+		catch (ClassFileException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

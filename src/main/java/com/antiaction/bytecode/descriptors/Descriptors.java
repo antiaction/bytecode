@@ -7,7 +7,7 @@
 
 package com.antiaction.bytecode.descriptors;
 
-import com.antiaction.bytecode.ByteCodeException;
+import com.antiaction.bytecode.ClassFileException;
 import com.antiaction.bytecode.IDescriptor;
 
 public class Descriptors {
@@ -17,7 +17,7 @@ public class Descriptors {
 	public static final int FDS_CLASS = 2;
 	public static final int FDS_END = 3;
 
-	public static IDescriptor parseFieldDescriptor(String descriptor_string) throws ByteCodeException {
+	public static IDescriptor parseFieldDescriptor(String descriptor_string) throws ClassFileException {
 		IDescriptor descriptor = null;
 		Descriptor_Array array = null;
 
@@ -84,7 +84,7 @@ public class Descriptors {
 						state = FDS_END;
 						break;
 					default:
-						throw new ByteCodeException( "Bad field descriptor" );
+						throw new ClassFileException( "Bad field descriptor" );
 					}
 					break;
 				case FDS_ARRAY:
@@ -140,7 +140,7 @@ public class Descriptors {
 						state = FDS_END;
 						break;
 					default:
-						throw new ByteCodeException( "Bad field descriptor" );
+						throw new ClassFileException( "Bad field descriptor" );
 					}
 					break;
 				case FDS_CLASS:
@@ -160,12 +160,12 @@ public class Descriptors {
 					}
 					break;
 				case FDS_END:
-					throw new ByteCodeException( "Unexpected field descriptor not ending" );
+					throw new ClassFileException( "Unexpected field descriptor not ending" );
 				}
 			}
 			else {
 				if ( state != FDS_END ) {
-					throw new ByteCodeException( "Unexpected field descriptor end" );
+					throw new ClassFileException( "Unexpected field descriptor end" );
 				}
 				b = false;
 			}

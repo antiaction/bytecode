@@ -10,15 +10,15 @@ package com.antiaction.bytecode.attributes;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.antiaction.bytecode.ByteCodeException;
-import com.antiaction.bytecode.ByteCodeState;
+import com.antiaction.bytecode.ClassFileException;
+import com.antiaction.bytecode.ClassFileState;
 import com.antiaction.bytecode.IAttribute;
 
 public class Attribute_Exceptions implements IAttribute {
 
 	public List<ExceptionIndexTable> exceptionIndexTableList;
 
-	public static IAttribute parseExceptions(ByteCodeState bcs) throws ByteCodeException {
+	public static IAttribute parseExceptions(ClassFileState bcs) throws ClassFileException {
 		bcs.assert_unexpected_eof( 2 );
 
 		List<ExceptionIndexTable> exceptionIndexTableList = new ArrayList<ExceptionIndexTable>();

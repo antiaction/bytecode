@@ -7,15 +7,15 @@
 
 package com.antiaction.bytecode.constantpool;
 
-import com.antiaction.bytecode.ByteCodeException;
-import com.antiaction.bytecode.ByteCodeState;
+import com.antiaction.bytecode.ClassFileException;
+import com.antiaction.bytecode.ClassFileState;
 import com.antiaction.bytecode.IConstantPool_Info;
 
 public class ConstantPool_Long implements IConstantPool_Info {
 
 	public long l;
 
-	public static IConstantPool_Info parseLong(ByteCodeState bcs) throws ByteCodeException {
+	public static IConstantPool_Info parseLong(ClassFileState bcs) throws ClassFileException {
 		bcs.assert_unexpected_eof( 8 );
 
 		long l;

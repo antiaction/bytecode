@@ -7,15 +7,15 @@
 
 package com.antiaction.bytecode.constantpool;
 
-import com.antiaction.bytecode.ByteCodeException;
-import com.antiaction.bytecode.ByteCodeState;
+import com.antiaction.bytecode.ClassFileException;
+import com.antiaction.bytecode.ClassFileState;
 import com.antiaction.bytecode.IConstantPool_Info;
 
 public class ConstantPool_Utf8 implements IConstantPool_Info {
 
 	public String utf8;
 
-	public static IConstantPool_Info parseUtf8(ByteCodeState bcs) throws ByteCodeException {
+	public static IConstantPool_Info parseUtf8(ClassFileState bcs) throws ClassFileException {
 		bcs.assert_unexpected_eof( 2 );
 
 		int length = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
@@ -51,14 +51,14 @@ public class ConstantPool_Utf8 implements IConstantPool_Info {
 						sb.append( c );
 					}
 					else {
-						throw new ByteCodeException( "Invalid constant pool Utf-8 encoding",  bcs.index );
+						throw new ClassFileException( "Invalid constant pool Utf-8 encoding",  bcs.index );
 					}
 				}
 			}
 		}
 
 		if ( length != 0 ) {
-			throw new ByteCodeException( "Empty constant pool Utf-8 string", bcs.index );
+			throw new ClassFileException( "Empty constant pool Utf-8 string", bcs.index );
 		}
 
 		// debug

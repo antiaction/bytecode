@@ -10,8 +10,8 @@ package com.antiaction.bytecode.attributes;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.antiaction.bytecode.ByteCodeException;
-import com.antiaction.bytecode.ByteCodeState;
+import com.antiaction.bytecode.ClassFileException;
+import com.antiaction.bytecode.ClassFileState;
 import com.antiaction.bytecode.IAttribute;
 import com.antiaction.bytecode.IDescriptor;
 import com.antiaction.bytecode.descriptors.Descriptors;
@@ -20,7 +20,7 @@ public class Attribute_LocalVariableTable implements IAttribute {
 
 	public List<LocalVariableTable> localVariableTableList;
 
-	public static IAttribute parseLocalVariableTable(ByteCodeState bcs) throws ByteCodeException {
+	public static IAttribute parseLocalVariableTable(ClassFileState bcs) throws ClassFileException {
 		bcs.assert_unexpected_eof( 2 );
 
 		List<LocalVariableTable> localVariableTableList = new ArrayList<LocalVariableTable>();

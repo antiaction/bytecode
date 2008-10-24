@@ -40,7 +40,7 @@ public class ByteCode {
 
 	public static final int METHOD_ACCESS_FLAGS_MASK = ACC_PUBLIC | ACC_PRIVATE | ACC_PROTECTED | ACC_STATIC | ACC_FINAL | ACC_SYNCHRONIZED | ACC_NATIVE | ACC_ABSTRACT | ACC_STRICT;
 
-	public static ByteCode parseClassFile(String filename) throws ByteCodeException {
+	public static ByteCode parseClassFile(String filename) throws ClassFileException {
 		File classFile = new File( filename );
 		byte[] bytes = null;
 
@@ -72,7 +72,7 @@ public class ByteCode {
 		}
 
 		if ( bytes != null ) {
-			 ByteCodeState bcs = new ByteCodeState( bytes );
+			 ClassFileState bcs = new ClassFileState( bytes );
 			return parseByteCode( bcs );
 		}
 		else {
@@ -80,7 +80,7 @@ public class ByteCode {
 		}
 	}
 
-	public static ByteCode parseByteCode(ByteCodeState bcs) throws ByteCodeException {
+	public static ByteCode parseByteCode(ClassFileState bcs) throws ClassFileException {
 		if ( bcs.bytes == null || bcs.bytes.length == 0 ) {
 			return null;
 		}
@@ -97,7 +97,7 @@ public class ByteCode {
 		System.out.println( Integer.toHexString( magic ) );
 
 		if ( magic != 0xcafebabe ) {
-			throw new ByteCodeException( "Invalid magic (0x" + Integer.toHexString( magic ) + ")", bcs.index );
+			throw new ClassFileException( "Invalid magic (0x" + Integer.toHexString( magic ) + ")", bcs.index );
 		}
 
 		/*
@@ -111,7 +111,7 @@ public class ByteCode {
 		System.out.println( Integer.toString( major_version ) + '.' + Integer.toString( minor_version ) );
 
 		if ( major_version < 45 ) {
-			throw new ByteCodeException( "Invalid version: " + Integer.toString( major_version ) + '.' + Integer.toString( minor_version ), bcs.index );
+			throw new ClassFileException( "Invalid version: " + Integer.toString( major_version ) + '.' + Integer.toString( minor_version ), bcs.index );
 		}
 
 		/*
@@ -137,13 +137,13 @@ public class ByteCode {
 		System.out.println( "access flags: 0x" + Integer.toHexString( access_flags ) );
 
 		if ( (access_flags & ~ACCESS_FLAGS_MASK) != 0 ) {
-			throw new ByteCodeException( "Invalid access flags: 0x" + Integer.toHexString( access_flags & ~ACCESS_FLAGS_MASK ) );
+			throw new ClassFileException( "Invalid access flags: 0x" + Integer.toHexString( access_flags & ~ACCESS_FLAGS_MASK ) );
 		}
 
 		if ( (access_flags & ACC_INTERFACE) == 0 ) {
 			// Class
 			if ( (access_flags & ( ACC_FINAL | ACC_ABSTRACT )) == ( ACC_FINAL | ACC_ABSTRACT ) ) {
-				throw new ByteCodeException( "Invalid access flags combination: 0x" + Integer.toHexString( access_flags & ( ACC_FINAL | ACC_ABSTRACT ) ) );
+				throw new ClassFileException( "Invalid access flags combination: 0x" + Integer.toHexString( access_flags & ( ACC_FINAL | ACC_ABSTRACT ) ) );
 			}
 			bcs.bClass = true;
 			bcs.bFinal = ((access_flags & ACC_FINAL) != 0);
@@ -152,7 +152,7 @@ public class ByteCode {
 		else {
 			// Interface
 			if ( (access_flags & ( ACC_FINAL | ACC_INTERFACE | ACC_ABSTRACT )) != ( ACC_INTERFACE | ACC_ABSTRACT ) ) {
-				throw new ByteCodeException( "Invalid access flags combination: 0x" + Integer.toHexString( access_flags & ( ACC_FINAL | ACC_INTERFACE | ACC_ABSTRACT ) ) );
+				throw new ClassFileException( "Invalid access flags combination: 0x" + Integer.toHexString( access_flags & ( ACC_FINAL | ACC_INTERFACE | ACC_ABSTRACT ) ) );
 			}
 			bcs.bInterface = true;
 			bcs.bAbstract = true;

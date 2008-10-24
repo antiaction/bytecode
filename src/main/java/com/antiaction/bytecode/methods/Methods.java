@@ -12,15 +12,15 @@ import java.util.List;
 
 import com.antiaction.bytecode.Bits;
 import com.antiaction.bytecode.ByteCode;
-import com.antiaction.bytecode.ByteCodeException;
-import com.antiaction.bytecode.ByteCodeState;
+import com.antiaction.bytecode.ClassFileException;
+import com.antiaction.bytecode.ClassFileState;
 import com.antiaction.bytecode.attributes.Attributes;
 
 public class Methods {
 
 	public List<Method> methods_list;
 
-	public static Methods parseMethods(ByteCodeState bcs, int methods_count) throws ByteCodeException {
+	public static Methods parseMethods(ClassFileState bcs, int methods_count) throws ClassFileException {
 		List<Method> methods_list = new ArrayList<Method>();
 		Method method;
 
@@ -44,20 +44,20 @@ public class Methods {
 			attributes_count = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
 
 			if ( (access_flags & ~ByteCode.METHOD_ACCESS_FLAGS_MASK) != 0 ) {
-				throw new ByteCodeException( "Invalid access flags: 0x" + Integer.toHexString( access_flags & ~ByteCode.FIELD_ACCESS_FLAGS_MASK ) );
+				throw new ClassFileException( "Invalid access flags: 0x" + Integer.toHexString( access_flags & ~ByteCode.FIELD_ACCESS_FLAGS_MASK ) );
 			}
 
 			if ( Bits.bitstobits[ access_flags & (ByteCode.ACC_PUBLIC | ByteCode.ACC_PRIVATE | ByteCode.ACC_PROTECTED) ] > 1 ) {
-				throw new ByteCodeException( "Invalid access flags: 0x" + Integer.toHexString( access_flags & (ByteCode.ACC_PUBLIC | ByteCode.ACC_PRIVATE | ByteCode.ACC_PROTECTED) ) );
+				throw new ClassFileException( "Invalid access flags: 0x" + Integer.toHexString( access_flags & (ByteCode.ACC_PUBLIC | ByteCode.ACC_PRIVATE | ByteCode.ACC_PROTECTED) ) );
 			}
 
 			if ( (access_flags & ( ByteCode.ACC_FINAL | ByteCode.ACC_VOLATILE )) == ( ByteCode.ACC_FINAL | ByteCode.ACC_VOLATILE ) ) {
-				throw new ByteCodeException( "Invalid access flags combination: 0x" + Integer.toHexString( access_flags & ( ByteCode.ACC_FINAL | ByteCode.ACC_VOLATILE ) ) );
+				throw new ClassFileException( "Invalid access flags combination: 0x" + Integer.toHexString( access_flags & ( ByteCode.ACC_FINAL | ByteCode.ACC_VOLATILE ) ) );
 			}
 
 			if ( bcs.bInterface ) {
 				if ( (access_flags & ( ByteCode.ACC_PUBLIC |ByteCode.ACC_STATIC | ByteCode.ACC_FINAL )) != ( ByteCode.ACC_PUBLIC |ByteCode.ACC_STATIC | ByteCode.ACC_FINAL ) ) {
-					throw new ByteCodeException( "Invalid interface access flags combination: 0x" + Integer.toHexString( access_flags & ( ByteCode.ACC_PUBLIC |ByteCode.ACC_STATIC | ByteCode.ACC_FINAL ) ) );
+					throw new ClassFileException( "Invalid interface access flags combination: 0x" + Integer.toHexString( access_flags & ( ByteCode.ACC_PUBLIC |ByteCode.ACC_STATIC | ByteCode.ACC_FINAL ) ) );
 				}
 			}
 

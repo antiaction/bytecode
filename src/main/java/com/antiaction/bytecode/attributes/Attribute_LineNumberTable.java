@@ -10,15 +10,15 @@ package com.antiaction.bytecode.attributes;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.antiaction.bytecode.ByteCodeException;
-import com.antiaction.bytecode.ByteCodeState;
+import com.antiaction.bytecode.ClassFileException;
+import com.antiaction.bytecode.ClassFileState;
 import com.antiaction.bytecode.IAttribute;
 
 public class Attribute_LineNumberTable implements IAttribute {
 
 	public List<LineNumberTable> lineNumberTableList;
 
-	public static IAttribute parseLineNumberTable(ByteCodeState bcs) throws ByteCodeException {
+	public static IAttribute parseLineNumberTable(ClassFileState bcs) throws ClassFileException {
 		bcs.assert_unexpected_eof( 2 );
 
 		List<LineNumberTable> lineNumberTableList = new ArrayList<LineNumberTable>();

@@ -7,13 +7,13 @@
 
 package com.antiaction.bytecode.attributes;
 
-import com.antiaction.bytecode.ByteCodeException;
-import com.antiaction.bytecode.ByteCodeState;
+import com.antiaction.bytecode.ClassFileException;
+import com.antiaction.bytecode.ClassFileState;
 import com.antiaction.bytecode.IAttribute;
 
 public class Attributes {
 
-	public static IAttribute parseAttribute(ByteCodeState bcs, String attribute_name) throws ByteCodeException {
+	public static IAttribute parseAttribute(ClassFileState bcs, String attribute_name) throws ClassFileException {
 		IAttribute attribute = null;
 
 		int attribute_length = (bcs.bytes[ bcs.index++ ] & 255) << 24 | (bcs.bytes[ bcs.index++ ] & 255) << 16 | (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
@@ -33,7 +33,7 @@ public class Attributes {
 			attribute = Attribute_Exceptions.parseExceptions( bcs );
 		}
 		else if ( "InnerClasses".compareToIgnoreCase( attribute_name ) == 0 ) {
-			//Attribute_InnerClasses.parse( bcs );
+			attribute = Attribute_InnerClasses.parseInnerClasses( bcs );
 		}
 		else if ( "LineNumberTable".compareToIgnoreCase( attribute_name ) == 0 ) {
 			attribute = Attribute_LineNumberTable.parseLineNumberTable( bcs );
@@ -46,6 +46,9 @@ public class Attributes {
 		}
 		else if ( "Synthetic".compareToIgnoreCase( attribute_name ) == 0 ) {
 			attribute = Attribute_Synthetic.parseSynthetic( bcs );
+		}
+		else {
+			bcs.index += attribute_length;
 		}
 
 		return attribute;

@@ -10,15 +10,20 @@ package com.antiaction.bytecode.attributes;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.antiaction.bytecode.ByteCodeException;
-import com.antiaction.bytecode.ByteCodeState;
+import com.antiaction.bytecode.ClassFileException;
+import com.antiaction.bytecode.ClassFileState;
 import com.antiaction.bytecode.IAttribute;
 
 public class Attribute_Code implements IAttribute {
 
+	byte[] code;
+
+	int max_stack;
+	int max_locals;
+
 	public List<ExceptionTable> exceptionTableList;
 
-	public static IAttribute parseCode(ByteCodeState bcs) throws ByteCodeException {
+	public static IAttribute parseCode(ClassFileState bcs) throws ClassFileException {
 		bcs.assert_unexpected_eof( 8 );
 
 		int max_stack = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
@@ -81,7 +86,13 @@ public class Attribute_Code implements IAttribute {
 			--attributes_count;
 		}
 
-		return null;
+		Attribute_Code attribute = new Attribute_Code();
+		attribute.code = code;
+		attribute.max_stack = max_stack;
+		attribute.max_locals = max_locals;
+		attribute.exceptionTableList = exceptionTableList;
+
+		return attribute;
 	}
 
 }

@@ -13,7 +13,7 @@ import com.antiaction.bytecode.interfaces.Interfaces;
 import com.antiaction.bytecode.methods.Methods;
 
 
-public class ByteCodeState {
+public class ClassFileState {
 
 	public byte[] bytes;
 	public int index = 0;
@@ -34,13 +34,13 @@ public class ByteCodeState {
 
 	public Methods methods;
 
-	public ByteCodeState(byte[] bytes) {
+	public ClassFileState(byte[] bytes) {
 		this.bytes = bytes;
 	}
 
-	public void assert_unexpected_eof(int length) throws ByteCodeException {
+	public void assert_unexpected_eof(int length) throws ClassFileException {
 		if ( index + length > bytes.length ) {
-			throw new ByteCodeException( "to be continued...", index );
+			throw new ClassFileException( "to be continued...", index );
 		}
 	}
 

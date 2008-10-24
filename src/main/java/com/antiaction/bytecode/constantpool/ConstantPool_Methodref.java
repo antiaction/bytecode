@@ -7,8 +7,8 @@
 
 package com.antiaction.bytecode.constantpool;
 
-import com.antiaction.bytecode.ByteCodeException;
-import com.antiaction.bytecode.ByteCodeState;
+import com.antiaction.bytecode.ClassFileException;
+import com.antiaction.bytecode.ClassFileState;
 import com.antiaction.bytecode.IConstantPool_Info;
 
 public class ConstantPool_Methodref implements IConstantPool_Info {
@@ -16,7 +16,7 @@ public class ConstantPool_Methodref implements IConstantPool_Info {
 	public int class_index;
 	public int name_and_type_index;
 
-	public static IConstantPool_Info parseMethodref(ByteCodeState bcs) throws ByteCodeException {
+	public static IConstantPool_Info parseMethodref(ClassFileState bcs) throws ClassFileException {
 		bcs.assert_unexpected_eof( 4 );
 
 		int class_index = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);

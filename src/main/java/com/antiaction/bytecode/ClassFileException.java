@@ -7,18 +7,18 @@
 
 package com.antiaction.bytecode;
 
-public class ByteCodeException extends Exception {
+public class ClassFileException extends Exception {
 
 	/**
 	 * UID.
 	 */
 	private static final long serialVersionUID = -8655786328628570857L;
 
-	public ByteCodeException(String message, int index) {
+	public ClassFileException(String message, int index) {
 		super( message + " (index = " + index + ")" );
 	}
 
-	public ByteCodeException(String message) {
+	public ClassFileException(String message) {
 		super( message );
 	}
 
