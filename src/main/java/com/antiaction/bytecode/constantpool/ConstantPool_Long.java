@@ -15,18 +15,18 @@ public class ConstantPool_Long implements IConstantPool_Info {
 
 	public long l;
 
-	public static IConstantPool_Info parseLong(ClassFileState bcs) throws ClassFileException {
-		bcs.assert_unexpected_eof( 8 );
+	public static IConstantPool_Info parseLong(ClassFileState cfs) throws ClassFileException {
+		cfs.assert_unexpected_eof( 8 );
 
 		long l;
-		l = (bcs.bytes[ bcs.index++ ] & 255) << 56;
-		l |= (bcs.bytes[ bcs.index++ ] & 255) << 48;
-		l |= (bcs.bytes[ bcs.index++ ] & 255) << 40;
-		l |= (bcs.bytes[ bcs.index++ ] & 255) << 32;
-		l |= (bcs.bytes[ bcs.index++ ] & 255) << 24;
-		l |= (bcs.bytes[ bcs.index++ ] & 255) << 16;
-		l |= (bcs.bytes[ bcs.index++ ] & 255) << 8;
-		l |= bcs.bytes[ bcs.index++ ] & 255;
+		l = (cfs.bytes[ cfs.index++ ] & 255) << 56;
+		l |= (cfs.bytes[ cfs.index++ ] & 255) << 48;
+		l |= (cfs.bytes[ cfs.index++ ] & 255) << 40;
+		l |= (cfs.bytes[ cfs.index++ ] & 255) << 32;
+		l |= (cfs.bytes[ cfs.index++ ] & 255) << 24;
+		l |= (cfs.bytes[ cfs.index++ ] & 255) << 16;
+		l |= (cfs.bytes[ cfs.index++ ] & 255) << 8;
+		l |= cfs.bytes[ cfs.index++ ] & 255;
 
 		// debug
 		System.out.println( "Long: " + l );

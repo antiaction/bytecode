@@ -18,8 +18,8 @@ public class Attribute_LineNumberTable implements IAttribute {
 
 	public List<LineNumberTable> lineNumberTableList;
 
-	public static IAttribute parseLineNumberTable(ClassFileState bcs) throws ClassFileException {
-		bcs.assert_unexpected_eof( 2 );
+	public static IAttribute parseLineNumberTable(ClassFileState cfs) throws ClassFileException {
+		cfs.assert_unexpected_eof( 2 );
 
 		List<LineNumberTable> lineNumberTableList = new ArrayList<LineNumberTable>();
 		LineNumberTable lineNumberTable;
@@ -27,16 +27,16 @@ public class Attribute_LineNumberTable implements IAttribute {
 		int start_pc;
 		int line_number;
 
-		int line_number_table_length = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+		int line_number_table_length = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 
 		// debug
 		System.out.println( " Entries: " + line_number_table_length );
 
 		for ( int i=0; i<line_number_table_length; ++i ) {
-			bcs.assert_unexpected_eof( 4 );
+			cfs.assert_unexpected_eof( 4 );
 
-			start_pc = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
-			line_number = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+			start_pc = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
+			line_number = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 
 			lineNumberTable = new LineNumberTable();
 			lineNumberTable.start_pc = start_pc;

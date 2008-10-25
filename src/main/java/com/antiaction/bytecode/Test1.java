@@ -10,15 +10,15 @@ package com.antiaction.bytecode;
 public class Test1 {
 
 	public static void main(String[] args) {
-		ByteCode bytecode;
+		ClassFile classfile;
 		try {
-			bytecode = ByteCode.parseClassFile( "bin/com/antiaction/bytecode/ByteCode.class" );
+			classfile = ClassFile.parseClassFile( "bin/com/antiaction/bytecode/ClassFile.class" );
 
-			bytecode = ByteCode.parseClassFile( "bin/com/antiaction/bytecode/ByteCodeState.class" );
+			classfile = ClassFile.parseClassFile( "bin/com/antiaction/bytecode/ClassFileState.class" );
 
-			bytecode = ByteCode.parseClassFile( "bin/com/antiaction/bytecode/IconstantPool_Info.class" );
+			classfile = ClassFile.parseClassFile( "bin/com/antiaction/bytecode/IconstantPool_Info.class" );
 
-			bytecode = ByteCode.parseClassFile( "bin/com/antiaction/bytecode/ByteCodeException.class" );
+			classfile = ClassFile.parseClassFile( "bin/com/antiaction/bytecode/ClassFileException.class" );
 		}
 		catch (ClassFileException e) {
 			// TODO Auto-generated catch block

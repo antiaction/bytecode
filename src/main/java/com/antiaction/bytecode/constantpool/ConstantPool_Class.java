@@ -15,10 +15,10 @@ public class ConstantPool_Class implements IConstantPool_Info {
 
 	public int name_index;
 
-	public static IConstantPool_Info parseClass(ClassFileState bcs) throws ClassFileException {
-		bcs.assert_unexpected_eof( 2 );
+	public static IConstantPool_Info parseClass(ClassFileState cfs) throws ClassFileException {
+		cfs.assert_unexpected_eof( 2 );
 
-		int name_index = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+		int name_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 
 		// debug
 		System.out.println( "Class: " + name_index );

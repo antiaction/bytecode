@@ -23,18 +23,18 @@ public class Attribute_Code implements IAttribute {
 
 	public List<ExceptionTable> exceptionTableList;
 
-	public static IAttribute parseCode(ClassFileState bcs) throws ClassFileException {
-		bcs.assert_unexpected_eof( 8 );
+	public static IAttribute parseCode(ClassFileState cfs) throws ClassFileException {
+		cfs.assert_unexpected_eof( 8 );
 
-		int max_stack = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
-		int max_locals = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
-		int code_length = (bcs.bytes[ bcs.index++ ] & 255) << 24 | (bcs.bytes[ bcs.index++ ] & 255) << 16 | (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+		int max_stack = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
+		int max_locals = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
+		int code_length = (cfs.bytes[ cfs.index++ ] & 255) << 24 | (cfs.bytes[ cfs.index++ ] & 255) << 16 | (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 
-		bcs.assert_unexpected_eof( code_length );
+		cfs.assert_unexpected_eof( code_length );
 
 		byte[] code = new byte[ code_length ];
-		System.arraycopy( bcs.bytes, bcs.index, code, 0, code_length );
-		bcs.index += code_length;
+		System.arraycopy( cfs.bytes, cfs.index, code, 0, code_length );
+		cfs.index += code_length;
 
 		int start_pc;
 		int end_pc;
@@ -44,14 +44,14 @@ public class Attribute_Code implements IAttribute {
 		List<ExceptionTable> exceptionTableList = new ArrayList<ExceptionTable>();
 		ExceptionTable exceptionTable;
 
-		int exception_table_length = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+		int exception_table_length = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 		for ( int i=0; i<exception_table_length; ++i ) {
-			bcs.assert_unexpected_eof( 8 );
+			cfs.assert_unexpected_eof( 8 );
 
-			start_pc = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
-			end_pc = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
-			handler_pc = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
-			catch_type_index = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+			start_pc = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
+			end_pc = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
+			handler_pc = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
+			catch_type_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 
 			if ( catch_type_index > 0 ) {
 			}
@@ -64,7 +64,7 @@ public class Attribute_Code implements IAttribute {
 			exceptionTableList.add( exceptionTable );
 		}
 
-		int attributes_count = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+		int attributes_count = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 
 		// debug
 		System.out.println( "Attributes: " + attributes_count );
@@ -73,15 +73,15 @@ public class Attribute_Code implements IAttribute {
 		String attribute_name;
 
 		while ( attributes_count > 0 ) {
-			bcs.assert_unexpected_eof( 6 );
+			cfs.assert_unexpected_eof( 6 );
 
-			attribute_name_index = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
-			attribute_name = bcs.constantpool.getUtf8( attribute_name_index );
+			attribute_name_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
+			attribute_name = cfs.constantpool.getUtf8( attribute_name_index );
 
 			// debug
 			System.out.println( attribute_name );
 
-			Attributes.parseAttribute( bcs, attribute_name );
+			Attributes.parseAttribute( cfs, attribute_name );
 
 			--attributes_count;
 		}

@@ -15,10 +15,10 @@ public class ConstantPool_Float implements IConstantPool_Info {
 
 	public float f;
 
-	public static IConstantPool_Info parseFloat(ClassFileState bcs) throws ClassFileException {
-		bcs.assert_unexpected_eof( 4 );
+	public static IConstantPool_Info parseFloat(ClassFileState cfs) throws ClassFileException {
+		cfs.assert_unexpected_eof( 4 );
 
-		int i = (bcs.bytes[ bcs.index++ ] & 255) << 24 | (bcs.bytes[ bcs.index++ ] & 255) << 16 | (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+		int i = (cfs.bytes[ cfs.index++ ] & 255) << 24 | (cfs.bytes[ cfs.index++ ] & 255) << 16 | (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 		float f = Float.intBitsToFloat( i );
 
 		// debug

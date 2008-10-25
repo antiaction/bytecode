@@ -18,10 +18,10 @@ public class Attribute_InnerClasses implements IAttribute {
 
 	public List<InnerClassTable> innerClassTableList = new ArrayList<InnerClassTable>();
 
-	public static IAttribute parseInnerClasses(ClassFileState bcs) throws ClassFileException {
-		bcs.assert_unexpected_eof( 2 );
+	public static IAttribute parseInnerClasses(ClassFileState cfs) throws ClassFileException {
+		cfs.assert_unexpected_eof( 2 );
 
-		int number_of_classes = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+		int number_of_classes = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 
 		List<InnerClassTable> innerClassTableList = new ArrayList<InnerClassTable>();
 		InnerClassTable innerClassTable;
@@ -35,12 +35,12 @@ public class Attribute_InnerClasses implements IAttribute {
 		System.out.println( " Entries: " + number_of_classes );
 
 		for ( int i=0; i<number_of_classes; ++i ) {
-			bcs.assert_unexpected_eof( 8 );
+			cfs.assert_unexpected_eof( 8 );
 
-			inner_class_info_index = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
-			outer_class_info_index = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
-			inner_name_index = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
-			inner_class_access_flags = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+			inner_class_info_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
+			outer_class_info_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
+			inner_name_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
+			inner_class_access_flags = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 
 			innerClassTable = new InnerClassTable();
 			innerClassTable.inner_class_info_index = inner_class_info_index;

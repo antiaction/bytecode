@@ -15,19 +15,19 @@ public class ConstantPool_Utf8 implements IConstantPool_Info {
 
 	public String utf8;
 
-	public static IConstantPool_Info parseUtf8(ClassFileState bcs) throws ClassFileException {
-		bcs.assert_unexpected_eof( 2 );
+	public static IConstantPool_Info parseUtf8(ClassFileState cfs) throws ClassFileException {
+		cfs.assert_unexpected_eof( 2 );
 
-		int length = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+		int length = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 
-		bcs.assert_unexpected_eof( length );
+		cfs.assert_unexpected_eof( length );
 
 		StringBuffer sb = new StringBuffer();
 		int b0, b1, b2;
 		char c;
 
 		while ( length > 0 ) {
-			b0 = bcs.bytes[ bcs.index++ ] & 255;
+			b0 = cfs.bytes[ cfs.index++ ] & 255;
 			--length;
 
 			if ( (b0 & 0x80) == 0 ) {
@@ -35,7 +35,7 @@ public class ConstantPool_Utf8 implements IConstantPool_Info {
 				sb.append( c );
 			}
 			else {
-				b1 = bcs.bytes[ bcs.index++ ] & 255;
+				b1 = cfs.bytes[ cfs.index++ ] & 255;
 				--length;
 
 				if ( (b0 & 0xe0) == 0xc0 && (b1 & 0xc0) == 0x80 ) {
@@ -43,7 +43,7 @@ public class ConstantPool_Utf8 implements IConstantPool_Info {
 					sb.append( c );
 				}
 				else {
-					b2 = bcs.bytes[ bcs.index++ ] & 255;
+					b2 = cfs.bytes[ cfs.index++ ] & 255;
 					--length;
 
 					if ( ((b0 & 0xf0) == 0xe0) && ((b1 & 0xc0) == 0x80) && ((b2 & 0xc0) == 0x80) ) {
@@ -51,14 +51,14 @@ public class ConstantPool_Utf8 implements IConstantPool_Info {
 						sb.append( c );
 					}
 					else {
-						throw new ClassFileException( "Invalid constant pool Utf-8 encoding",  bcs.index );
+						throw new ClassFileException( "Invalid constant pool Utf-8 encoding",  cfs.index );
 					}
 				}
 			}
 		}
 
 		if ( length != 0 ) {
-			throw new ClassFileException( "Empty constant pool Utf-8 string", bcs.index );
+			throw new ClassFileException( "Empty constant pool Utf-8 string", cfs.index );
 		}
 
 		// debug

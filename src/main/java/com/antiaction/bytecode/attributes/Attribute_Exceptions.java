@@ -18,8 +18,8 @@ public class Attribute_Exceptions implements IAttribute {
 
 	public List<ExceptionIndexTable> exceptionIndexTableList;
 
-	public static IAttribute parseExceptions(ClassFileState bcs) throws ClassFileException {
-		bcs.assert_unexpected_eof( 2 );
+	public static IAttribute parseExceptions(ClassFileState cfs) throws ClassFileException {
+		cfs.assert_unexpected_eof( 2 );
 
 		List<ExceptionIndexTable> exceptionIndexTableList = new ArrayList<ExceptionIndexTable>();
 		ExceptionIndexTable exceptionIndexTable;
@@ -27,16 +27,16 @@ public class Attribute_Exceptions implements IAttribute {
 		int exception_index;
 		String exception_name;
 
-		int number_of_exceptions = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+		int number_of_exceptions = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 
 		// debug
 		System.out.println( " Exceptions: " + number_of_exceptions );
 
 		for ( int i=0; i<number_of_exceptions; ++i ) {
-			bcs.assert_unexpected_eof( 2 );
+			cfs.assert_unexpected_eof( 2 );
 
-			exception_index = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
-			exception_name = bcs.constantpool.getClassName( exception_index );
+			exception_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
+			exception_name = cfs.constantpool.getClassName( exception_index );
 
 			exceptionIndexTable = new ExceptionIndexTable();
 			exceptionIndexTable.exception_index = exception_index;

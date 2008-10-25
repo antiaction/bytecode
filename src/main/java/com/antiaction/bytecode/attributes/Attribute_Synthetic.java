@@ -13,7 +13,7 @@ import com.antiaction.bytecode.IAttribute;
 
 public class Attribute_Synthetic implements IAttribute {
 
-	public static IAttribute parseSynthetic(ClassFileState bcs) throws ClassFileException {
+	public static IAttribute parseSynthetic(ClassFileState cfs) throws ClassFileException {
 		return new Attribute_Synthetic();
 	}
 

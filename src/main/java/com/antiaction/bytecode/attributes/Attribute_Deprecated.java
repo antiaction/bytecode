@@ -13,7 +13,7 @@ import com.antiaction.bytecode.IAttribute;
 
 public class Attribute_Deprecated implements IAttribute {
 
-	public static IAttribute parseDeprecated(ClassFileState bcs) throws ClassFileException {
+	public static IAttribute parseDeprecated(ClassFileState cfs) throws ClassFileException {
 		return new Attribute_Deprecated();
 	}
 

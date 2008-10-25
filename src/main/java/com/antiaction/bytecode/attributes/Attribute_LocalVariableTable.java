@@ -20,8 +20,8 @@ public class Attribute_LocalVariableTable implements IAttribute {
 
 	public List<LocalVariableTable> localVariableTableList;
 
-	public static IAttribute parseLocalVariableTable(ClassFileState bcs) throws ClassFileException {
-		bcs.assert_unexpected_eof( 2 );
+	public static IAttribute parseLocalVariableTable(ClassFileState cfs) throws ClassFileException {
+		cfs.assert_unexpected_eof( 2 );
 
 		List<LocalVariableTable> localVariableTableList = new ArrayList<LocalVariableTable>();
 		LocalVariableTable localVariableTable;
@@ -36,23 +36,23 @@ public class Attribute_LocalVariableTable implements IAttribute {
 		String descriptor_string;
 		IDescriptor descriptor;
 
-		int local_variable_table_length = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+		int local_variable_table_length = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 
 		// debug
 		System.out.println( " Entries: " + local_variable_table_length );
 
 		for ( int i=0; i<local_variable_table_length; ++i ) {
-			bcs.assert_unexpected_eof( 10 );
+			cfs.assert_unexpected_eof( 10 );
 
-			start_pc = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
-			length = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
-			name_index = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
-			descriptor_index = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
-			index = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+			start_pc = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
+			length = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
+			name_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
+			descriptor_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
+			index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 
-			name = bcs.constantpool.getUtf8( name_index );
+			name = cfs.constantpool.getUtf8( name_index );
 
-			descriptor_string = bcs.constantpool.getUtf8( descriptor_index );
+			descriptor_string = cfs.constantpool.getUtf8( descriptor_index );
 
 			descriptor = Descriptors.parseFieldDescriptor( descriptor_string );
 

@@ -15,10 +15,10 @@ public class ConstantPool_Integer implements IConstantPool_Info {
 
 	public int i;
 
-	public static IConstantPool_Info parseInteger(ClassFileState bcs) throws ClassFileException {
-		bcs.assert_unexpected_eof( 4 );
+	public static IConstantPool_Info parseInteger(ClassFileState cfs) throws ClassFileException {
+		cfs.assert_unexpected_eof( 4 );
 
-		int i = (bcs.bytes[ bcs.index++ ] & 255) << 24 | (bcs.bytes[ bcs.index++ ] & 255) << 16 | (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+		int i = (cfs.bytes[ cfs.index++ ] & 255) << 24 | (cfs.bytes[ cfs.index++ ] & 255) << 16 | (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 
 		// debug
 		System.out.println( "Integer: " + i );

@@ -17,8 +17,8 @@ public class Interfaces {
 
 	public List<Interface> interface_list;
 
-	public static Interfaces parseInterfaces(ClassFileState bcs, int interfaces_count) throws ClassFileException {
-		bcs.assert_unexpected_eof( interfaces_count * 2 );
+	public static Interfaces parseInterfaces(ClassFileState cfs, int interfaces_count) throws ClassFileException {
+		cfs.assert_unexpected_eof( interfaces_count * 2 );
 
 		List<Interface> interface_list = new ArrayList<Interface>();
 		Interface interfaceObj;
@@ -26,8 +26,8 @@ public class Interfaces {
 		int interface_index;
 		String interface_name;
 		while( interfaces_count > 0 ) {
-			interface_index = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
-			interface_name = bcs.constantpool.getClassName( interface_index );
+			interface_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
+			interface_name = cfs.constantpool.getClassName( interface_index );
 
 			// debug
 			System.out.println( "interfaces index: " + interface_index + "=" + interface_name );

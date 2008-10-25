@@ -15,12 +15,12 @@ public class Attribute_SourceFile implements IAttribute {
 
 	String sourcefile;
 
-	public static IAttribute parseSourceFile(ClassFileState bcs) throws ClassFileException {
-		bcs.assert_unexpected_eof( 2 );
+	public static IAttribute parseSourceFile(ClassFileState cfs) throws ClassFileException {
+		cfs.assert_unexpected_eof( 2 );
 
-		int sourcefile_index = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+		int sourcefile_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 
-		String sourcefile = bcs.constantpool.getUtf8( sourcefile_index );
+		String sourcefile = cfs.constantpool.getUtf8( sourcefile_index );
 
 		// debug
 		System.out.println( "SourceFile = " + sourcefile );

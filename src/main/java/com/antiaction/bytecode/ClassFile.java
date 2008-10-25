@@ -17,7 +17,7 @@ import com.antiaction.bytecode.fields.Fields;
 import com.antiaction.bytecode.interfaces.Interfaces;
 import com.antiaction.bytecode.methods.Methods;
 
-public class ByteCode {
+public class ClassFile {
 
 	public static final int ACC_PUBLIC = 0x0001;
 	public static final int ACC_PRIVATE = 0x0002;
@@ -40,7 +40,7 @@ public class ByteCode {
 
 	public static final int METHOD_ACCESS_FLAGS_MASK = ACC_PUBLIC | ACC_PRIVATE | ACC_PROTECTED | ACC_STATIC | ACC_FINAL | ACC_SYNCHRONIZED | ACC_NATIVE | ACC_ABSTRACT | ACC_STRICT;
 
-	public static ByteCode parseClassFile(String filename) throws ClassFileException {
+	public static ClassFile parseClassFile(String filename) throws ClassFileException {
 		File classFile = new File( filename );
 		byte[] bytes = null;
 
@@ -73,15 +73,15 @@ public class ByteCode {
 
 		if ( bytes != null ) {
 			 ClassFileState bcs = new ClassFileState( bytes );
-			return parseByteCode( bcs );
+			return parseClassFile( bcs );
 		}
 		else {
 			return null;
 		}
 	}
 
-	public static ByteCode parseByteCode(ClassFileState bcs) throws ClassFileException {
-		if ( bcs.bytes == null || bcs.bytes.length == 0 ) {
+	public static ClassFile parseClassFile(ClassFileState cfs) throws ClassFileException {
+		if ( cfs.bytes == null || cfs.bytes.length == 0 ) {
 			return null;
 		}
 
@@ -89,49 +89,49 @@ public class ByteCode {
 		 * Magic.
 		 */
 
-		bcs.assert_unexpected_eof( 8 );
+		cfs.assert_unexpected_eof( 8 );
 
-		int magic = (bcs.bytes[ bcs.index++ ] & 255) << 24 | (bcs.bytes[ bcs.index++ ] & 255) << 16 | (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+		int magic = (cfs.bytes[ cfs.index++ ] & 255) << 24 | (cfs.bytes[ cfs.index++ ] & 255) << 16 | (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 
 		// debug
 		System.out.println( Integer.toHexString( magic ) );
 
 		if ( magic != 0xcafebabe ) {
-			throw new ClassFileException( "Invalid magic (0x" + Integer.toHexString( magic ) + ")", bcs.index );
+			throw new ClassFileException( "Invalid magic (0x" + Integer.toHexString( magic ) + ")", cfs.index );
 		}
 
 		/*
 		 * Major.Minor version.
 		 */
 
-		int minor_version = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
-		int major_version = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+		int minor_version = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
+		int major_version = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 
 		// debug
 		System.out.println( Integer.toString( major_version ) + '.' + Integer.toString( minor_version ) );
 
 		if ( major_version < 45 ) {
-			throw new ClassFileException( "Invalid version: " + Integer.toString( major_version ) + '.' + Integer.toString( minor_version ), bcs.index );
+			throw new ClassFileException( "Invalid version: " + Integer.toString( major_version ) + '.' + Integer.toString( minor_version ), cfs.index );
 		}
 
 		/*
 		 * Constant pool.
 		 */
 
-		int constant_pool_count = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+		int constant_pool_count = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 
 		// debug
 		System.out.println( "constant pool count: " + constant_pool_count );
 
-		bcs.constantpool = ConstantPool.parseConstantPool( bcs, constant_pool_count );
+		cfs.constantpool = ConstantPool.parseConstantPool( cfs, constant_pool_count );
 
 		/*
 		 * Access flags, This Class and Super Class.
 		 */
 
-		bcs.assert_unexpected_eof( 6 );
+		cfs.assert_unexpected_eof( 6 );
 
-		int access_flags = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+		int access_flags = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 
 		// debug
 		System.out.println( "access flags: 0x" + Integer.toHexString( access_flags ) );
@@ -145,27 +145,27 @@ public class ByteCode {
 			if ( (access_flags & ( ACC_FINAL | ACC_ABSTRACT )) == ( ACC_FINAL | ACC_ABSTRACT ) ) {
 				throw new ClassFileException( "Invalid access flags combination: 0x" + Integer.toHexString( access_flags & ( ACC_FINAL | ACC_ABSTRACT ) ) );
 			}
-			bcs.bClass = true;
-			bcs.bFinal = ((access_flags & ACC_FINAL) != 0);
-			bcs.bAbstract = ((access_flags & ACC_ABSTRACT) != 0);
+			cfs.bClass = true;
+			cfs.bFinal = ((access_flags & ACC_FINAL) != 0);
+			cfs.bAbstract = ((access_flags & ACC_ABSTRACT) != 0);
 		}
 		else {
 			// Interface
 			if ( (access_flags & ( ACC_FINAL | ACC_INTERFACE | ACC_ABSTRACT )) != ( ACC_INTERFACE | ACC_ABSTRACT ) ) {
 				throw new ClassFileException( "Invalid access flags combination: 0x" + Integer.toHexString( access_flags & ( ACC_FINAL | ACC_INTERFACE | ACC_ABSTRACT ) ) );
 			}
-			bcs.bInterface = true;
-			bcs.bAbstract = true;
+			cfs.bInterface = true;
+			cfs.bAbstract = true;
 		}
 
-		int this_class_index = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
-		String this_class_name = bcs.constantpool.getClassName( this_class_index );
+		int this_class_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
+		String this_class_name = cfs.constantpool.getClassName( this_class_index );
 
 		// debug
 		System.out.println( "this class: " + this_class_index + "=" + this_class_name );
 
-		int super_class_index = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
-		String super_class_name = bcs.constantpool.getClassName( super_class_index );
+		int super_class_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
+		String super_class_name = cfs.constantpool.getClassName( super_class_index );
 
 		// debug
 		System.out.println( "super class: " + super_class_index + "=" + super_class_name );
@@ -174,34 +174,34 @@ public class ByteCode {
 		 * Interfaces.
 		 */
 
-		bcs.assert_unexpected_eof( 2 );
+		cfs.assert_unexpected_eof( 2 );
 
-		int interfaces_count = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+		int interfaces_count = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 
 		// debug
 		System.out.println( "interfaces count: " + interfaces_count );
 
-		bcs.interfaces = Interfaces.parseInterfaces( bcs, interfaces_count );
+		cfs.interfaces = Interfaces.parseInterfaces( cfs, interfaces_count );
 
 		/*
 		 * Fields.
 		 */
 
-		int fields_count = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+		int fields_count = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 
 		// debug
 		System.out.println( "fields count: " + fields_count );
 
-		bcs.fields = Fields.parseFields( bcs, fields_count );
+		cfs.fields = Fields.parseFields( cfs, fields_count );
 
 		// Methods.
 
-		int methods_count = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+		int methods_count = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 
 		// debug
 		System.out.println( "methods count: " + methods_count );
 
-		bcs.methods = Methods.parseMethods( bcs, methods_count );
+		cfs.methods = Methods.parseMethods( cfs, methods_count );
 
 		return null;
 	}

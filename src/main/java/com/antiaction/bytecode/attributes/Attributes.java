@@ -13,42 +13,42 @@ import com.antiaction.bytecode.IAttribute;
 
 public class Attributes {
 
-	public static IAttribute parseAttribute(ClassFileState bcs, String attribute_name) throws ClassFileException {
+	public static IAttribute parseAttribute(ClassFileState cfs, String attribute_name) throws ClassFileException {
 		IAttribute attribute = null;
 
-		int attribute_length = (bcs.bytes[ bcs.index++ ] & 255) << 24 | (bcs.bytes[ bcs.index++ ] & 255) << 16 | (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+		int attribute_length = (cfs.bytes[ cfs.index++ ] & 255) << 24 | (cfs.bytes[ cfs.index++ ] & 255) << 16 | (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 
-		bcs.assert_unexpected_eof( attribute_length );
+		cfs.assert_unexpected_eof( attribute_length );
 
 		if ( "Code".compareToIgnoreCase( attribute_name ) == 0 ) {
-			attribute = Attribute_Code.parseCode( bcs );
+			attribute = Attribute_Code.parseCode( cfs );
 		}
 		else if ( "ConstantValue".compareToIgnoreCase( attribute_name ) == 0 ) {
-			attribute = Attribute_ConstantValue.parseConstantValue( bcs );
+			attribute = Attribute_ConstantValue.parseConstantValue( cfs );
 		}
 		else if ( "Deprecated".compareToIgnoreCase( attribute_name ) == 0 ) {
-			attribute = Attribute_Deprecated.parseDeprecated( bcs );
+			attribute = Attribute_Deprecated.parseDeprecated( cfs );
 		}
 		else if ( "Exceptions".compareToIgnoreCase( attribute_name ) == 0 ) {
-			attribute = Attribute_Exceptions.parseExceptions( bcs );
+			attribute = Attribute_Exceptions.parseExceptions( cfs );
 		}
 		else if ( "InnerClasses".compareToIgnoreCase( attribute_name ) == 0 ) {
-			attribute = Attribute_InnerClasses.parseInnerClasses( bcs );
+			attribute = Attribute_InnerClasses.parseInnerClasses( cfs );
 		}
 		else if ( "LineNumberTable".compareToIgnoreCase( attribute_name ) == 0 ) {
-			attribute = Attribute_LineNumberTable.parseLineNumberTable( bcs );
+			attribute = Attribute_LineNumberTable.parseLineNumberTable( cfs );
 		}
 		else if ( "LocalVariableTable".compareToIgnoreCase( attribute_name ) == 0 ) {
-			attribute = Attribute_LocalVariableTable.parseLocalVariableTable( bcs );
+			attribute = Attribute_LocalVariableTable.parseLocalVariableTable( cfs );
 		}
 		else if ( "SourceFile".compareToIgnoreCase( attribute_name ) == 0 ) {
-			attribute = Attribute_SourceFile.parseSourceFile( bcs );
+			attribute = Attribute_SourceFile.parseSourceFile( cfs );
 		}
 		else if ( "Synthetic".compareToIgnoreCase( attribute_name ) == 0 ) {
-			attribute = Attribute_Synthetic.parseSynthetic( bcs );
+			attribute = Attribute_Synthetic.parseSynthetic( cfs );
 		}
 		else {
-			bcs.index += attribute_length;
+			cfs.index += attribute_length;
 		}
 
 		return attribute;

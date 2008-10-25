@@ -31,7 +31,7 @@ public class ConstantPool {
 
 	public List<IConstantPool_Info> constantpool_infolist = null;
 
-	public static ConstantPool parseConstantPool(ClassFileState bcs, int constant_pool_count) throws ClassFileException {
+	public static ConstantPool parseConstantPool(ClassFileState cfs, int constant_pool_count) throws ClassFileException {
 		List<IConstantPool_Info> constantpool_infolist = new ArrayList<IConstantPool_Info>();
 		constantpool_infolist.add( null );
 
@@ -40,50 +40,50 @@ public class ConstantPool {
 		int constantpool_index = 0;
 		int tag;
 		while ( --constant_pool_count > 0 ) {
-			if ( bcs.index + 1 > bcs.bytes.length ) {
-				throw new ClassFileException( "Unexpected eof reading constant pool info tag", bcs.index );
+			if ( cfs.index + 1 > cfs.bytes.length ) {
+				throw new ClassFileException( "Unexpected eof reading constant pool info tag", cfs.index );
 			}
-			tag = bcs.bytes[ bcs.index++ ] & 255;
+			tag = cfs.bytes[ cfs.index++ ] & 255;
 
 			// debug
 			//System.out.println( tag );
 
 			switch ( tag ) {
 			case CONSTANT_Utf8:
-				cp_info = ConstantPool_Utf8.parseUtf8( bcs );
+				cp_info = ConstantPool_Utf8.parseUtf8( cfs );
 				break;
 			case CONSTANT_Integer:
-				cp_info = ConstantPool_Integer.parseInteger( bcs );
+				cp_info = ConstantPool_Integer.parseInteger( cfs );
 				break;
 			case CONSTANT_Float:
-				cp_info = ConstantPool_Float.parseFloat( bcs );
+				cp_info = ConstantPool_Float.parseFloat( cfs );
 				break;
 			case CONSTANT_Long:
-				cp_info = ConstantPool_Long.parseLong( bcs );
+				cp_info = ConstantPool_Long.parseLong( cfs );
 				break;
 			case CONSTANT_Double:
-				cp_info = ConstantPool_Double.parseDouble( bcs );
+				cp_info = ConstantPool_Double.parseDouble( cfs );
 				break;
 			case CONSTANT_Class:
-				cp_info = ConstantPool_Class.parseClass( bcs );
+				cp_info = ConstantPool_Class.parseClass( cfs );
 				break;
 			case CONSTANT_String:
-				cp_info = ConstantPool_String.parseString( bcs );
+				cp_info = ConstantPool_String.parseString( cfs );
 				break;
 			case CONSTANT_Fieldref:
-				cp_info = ConstantPool_Fieldref.parseFieldref( bcs );
+				cp_info = ConstantPool_Fieldref.parseFieldref( cfs );
 				break;
 			case CONSTANT_Methodref:
-				cp_info = ConstantPool_Methodref.parseMethodref( bcs );
+				cp_info = ConstantPool_Methodref.parseMethodref( cfs );
 				break;
 			case CONSTANT_InterfaceMethodref:
-				cp_info = ConstantPool_InterfaceMethodref.parseInterfaceMethodref( bcs );
+				cp_info = ConstantPool_InterfaceMethodref.parseInterfaceMethodref( cfs );
 				break;
 			case CONSTANT_NameAndType:
-				cp_info = ConstantPool_NameAndType.parseNameAndType( bcs );
+				cp_info = ConstantPool_NameAndType.parseNameAndType( cfs );
 				break;
 			default:
-				throw new ClassFileException( "Unknown constant pool info tag (" + tag + ")", bcs.index );
+				throw new ClassFileException( "Unknown constant pool info tag (" + tag + ")", cfs.index );
 			}
 
 			++constantpool_index;
@@ -184,6 +184,16 @@ public class ConstantPool {
 		}
 
 		return ((ConstantPool_Utf8)cp_info).utf8;
+	}
+
+	public IConstantPool_Info getConstantValue(int index) throws ClassFileException {
+		if ( index <= 0 || index >= constantpool_infolist.size() ) {
+			throw new ClassFileException( "cp_info index out of bounds" );
+		}
+
+		IConstantPool_Info cp_info = constantpool_infolist.get( index );
+
+		return null;
 	}
 
 }
