@@ -1,0 +1,32 @@
+/*
+ * Created on 10/10/2008
+ *
+ * TODO To change the template for this generated file go to
+ * Window - Preferences - Java - Code Style - Code Templates
+ */
+
+package com.antiaction.classfile.constantpool;
+
+import com.antiaction.classfile.ClassFileException;
+import com.antiaction.classfile.ClassFileState;
+import com.antiaction.classfile.IConstantPool_Info;
+
+public class ConstantPool_String implements IConstantPool_Info {
+
+	public int string_index;
+
+	public static IConstantPool_Info parseString(ClassFileState cfs) throws ClassFileException {
+		cfs.assert_unexpected_eof( 2 );
+
+		int string_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
+
+		// debug
+		System.out.println( "String: " + string_index );
+
+		ConstantPool_String cp_info = new ConstantPool_String();
+		cp_info.string_index = string_index;
+
+		return cp_info;
+	}
+
+}
