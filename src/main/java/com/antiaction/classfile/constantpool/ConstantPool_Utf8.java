@@ -11,7 +11,7 @@ import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
 import com.antiaction.classfile.IConstantPool_Info;
 
-public class ConstantPool_Utf8 implements IConstantPool_Info {
+public class ConstantPool_Utf8 extends IConstantPool_Info {
 
 	public String utf8;
 
@@ -69,5 +69,9 @@ public class ConstantPool_Utf8 implements IConstantPool_Info {
 
 		return cp_info;
 	}
+
+	@Override
+	public void parseResolve(ClassFileState cfs) {
+ 	}
 
 }

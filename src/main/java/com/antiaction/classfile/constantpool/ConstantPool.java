@@ -38,6 +38,7 @@ public class ConstantPool {
 		IConstantPool_Info cp_info = null;
 
 		int constantpool_index = 0;
+
 		int tag;
 		while ( --constant_pool_count > 0 ) {
 			if ( cfs.index + 1 > cfs.bytes.length ) {
@@ -47,6 +48,8 @@ public class ConstantPool {
 
 			// debug
 			//System.out.println( tag );
+
+			++constantpool_index;
 
 			switch ( tag ) {
 			case CONSTANT_Utf8:
@@ -86,9 +89,14 @@ public class ConstantPool {
 				throw new ClassFileException( "Unknown constant pool info tag (" + tag + ")", cfs.index );
 			}
 
-			++constantpool_index;
+			cp_info.index = constantpool_index;
 
 			constantpool_infolist.add( cp_info );
+		}
+
+		for ( int i=1; i<constantpool_infolist.size(); ++i ) {
+			cp_info = constantpool_infolist.get( i );
+			cp_info.parseResolve( cfs );
 		}
 
 		ConstantPool constantpool = new ConstantPool();

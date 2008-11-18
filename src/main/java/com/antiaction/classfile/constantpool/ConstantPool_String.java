@@ -11,7 +11,7 @@ import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
 import com.antiaction.classfile.IConstantPool_Info;
 
-public class ConstantPool_String implements IConstantPool_Info {
+public class ConstantPool_String extends IConstantPool_Info {
 
 	public int string_index;
 
@@ -27,6 +27,10 @@ public class ConstantPool_String implements IConstantPool_Info {
 		cp_info.string_index = string_index;
 
 		return cp_info;
+	}
+
+	@Override
+	public void parseResolve(ClassFileState cfs) {
 	}
 
 }

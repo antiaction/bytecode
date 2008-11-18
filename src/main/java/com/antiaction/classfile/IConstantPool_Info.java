@@ -7,6 +7,10 @@
 
 package com.antiaction.classfile;
 
-public interface IConstantPool_Info {
+public abstract class IConstantPool_Info {
+
+	public int index = 0;
+
+	public abstract void parseResolve(ClassFileState cfs);
 
 }

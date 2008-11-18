@@ -13,7 +13,7 @@ import com.antiaction.classfile.IAttribute;
 
 public class Attribute_SourceFile implements IAttribute {
 
-	String sourcefile;
+	public String sourcefile;
 
 	public static IAttribute parseSourceFile(ClassFileState cfs) throws ClassFileException {
 		cfs.assert_unexpected_eof( 2 );

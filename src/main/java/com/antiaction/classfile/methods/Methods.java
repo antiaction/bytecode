@@ -10,10 +10,18 @@ package com.antiaction.classfile.methods;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.antiaction.classfile.Bits;
-import com.antiaction.classfile.ClassFile;
 import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
+import com.antiaction.classfile.IAttribute;
+import com.antiaction.classfile.attributes.Attribute_Code;
+import com.antiaction.classfile.attributes.Attribute_ConstantValue;
+import com.antiaction.classfile.attributes.Attribute_Deprecated;
+import com.antiaction.classfile.attributes.Attribute_Exceptions;
+import com.antiaction.classfile.attributes.Attribute_InnerClasses;
+import com.antiaction.classfile.attributes.Attribute_LineNumberTable;
+import com.antiaction.classfile.attributes.Attribute_LocalVariableTable;
+import com.antiaction.classfile.attributes.Attribute_SourceFile;
+import com.antiaction.classfile.attributes.Attribute_Synthetic;
 import com.antiaction.classfile.attributes.Attributes;
 
 public class Methods {
@@ -34,6 +42,7 @@ public class Methods {
 
 		int attribute_name_index;
 		String attribute_name;
+		IAttribute attribute;
 
 		while( methods_count > 0 ) {
 			cfs.assert_unexpected_eof( 8 );
@@ -42,24 +51,6 @@ public class Methods {
 			name_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 			descriptor_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 			attributes_count = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
-
-			if ( (access_flags & ~ClassFile.METHOD_ACCESS_FLAGS_MASK) != 0 ) {
-				throw new ClassFileException( "Invalid access flags: 0x" + Integer.toHexString( access_flags & ~ClassFile.FIELD_ACCESS_FLAGS_MASK ) );
-			}
-
-			if ( Bits.bitstobits[ access_flags & (ClassFile.ACC_PUBLIC | ClassFile.ACC_PRIVATE | ClassFile.ACC_PROTECTED) ] > 1 ) {
-				throw new ClassFileException( "Invalid access flags: 0x" + Integer.toHexString( access_flags & (ClassFile.ACC_PUBLIC | ClassFile.ACC_PRIVATE | ClassFile.ACC_PROTECTED) ) );
-			}
-
-			if ( (access_flags & ( ClassFile.ACC_FINAL | ClassFile.ACC_VOLATILE )) == ( ClassFile.ACC_FINAL | ClassFile.ACC_VOLATILE ) ) {
-				throw new ClassFileException( "Invalid access flags combination: 0x" + Integer.toHexString( access_flags & ( ClassFile.ACC_FINAL | ClassFile.ACC_VOLATILE ) ) );
-			}
-
-			if ( cfs.bInterface ) {
-				if ( (access_flags & ( ClassFile.ACC_PUBLIC |ClassFile.ACC_STATIC | ClassFile.ACC_FINAL )) != ( ClassFile.ACC_PUBLIC |ClassFile.ACC_STATIC | ClassFile.ACC_FINAL ) ) {
-					throw new ClassFileException( "Invalid interface access flags combination: 0x" + Integer.toHexString( access_flags & ( ClassFile.ACC_PUBLIC |ClassFile.ACC_STATIC | ClassFile.ACC_FINAL ) ) );
-				}
-			}
 
 			name = cfs.constantpool.getUtf8( name_index );
 
@@ -75,10 +66,12 @@ public class Methods {
 			method.name = name;
 			method.descriptor_string = descriptor_string;
 
+			method.validate_access_flags( cfs );
+
 			//IDescriptor descriptor = Descriptors.parseFieldDescriptor( descriptor_string );
 
 			// debug
-			System.out.println( "Attributes: " + attributes_count );
+			System.out.println( "attributes count: " + attributes_count );
 
 			while ( attributes_count > 0 ) {
 				cfs.assert_unexpected_eof( 6 );
@@ -89,10 +82,31 @@ public class Methods {
 				// debug
 				System.out.println( attribute_name );
 
-				Attributes.parseAttribute( cfs, attribute_name );
+				attribute = Attributes.parseAttribute( cfs, attribute_name );
+
+				method.attributeList.add( attribute );
+				method.attributeMap.put( attribute_name, attribute );
 
 				--attributes_count;
+
+				if ( "Code".compareToIgnoreCase( attribute_name ) == 0 ) {
+					method.codeAttr = (Attribute_Code)attribute;
+				}
+				else if ( "Deprecated".compareToIgnoreCase( attribute_name ) == 0 ) {
+					method.deprecatedAttr = (Attribute_Deprecated)attribute;
+				}
+				else if ( "Exceptions".compareToIgnoreCase( attribute_name ) == 0 ) {
+					method.exceptionsAttr = (Attribute_Exceptions)attribute;
+				}
+				else if ( "Synthetic".compareToIgnoreCase( attribute_name ) == 0 ) {
+					method.syntheticAttr = (Attribute_Synthetic)attribute;
+				}
+				else {
+					throw new ClassFileException( "unexpected method attribute" );
+				}
 			}
+
+			methods_list.add( method );
 
 			--methods_count;
 		}
@@ -100,7 +114,7 @@ public class Methods {
 		Methods methods = new Methods();
 		methods.methods_list = methods_list;
 
-		return null;
+		return methods;
 	}
 
 }

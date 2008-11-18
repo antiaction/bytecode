@@ -11,7 +11,7 @@ import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
 import com.antiaction.classfile.IConstantPool_Info;
 
-public class ConstantPool_Double implements IConstantPool_Info {
+public class ConstantPool_Double extends IConstantPool_Info {
 
 	public double d;
 
@@ -36,6 +36,10 @@ public class ConstantPool_Double implements IConstantPool_Info {
 		cp_info.d = d;
 
 		return cp_info;
+	}
+
+	@Override
+	public void parseResolve(ClassFileState cfs) {
 	}
 
 }

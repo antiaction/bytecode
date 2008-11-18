@@ -16,10 +16,10 @@ import com.antiaction.classfile.IAttribute;
 
 public class Attribute_Code implements IAttribute {
 
-	byte[] code;
+	public byte[] code;
 
-	int max_stack;
-	int max_locals;
+	public int max_stack;
+	public int max_locals;
 
 	public List<ExceptionTable> exceptionTableList;
 

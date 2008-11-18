@@ -11,7 +11,7 @@ import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
 import com.antiaction.classfile.IConstantPool_Info;
 
-public class ConstantPool_Float implements IConstantPool_Info {
+public class ConstantPool_Float extends IConstantPool_Info {
 
 	public float f;
 
@@ -28,6 +28,10 @@ public class ConstantPool_Float implements IConstantPool_Info {
 		cp_info.f = f;
 
 		return cp_info;
+	}
+
+	@Override
+	public void parseResolve(ClassFileState cfs) {
 	}
 
 }
