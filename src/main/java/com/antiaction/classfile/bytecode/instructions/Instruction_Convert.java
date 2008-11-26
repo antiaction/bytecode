@@ -5,7 +5,12 @@
  * Window - Preferences - Java - Code Style - Code Templates
  */
 
-package com.antiaction.classfile.bytecode;
+package com.antiaction.classfile.bytecode.instructions;
+
+import com.antiaction.classfile.bytecode.BytecodeException;
+import com.antiaction.classfile.bytecode.BytecodeState;
+import com.antiaction.classfile.bytecode.IInstruction;
+import com.antiaction.classfile.bytecode.Opcodes;
 
 public abstract class Instruction_Convert extends IInstruction {
 

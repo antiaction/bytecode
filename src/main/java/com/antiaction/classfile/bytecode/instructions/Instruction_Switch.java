@@ -5,7 +5,7 @@
  * Window - Preferences - Java - Code Style - Code Templates
  */
 
-package com.antiaction.classfile.bytecode;
+package com.antiaction.classfile.bytecode.instructions;
 
 public class Instruction_Switch {
 

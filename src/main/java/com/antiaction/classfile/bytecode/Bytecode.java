@@ -8,6 +8,12 @@
 package com.antiaction.classfile.bytecode;
 
 import com.antiaction.classfile.attributes.Attribute_Code;
+import com.antiaction.classfile.bytecode.instructions.Instruction_Branch;
+import com.antiaction.classfile.bytecode.instructions.Instruction_Convert;
+import com.antiaction.classfile.bytecode.instructions.Instruction_LocalVariableLoad;
+import com.antiaction.classfile.bytecode.instructions.Instruction_LocalVariableStore;
+import com.antiaction.classfile.bytecode.instructions.Instruction_MethodReturn;
+import com.antiaction.classfile.bytecode.instructions.Instruction_Stack;
 
 public class Bytecode {
 

@@ -7,6 +7,8 @@
 
 package com.antiaction.classfile.bytecode;
 
+import com.antiaction.classfile.bytecode.instructions.Instruction_Branch;
+
 public abstract class IInstruction {
 
 	public int opcode = -1;
