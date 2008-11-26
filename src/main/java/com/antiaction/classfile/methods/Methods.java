@@ -14,13 +14,8 @@ import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
 import com.antiaction.classfile.IAttribute;
 import com.antiaction.classfile.attributes.Attribute_Code;
-import com.antiaction.classfile.attributes.Attribute_ConstantValue;
 import com.antiaction.classfile.attributes.Attribute_Deprecated;
 import com.antiaction.classfile.attributes.Attribute_Exceptions;
-import com.antiaction.classfile.attributes.Attribute_InnerClasses;
-import com.antiaction.classfile.attributes.Attribute_LineNumberTable;
-import com.antiaction.classfile.attributes.Attribute_LocalVariableTable;
-import com.antiaction.classfile.attributes.Attribute_SourceFile;
 import com.antiaction.classfile.attributes.Attribute_Synthetic;
 import com.antiaction.classfile.attributes.Attributes;
 
