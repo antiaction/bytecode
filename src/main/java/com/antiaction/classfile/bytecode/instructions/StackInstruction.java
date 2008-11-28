@@ -12,9 +12,9 @@ import com.antiaction.classfile.bytecode.BytecodeState;
 import com.antiaction.classfile.bytecode.IInstruction;
 import com.antiaction.classfile.bytecode.Opcodes;
 
-public abstract class Instruction_Stack extends IInstruction {
+public abstract class StackInstruction extends IInstruction {
 
-	public static class Instruction_POP extends Instruction_Stack {
+	public static class Instruction_POP extends StackInstruction {
 
 		private static IInstruction instance;
 
@@ -40,7 +40,7 @@ public abstract class Instruction_Stack extends IInstruction {
 
 	}
 
-	public static class Instruction_POP2 extends Instruction_Stack {
+	public static class Instruction_POP2 extends StackInstruction {
 
 		private static IInstruction instance;
 
@@ -66,7 +66,7 @@ public abstract class Instruction_Stack extends IInstruction {
 
 	}
 
-	public static class Instruction_DUP extends Instruction_Stack {
+	public static class Instruction_DUP extends StackInstruction {
 
 		private static IInstruction instance;
 
@@ -92,7 +92,7 @@ public abstract class Instruction_Stack extends IInstruction {
 
 	}
 
-	public static class Instruction_DUP_X1 extends Instruction_Stack {
+	public static class Instruction_DUP_X1 extends StackInstruction {
 
 		private static IInstruction instance;
 
@@ -118,7 +118,7 @@ public abstract class Instruction_Stack extends IInstruction {
 
 	}
 
-	public static class Instruction_DUP_X2 extends Instruction_Stack {
+	public static class Instruction_DUP_X2 extends StackInstruction {
 
 		private static IInstruction instance;
 
@@ -144,7 +144,7 @@ public abstract class Instruction_Stack extends IInstruction {
 
 	}
 
-	public static class Instruction_DUP2 extends Instruction_Stack {
+	public static class Instruction_DUP2 extends StackInstruction {
 
 		private static IInstruction instance;
 
@@ -170,7 +170,7 @@ public abstract class Instruction_Stack extends IInstruction {
 
 	}
 
-	public static class Instruction_DUP2_X1 extends Instruction_Stack {
+	public static class Instruction_DUP2_X1 extends StackInstruction {
 
 		private static IInstruction instance;
 
@@ -196,7 +196,7 @@ public abstract class Instruction_Stack extends IInstruction {
 
 	}
 
-	public static class Instruction_DUP2_X2 extends Instruction_Stack {
+	public static class Instruction_DUP2_X2 extends StackInstruction {
 
 		private static IInstruction instance;
 
@@ -222,7 +222,7 @@ public abstract class Instruction_Stack extends IInstruction {
 
 	}
 
-	public static class Instruction_SWAP extends Instruction_Stack {
+	public static class Instruction_SWAP extends StackInstruction {
 
 		private static IInstruction instance;
 

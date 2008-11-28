@@ -12,11 +12,11 @@ import com.antiaction.classfile.bytecode.BytecodeState;
 import com.antiaction.classfile.bytecode.IInstruction;
 import com.antiaction.classfile.bytecode.Opcodes;
 
-public abstract class Instruction_LocalVariableStore extends IInstruction {
+public abstract class LocalVariableStoreInstruction extends IInstruction {
 
 	public int index;
 
-	public static class Instruction_ISTORE extends Instruction_LocalVariableStore {
+	public static class Instruction_ISTORE extends LocalVariableStoreInstruction {
 
 		private Instruction_ISTORE() {
 			opcode = Opcodes.OPCODE_ISTORE;
@@ -40,7 +40,7 @@ public abstract class Instruction_LocalVariableStore extends IInstruction {
 
 	}
 
-	public static class Instruction_LSTORE extends Instruction_LocalVariableStore {
+	public static class Instruction_LSTORE extends LocalVariableStoreInstruction {
 
 		private Instruction_LSTORE() {
 			opcode = Opcodes.OPCODE_LSTORE;
@@ -64,7 +64,7 @@ public abstract class Instruction_LocalVariableStore extends IInstruction {
 
 	}
 
-	public static class Instruction_FSTORE extends Instruction_LocalVariableStore {
+	public static class Instruction_FSTORE extends LocalVariableStoreInstruction {
 
 		private Instruction_FSTORE() {
 			opcode = Opcodes.OPCODE_FSTORE;
@@ -88,7 +88,7 @@ public abstract class Instruction_LocalVariableStore extends IInstruction {
 
 	}
 
-	public static class Instruction_DSTORE extends Instruction_LocalVariableStore {
+	public static class Instruction_DSTORE extends LocalVariableStoreInstruction {
 
 		private Instruction_DSTORE() {
 			opcode = Opcodes.OPCODE_DSTORE;
@@ -112,7 +112,7 @@ public abstract class Instruction_LocalVariableStore extends IInstruction {
 
 	}
 
-	public static class Instruction_ASTORE extends Instruction_LocalVariableStore {
+	public static class Instruction_ASTORE extends LocalVariableStoreInstruction {
 
 		private Instruction_ASTORE() {
 			opcode = Opcodes.OPCODE_ASTORE;
@@ -136,7 +136,7 @@ public abstract class Instruction_LocalVariableStore extends IInstruction {
 
 	}
 
-	public static class Instruction_ISTORE_0 extends Instruction_LocalVariableStore {
+	public static class Instruction_ISTORE_0 extends LocalVariableStoreInstruction {
 
 		private static IInstruction instance;
 
@@ -163,7 +163,7 @@ public abstract class Instruction_LocalVariableStore extends IInstruction {
 
 	}
 
-	public static class Instruction_ISTORE_1 extends Instruction_LocalVariableStore {
+	public static class Instruction_ISTORE_1 extends LocalVariableStoreInstruction {
 
 		private static IInstruction instance;
 
@@ -190,7 +190,7 @@ public abstract class Instruction_LocalVariableStore extends IInstruction {
 
 	}
 
-	public static class Instruction_ISTORE_2 extends Instruction_LocalVariableStore {
+	public static class Instruction_ISTORE_2 extends LocalVariableStoreInstruction {
 
 		private static IInstruction instance;
 
@@ -217,7 +217,7 @@ public abstract class Instruction_LocalVariableStore extends IInstruction {
 
 	}
 
-	public static class Instruction_ISTORE_3 extends Instruction_LocalVariableStore {
+	public static class Instruction_ISTORE_3 extends LocalVariableStoreInstruction {
 
 		private static IInstruction instance;
 
@@ -244,7 +244,7 @@ public abstract class Instruction_LocalVariableStore extends IInstruction {
 
 	}
 
-	public static class Instruction_LSTORE_0 extends Instruction_LocalVariableStore {
+	public static class Instruction_LSTORE_0 extends LocalVariableStoreInstruction {
 
 		private static IInstruction instance;
 
@@ -271,7 +271,7 @@ public abstract class Instruction_LocalVariableStore extends IInstruction {
 
 	}
 
-	public static class Instruction_LSTORE_1 extends Instruction_LocalVariableStore {
+	public static class Instruction_LSTORE_1 extends LocalVariableStoreInstruction {
 
 		private static IInstruction instance;
 
@@ -298,7 +298,7 @@ public abstract class Instruction_LocalVariableStore extends IInstruction {
 
 	}
 
-	public static class Instruction_LSTORE_2 extends Instruction_LocalVariableStore {
+	public static class Instruction_LSTORE_2 extends LocalVariableStoreInstruction {
 
 		private static IInstruction instance;
 
@@ -325,7 +325,7 @@ public abstract class Instruction_LocalVariableStore extends IInstruction {
 
 	}
 
-	public static class Instruction_LSTORE_3 extends Instruction_LocalVariableStore {
+	public static class Instruction_LSTORE_3 extends LocalVariableStoreInstruction {
 
 		private static IInstruction instance;
 
@@ -352,7 +352,7 @@ public abstract class Instruction_LocalVariableStore extends IInstruction {
 
 	}
 
-	public static class Instruction_FSTORE_0 extends Instruction_LocalVariableStore {
+	public static class Instruction_FSTORE_0 extends LocalVariableStoreInstruction {
 
 		private static IInstruction instance;
 
@@ -379,7 +379,7 @@ public abstract class Instruction_LocalVariableStore extends IInstruction {
 
 	}
 
-	public static class Instruction_FSTORE_1 extends Instruction_LocalVariableStore {
+	public static class Instruction_FSTORE_1 extends LocalVariableStoreInstruction {
 
 		private static IInstruction instance;
 
@@ -406,7 +406,7 @@ public abstract class Instruction_LocalVariableStore extends IInstruction {
 
 	}
 
-	public static class Instruction_FSTORE_2 extends Instruction_LocalVariableStore {
+	public static class Instruction_FSTORE_2 extends LocalVariableStoreInstruction {
 
 		private static IInstruction instance;
 
@@ -433,7 +433,7 @@ public abstract class Instruction_LocalVariableStore extends IInstruction {
 
 	}
 
-	public static class Instruction_FSTORE_3 extends Instruction_LocalVariableStore {
+	public static class Instruction_FSTORE_3 extends LocalVariableStoreInstruction {
 
 		private static IInstruction instance;
 
@@ -460,7 +460,7 @@ public abstract class Instruction_LocalVariableStore extends IInstruction {
 
 	}
 
-	public static class Instruction_DSTORE_0 extends Instruction_LocalVariableStore {
+	public static class Instruction_DSTORE_0 extends LocalVariableStoreInstruction {
 
 		private static IInstruction instance;
 
@@ -487,7 +487,7 @@ public abstract class Instruction_LocalVariableStore extends IInstruction {
 
 	}
 
-	public static class Instruction_DSTORE_1 extends Instruction_LocalVariableStore {
+	public static class Instruction_DSTORE_1 extends LocalVariableStoreInstruction {
 
 		private static IInstruction instance;
 
@@ -514,7 +514,7 @@ public abstract class Instruction_LocalVariableStore extends IInstruction {
 
 	}
 
-	public static class Instruction_DSTORE_2 extends Instruction_LocalVariableStore {
+	public static class Instruction_DSTORE_2 extends LocalVariableStoreInstruction {
 
 		private static IInstruction instance;
 
@@ -541,7 +541,7 @@ public abstract class Instruction_LocalVariableStore extends IInstruction {
 
 	}
 
-	public static class Instruction_DSTORE_3 extends Instruction_LocalVariableStore {
+	public static class Instruction_DSTORE_3 extends LocalVariableStoreInstruction {
 
 		private static IInstruction instance;
 
@@ -568,7 +568,7 @@ public abstract class Instruction_LocalVariableStore extends IInstruction {
 
 	}
 
-	public static class Instruction_ASTORE_0 extends Instruction_LocalVariableStore {
+	public static class Instruction_ASTORE_0 extends LocalVariableStoreInstruction {
 
 		private static IInstruction instance;
 
@@ -595,7 +595,7 @@ public abstract class Instruction_LocalVariableStore extends IInstruction {
 
 	}
 
-	public static class Instruction_ASTORE_1 extends Instruction_LocalVariableStore {
+	public static class Instruction_ASTORE_1 extends LocalVariableStoreInstruction {
 
 		private static IInstruction instance;
 
@@ -622,7 +622,7 @@ public abstract class Instruction_LocalVariableStore extends IInstruction {
 
 	}
 
-	public static class Instruction_ASTORE_2 extends Instruction_LocalVariableStore {
+	public static class Instruction_ASTORE_2 extends LocalVariableStoreInstruction {
 
 		private static IInstruction instance;
 
@@ -649,7 +649,7 @@ public abstract class Instruction_LocalVariableStore extends IInstruction {
 
 	}
 
-	public static class Instruction_ASTORE_3 extends Instruction_LocalVariableStore {
+	public static class Instruction_ASTORE_3 extends LocalVariableStoreInstruction {
 
 		private static IInstruction instance;
 

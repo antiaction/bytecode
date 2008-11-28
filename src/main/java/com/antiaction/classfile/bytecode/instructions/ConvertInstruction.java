@@ -12,9 +12,9 @@ import com.antiaction.classfile.bytecode.BytecodeState;
 import com.antiaction.classfile.bytecode.IInstruction;
 import com.antiaction.classfile.bytecode.Opcodes;
 
-public abstract class Instruction_Convert extends IInstruction {
+public abstract class ConvertInstruction extends IInstruction {
 
-	public static class Instruction_I2L extends Instruction_Convert {
+	public static class Instruction_I2L extends ConvertInstruction {
 
 		private static IInstruction instance;
 
@@ -40,7 +40,7 @@ public abstract class Instruction_Convert extends IInstruction {
 
 	}
 
-	public static class Instruction_I2F extends Instruction_Convert {
+	public static class Instruction_I2F extends ConvertInstruction {
 
 		private static IInstruction instance;
 
@@ -66,7 +66,7 @@ public abstract class Instruction_Convert extends IInstruction {
 
 	}
 
-	public static class Instruction_I2D extends Instruction_Convert {
+	public static class Instruction_I2D extends ConvertInstruction {
 
 		private static IInstruction instance;
 
@@ -92,7 +92,7 @@ public abstract class Instruction_Convert extends IInstruction {
 
 	}
 
-	public static class Instruction_L2I extends Instruction_Convert {
+	public static class Instruction_L2I extends ConvertInstruction {
 
 		private static IInstruction instance;
 
@@ -118,7 +118,7 @@ public abstract class Instruction_Convert extends IInstruction {
 
 	}
 
-	public static class Instruction_L2F extends Instruction_Convert {
+	public static class Instruction_L2F extends ConvertInstruction {
 
 		private static IInstruction instance;
 
@@ -144,7 +144,7 @@ public abstract class Instruction_Convert extends IInstruction {
 
 	}
 
-	public static class Instruction_L2D extends Instruction_Convert {
+	public static class Instruction_L2D extends ConvertInstruction {
 
 		private static IInstruction instance;
 
@@ -170,7 +170,7 @@ public abstract class Instruction_Convert extends IInstruction {
 
 	}
 
-	public static class Instruction_F2I extends Instruction_Convert {
+	public static class Instruction_F2I extends ConvertInstruction {
 
 		private static IInstruction instance;
 
@@ -196,7 +196,7 @@ public abstract class Instruction_Convert extends IInstruction {
 
 	}
 
-	public static class Instruction_F2L extends Instruction_Convert {
+	public static class Instruction_F2L extends ConvertInstruction {
 
 		private static IInstruction instance;
 
@@ -222,7 +222,7 @@ public abstract class Instruction_Convert extends IInstruction {
 
 	}
 
-	public static class Instruction_F2D extends Instruction_Convert {
+	public static class Instruction_F2D extends ConvertInstruction {
 
 		private static IInstruction instance;
 
@@ -248,7 +248,7 @@ public abstract class Instruction_Convert extends IInstruction {
 
 	}
 
-	public static class Instruction_D2I extends Instruction_Convert {
+	public static class Instruction_D2I extends ConvertInstruction {
 
 		private static IInstruction instance;
 
@@ -274,7 +274,7 @@ public abstract class Instruction_Convert extends IInstruction {
 
 	}
 
-	public static class Instruction_D2L extends Instruction_Convert {
+	public static class Instruction_D2L extends ConvertInstruction {
 
 		private static IInstruction instance;
 
@@ -300,7 +300,7 @@ public abstract class Instruction_Convert extends IInstruction {
 
 	}
 
-	public static class Instruction_D2F extends Instruction_Convert {
+	public static class Instruction_D2F extends ConvertInstruction {
 
 		private static IInstruction instance;
 
@@ -326,7 +326,7 @@ public abstract class Instruction_Convert extends IInstruction {
 
 	}
 
-	public static class Instruction_I2B extends Instruction_Convert {
+	public static class Instruction_I2B extends ConvertInstruction {
 
 		private static IInstruction instance;
 
@@ -352,7 +352,7 @@ public abstract class Instruction_Convert extends IInstruction {
 
 	}
 
-	public static class Instruction_I2C extends Instruction_Convert {
+	public static class Instruction_I2C extends ConvertInstruction {
 
 		private static IInstruction instance;
 
@@ -378,7 +378,7 @@ public abstract class Instruction_Convert extends IInstruction {
 
 	}
 
-	public static class Instruction_I2S extends Instruction_Convert {
+	public static class Instruction_I2S extends ConvertInstruction {
 
 		private static IInstruction instance;
 

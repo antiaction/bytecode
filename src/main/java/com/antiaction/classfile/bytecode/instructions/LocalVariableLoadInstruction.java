@@ -12,11 +12,11 @@ import com.antiaction.classfile.bytecode.BytecodeState;
 import com.antiaction.classfile.bytecode.IInstruction;
 import com.antiaction.classfile.bytecode.Opcodes;
 
-public abstract class Instruction_LocalVariableLoad extends IInstruction {
+public abstract class LocalVariableLoadInstruction extends IInstruction {
 
 	public int index;
 
-	public static class Instruction_ILOAD extends Instruction_LocalVariableLoad {
+	public static class Instruction_ILOAD extends LocalVariableLoadInstruction {
 
 		private Instruction_ILOAD() {
 			opcode = Opcodes.OPCODE_ILOAD;
@@ -40,7 +40,7 @@ public abstract class Instruction_LocalVariableLoad extends IInstruction {
 
 	}
 
-	public static class Instruction_LLOAD extends Instruction_LocalVariableLoad {
+	public static class Instruction_LLOAD extends LocalVariableLoadInstruction {
 
 		private Instruction_LLOAD() {
 			opcode = Opcodes.OPCODE_LLOAD;
@@ -64,7 +64,7 @@ public abstract class Instruction_LocalVariableLoad extends IInstruction {
 
 	}
 
-	public static class Instruction_FLOAD extends Instruction_LocalVariableLoad {
+	public static class Instruction_FLOAD extends LocalVariableLoadInstruction {
 
 		private Instruction_FLOAD() {
 			opcode = Opcodes.OPCODE_FLOAD;
@@ -88,7 +88,7 @@ public abstract class Instruction_LocalVariableLoad extends IInstruction {
 
 	}
 
-	public static class Instruction_DLOAD extends Instruction_LocalVariableLoad {
+	public static class Instruction_DLOAD extends LocalVariableLoadInstruction {
 
 		private Instruction_DLOAD() {
 			opcode = Opcodes.OPCODE_DLOAD;
@@ -112,7 +112,7 @@ public abstract class Instruction_LocalVariableLoad extends IInstruction {
 
 	}
 
-	public static class Instruction_ALOAD extends Instruction_LocalVariableLoad {
+	public static class Instruction_ALOAD extends LocalVariableLoadInstruction {
 
 		private Instruction_ALOAD() {
 			opcode = Opcodes.OPCODE_ALOAD;
@@ -136,7 +136,7 @@ public abstract class Instruction_LocalVariableLoad extends IInstruction {
 
 	}
 
-	public static class Instruction_ILOAD_0 extends Instruction_LocalVariableLoad {
+	public static class Instruction_ILOAD_0 extends LocalVariableLoadInstruction {
 
 		private static IInstruction instance;
 
@@ -163,7 +163,7 @@ public abstract class Instruction_LocalVariableLoad extends IInstruction {
 
 	}
 
-	public static class Instruction_ILOAD_1 extends Instruction_LocalVariableLoad {
+	public static class Instruction_ILOAD_1 extends LocalVariableLoadInstruction {
 
 		private static IInstruction instance;
 
@@ -190,7 +190,7 @@ public abstract class Instruction_LocalVariableLoad extends IInstruction {
 
 	}
 
-	public static class Instruction_ILOAD_2 extends Instruction_LocalVariableLoad {
+	public static class Instruction_ILOAD_2 extends LocalVariableLoadInstruction {
 
 		private static IInstruction instance;
 
@@ -217,7 +217,7 @@ public abstract class Instruction_LocalVariableLoad extends IInstruction {
 
 	}
 
-	public static class Instruction_ILOAD_3 extends Instruction_LocalVariableLoad {
+	public static class Instruction_ILOAD_3 extends LocalVariableLoadInstruction {
 
 		private static IInstruction instance;
 
@@ -244,7 +244,7 @@ public abstract class Instruction_LocalVariableLoad extends IInstruction {
 
 	}
 
-	public static class Instruction_LLOAD_0 extends Instruction_LocalVariableLoad {
+	public static class Instruction_LLOAD_0 extends LocalVariableLoadInstruction {
 
 		private static IInstruction instance;
 
@@ -271,7 +271,7 @@ public abstract class Instruction_LocalVariableLoad extends IInstruction {
 
 	}
 
-	public static class Instruction_LLOAD_1 extends Instruction_LocalVariableLoad {
+	public static class Instruction_LLOAD_1 extends LocalVariableLoadInstruction {
 
 		private static IInstruction instance;
 
@@ -298,7 +298,7 @@ public abstract class Instruction_LocalVariableLoad extends IInstruction {
 
 	}
 
-	public static class Instruction_LLOAD_2 extends Instruction_LocalVariableLoad {
+	public static class Instruction_LLOAD_2 extends LocalVariableLoadInstruction {
 
 		private static IInstruction instance;
 
@@ -325,7 +325,7 @@ public abstract class Instruction_LocalVariableLoad extends IInstruction {
 
 	}
 
-	public static class Instruction_LLOAD_3 extends Instruction_LocalVariableLoad {
+	public static class Instruction_LLOAD_3 extends LocalVariableLoadInstruction {
 
 		private static IInstruction instance;
 
@@ -352,7 +352,7 @@ public abstract class Instruction_LocalVariableLoad extends IInstruction {
 
 	}
 
-	public static class Instruction_FLOAD_0 extends Instruction_LocalVariableLoad {
+	public static class Instruction_FLOAD_0 extends LocalVariableLoadInstruction {
 
 		private static IInstruction instance;
 
@@ -379,7 +379,7 @@ public abstract class Instruction_LocalVariableLoad extends IInstruction {
 
 	}
 
-	public static class Instruction_FLOAD_1 extends Instruction_LocalVariableLoad {
+	public static class Instruction_FLOAD_1 extends LocalVariableLoadInstruction {
 
 		private static IInstruction instance;
 
@@ -406,7 +406,7 @@ public abstract class Instruction_LocalVariableLoad extends IInstruction {
 
 	}
 
-	public static class Instruction_FLOAD_2 extends Instruction_LocalVariableLoad {
+	public static class Instruction_FLOAD_2 extends LocalVariableLoadInstruction {
 
 		private static IInstruction instance;
 
@@ -433,7 +433,7 @@ public abstract class Instruction_LocalVariableLoad extends IInstruction {
 
 	}
 
-	public static class Instruction_FLOAD_3 extends Instruction_LocalVariableLoad {
+	public static class Instruction_FLOAD_3 extends LocalVariableLoadInstruction {
 
 		private static IInstruction instance;
 
@@ -460,7 +460,7 @@ public abstract class Instruction_LocalVariableLoad extends IInstruction {
 
 	}
 
-	public static class Instruction_DLOAD_0 extends Instruction_LocalVariableLoad {
+	public static class Instruction_DLOAD_0 extends LocalVariableLoadInstruction {
 
 		private static IInstruction instance;
 
@@ -487,7 +487,7 @@ public abstract class Instruction_LocalVariableLoad extends IInstruction {
 
 	}
 
-	public static class Instruction_DLOAD_1 extends Instruction_LocalVariableLoad {
+	public static class Instruction_DLOAD_1 extends LocalVariableLoadInstruction {
 
 		private static IInstruction instance;
 
@@ -514,7 +514,7 @@ public abstract class Instruction_LocalVariableLoad extends IInstruction {
 
 	}
 
-	public static class Instruction_DLOAD_2 extends Instruction_LocalVariableLoad {
+	public static class Instruction_DLOAD_2 extends LocalVariableLoadInstruction {
 
 		private static IInstruction instance;
 
@@ -541,7 +541,7 @@ public abstract class Instruction_LocalVariableLoad extends IInstruction {
 
 	}
 
-	public static class Instruction_DLOAD_3 extends Instruction_LocalVariableLoad {
+	public static class Instruction_DLOAD_3 extends LocalVariableLoadInstruction {
 
 		private static IInstruction instance;
 
@@ -568,7 +568,7 @@ public abstract class Instruction_LocalVariableLoad extends IInstruction {
 
 	}
 
-	public static class Instruction_ALOAD_0 extends Instruction_LocalVariableLoad {
+	public static class Instruction_ALOAD_0 extends LocalVariableLoadInstruction {
 
 		private static IInstruction instance;
 
@@ -595,7 +595,7 @@ public abstract class Instruction_LocalVariableLoad extends IInstruction {
 
 	}
 
-	public static class Instruction_ALOAD_1 extends Instruction_LocalVariableLoad {
+	public static class Instruction_ALOAD_1 extends LocalVariableLoadInstruction {
 
 		private static IInstruction instance;
 
@@ -622,7 +622,7 @@ public abstract class Instruction_LocalVariableLoad extends IInstruction {
 
 	}
 
-	public static class Instruction_ALOAD_2 extends Instruction_LocalVariableLoad {
+	public static class Instruction_ALOAD_2 extends LocalVariableLoadInstruction {
 
 		private static IInstruction instance;
 
@@ -649,7 +649,7 @@ public abstract class Instruction_LocalVariableLoad extends IInstruction {
 
 	}
 
-	public static class Instruction_ALOAD_3 extends Instruction_LocalVariableLoad {
+	public static class Instruction_ALOAD_3 extends LocalVariableLoadInstruction {
 
 		private static IInstruction instance;
 
