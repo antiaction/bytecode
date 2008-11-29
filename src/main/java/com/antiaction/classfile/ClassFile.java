@@ -229,6 +229,9 @@ public class ClassFile {
 		Method method;
 		for ( int i=0; i<cfs.methods.methods_list.size(); ++i ) {
 			method = cfs.methods.methods_list.get( i );
+
+			System.out.println( method.name );
+
 			if ( method.codeAttr != null ) {
 				Bytecode.parseBytecode( method.codeAttr );
 			}

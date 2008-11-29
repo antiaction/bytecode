@@ -19,6 +19,7 @@ import com.antiaction.classfile.bytecode.instructions.ConvertInstruction;
 import com.antiaction.classfile.bytecode.instructions.LocalVariableLoadInstruction;
 import com.antiaction.classfile.bytecode.instructions.LocalVariableStoreInstruction;
 import com.antiaction.classfile.bytecode.instructions.MethodReturnInstruction;
+import com.antiaction.classfile.bytecode.instructions.MonitorInstruction;
 import com.antiaction.classfile.bytecode.instructions.SpecialInstruction;
 import com.antiaction.classfile.bytecode.instructions.StackInstruction;
 import com.antiaction.classfile.bytecode.instructions.SwitchInstruction;
@@ -572,25 +573,61 @@ public class Bytecode {
 				instruction = MethodReturnInstruction.Instruction_RETURN.parse( bcs );
 				break;
 			case Opcodes.OPCODE_GETSTATIC:
+				instruction = SpecialInstruction.Instruction_GETSTATIC.parse( bcs );
+				break;
 			case Opcodes.OPCODE_PUTSTATIC:
+				instruction = SpecialInstruction.Instruction_PUTSTATIC.parse( bcs );
+				break;
 			case Opcodes.OPCODE_GETFIELD:
+				instruction = SpecialInstruction.Instruction_GETFIELD.parse( bcs );
+				break;
 			case Opcodes.OPCODE_PUTFIELD:
+				instruction = SpecialInstruction.Instruction_PUTFIELD.parse( bcs );
+				break;
 			case Opcodes.OPCODE_INVOKEVIRTUAL:
+				instruction = SpecialInstruction.Instruction_INVOKEVIRTUAL.parse( bcs );
+				break;
 			case Opcodes.OPCODE_INVOKESPECIAL:
+				instruction = SpecialInstruction.Instruction_INVOKESPECIAL.parse( bcs );
+				break;
 			case Opcodes.OPCODE_INVOKESTATIC:
+				instruction = SpecialInstruction.Instruction_INVOKESTATIC.parse( bcs );
+				break;
 			case Opcodes.OPCODE_INVOKEINTERFACE:
+				instruction = SpecialInstruction.Instruction_INVOKEINTERFACE.parse( bcs );
+				break;
 			case Opcodes.OPCODE_NEW:
+				instruction = SpecialInstruction.Instruction_NEW.parse( bcs );
+				break;
 			case Opcodes.OPCODE_NEWARRAY:
+				instruction = SpecialInstruction.Instruction_NEWARRAY.parse( bcs );
+				break;
 			case Opcodes.OPCODE_ANEWARRAY:
+				instruction = SpecialInstruction.Instruction_ANEWARRAY.parse( bcs );
+				break;
 			case Opcodes.OPCODE_ARRAYLENGTH:
+				instruction = SpecialInstruction.Instruction_ARRAYLENGTH.parse( bcs );
+				break;
 			case Opcodes.OPCODE_ATHROW:
+				instruction = SpecialInstruction.Instruction_ATHROW.parse( bcs );
+				break;
 			case Opcodes.OPCODE_CHECKCAST:
+				instruction = SpecialInstruction.Instruction_CHECKCAST.parse( bcs );
+				break;
 			case Opcodes.OPCODE_INSTANCEOF:
+				instruction = SpecialInstruction.Instruction_INSTANCEOF.parse( bcs );
+				break;
 			case Opcodes.OPCODE_MONITORENTER:
+				instruction = MonitorInstruction.Instruction_MONITORENTER.parse( bcs );
+				break;
 			case Opcodes.OPCODE_MONITOREXIT:
+				instruction = MonitorInstruction.Instruction_MONITOREXIT.parse( bcs );
+				break;
 			case Opcodes.OPCODE_WIDE:
-			case Opcodes.OPCODE_MULTINEWARRAY:
 				throw new BytecodeException( "Unknown opcode", bcs.index - 1 );
+			case Opcodes.OPCODE_MULTINEWARRAY:
+				instruction = SpecialInstruction.Instruction_MULTINEWARRAY.parse( bcs );
+				break;
 			case Opcodes.OPCODE_IFNULL:
 				instruction = BranchInstruction.Instruction_IFNULL.parse( bcs );
 				break;
@@ -606,6 +643,9 @@ public class Bytecode {
 			default:
 				throw new BytecodeException( "Unknown opcode", bcs.index - 1 );
 			}
+
+			System.out.println( instruction );
+
 		}
 
 		return null;
