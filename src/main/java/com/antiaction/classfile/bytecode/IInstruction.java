@@ -21,4 +21,8 @@ public abstract class IInstruction {
 
  	public BranchInstruction instruction_branch = null;
 
+ 	public String[] toInstrString() {
+ 		return new String[]{ "0x" + Integer.toString( opcode, 16 ) };
+ 	}
+
 }

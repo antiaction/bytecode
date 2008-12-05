@@ -7,7 +7,12 @@
 
 package com.antiaction.classfile;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public abstract class IConstantPool_Info {
+
+	public Set<Object> referenced_by = new HashSet<Object>();
 
 	public int index = 0;
 

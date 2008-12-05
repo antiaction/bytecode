@@ -38,6 +38,10 @@ public abstract class StackInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "pop" };
+		}
+
 	}
 
 	public static class Instruction_POP2 extends StackInstruction {
@@ -62,6 +66,10 @@ public abstract class StackInstruction extends IInstruction {
 				instance = new Instruction_POP2();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "pop2" };
 		}
 
 	}
@@ -90,6 +98,10 @@ public abstract class StackInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "dup" };
+		}
+
 	}
 
 	public static class Instruction_DUP_X1 extends StackInstruction {
@@ -114,6 +126,10 @@ public abstract class StackInstruction extends IInstruction {
 				instance = new Instruction_DUP_X1();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "dup_x1" };
 		}
 
 	}
@@ -142,6 +158,10 @@ public abstract class StackInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "dup_x2" };
+		}
+
 	}
 
 	public static class Instruction_DUP2 extends StackInstruction {
@@ -166,6 +186,10 @@ public abstract class StackInstruction extends IInstruction {
 				instance = new Instruction_DUP2();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "dup2" };
 		}
 
 	}
@@ -194,6 +218,10 @@ public abstract class StackInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "dup2_x1" };
+		}
+
 	}
 
 	public static class Instruction_DUP2_X2 extends StackInstruction {
@@ -220,6 +248,10 @@ public abstract class StackInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "dup2_x2" };
+		}
+
 	}
 
 	public static class Instruction_SWAP extends StackInstruction {
@@ -244,6 +276,10 @@ public abstract class StackInstruction extends IInstruction {
 				instance = new Instruction_SWAP();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "swap" };
 		}
 
 	}

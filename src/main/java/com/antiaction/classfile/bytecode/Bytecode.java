@@ -644,7 +644,15 @@ public class Bytecode {
 				throw new BytecodeException( "Unknown opcode", bcs.index - 1 );
 			}
 
-			System.out.println( instruction );
+			//System.out.println( instruction );
+			String[] instrStrings = instruction.toInstrString();
+			if ( instrStrings != null ) {
+				for ( int i=0; i<instrStrings.length; ++i ) {
+					System.out.print( "\t" );
+					System.out.print( instrStrings[ i ] );
+				}
+				System.out.println();
+			}
 
 		}
 

@@ -41,6 +41,10 @@ public abstract class ConstInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "iconst_m1" };
+		}
+
 	}
 
 	public static class Instruction_ICONST_0 extends ConstInstruction {
@@ -66,6 +70,10 @@ public abstract class ConstInstruction extends IInstruction {
 				instance = new Instruction_ICONST_0();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "iconst_0" };
 		}
 
 	}
@@ -95,6 +103,10 @@ public abstract class ConstInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "iconst_1" };
+		}
+
 	}
 
 	public static class Instruction_ICONST_2 extends ConstInstruction {
@@ -120,6 +132,10 @@ public abstract class ConstInstruction extends IInstruction {
 				instance = new Instruction_ICONST_2();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "iconst_2" };
 		}
 
 	}
@@ -149,6 +165,10 @@ public abstract class ConstInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "iconst_3" };
+		}
+
 	}
 
 	public static class Instruction_ICONST_4 extends ConstInstruction {
@@ -174,6 +194,10 @@ public abstract class ConstInstruction extends IInstruction {
 				instance = new Instruction_ICONST_4();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "iconst_4" };
 		}
 
 	}
@@ -203,6 +227,10 @@ public abstract class ConstInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "iconst_5" };
+		}
+
 	}
 
 	public static class Instruction_LCONST_0 extends ConstInstruction {
@@ -228,6 +256,10 @@ public abstract class ConstInstruction extends IInstruction {
 				instance = new Instruction_LCONST_0();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "lconst_0" };
 		}
 
 	}
@@ -257,6 +289,10 @@ public abstract class ConstInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "lconst_1" };
+		}
+
 	}
 
 	public static class Instruction_FCONST_0 extends ConstInstruction {
@@ -282,6 +318,10 @@ public abstract class ConstInstruction extends IInstruction {
 				instance = new Instruction_FCONST_0();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "fconst_0" };
 		}
 
 	}
@@ -311,6 +351,10 @@ public abstract class ConstInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "fconst_1" };
+		}
+
 	}
 
 	public static class Instruction_FCONST_2 extends ConstInstruction {
@@ -336,6 +380,10 @@ public abstract class ConstInstruction extends IInstruction {
 				instance = new Instruction_FCONST_2();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "fconst_2" };
 		}
 
 	}
@@ -365,6 +413,10 @@ public abstract class ConstInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "dconst_0" };
+		}
+
 	}
 
 	public static class Instruction_DCONST_1 extends ConstInstruction {
@@ -392,6 +444,10 @@ public abstract class ConstInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "dconst_1" };
+		}
+
 	}
 
 	public static class Instruction_BIPUSH extends ConstInstruction {
@@ -416,6 +472,10 @@ public abstract class ConstInstruction extends IInstruction {
 			return instr;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "bipush", Integer.toString( constant ) };
+		}
+
 	}
 
 	public static class Instruction_SIPUSH extends ConstInstruction {
@@ -438,6 +498,10 @@ public abstract class ConstInstruction extends IInstruction {
 			Instruction_SIPUSH instr = new Instruction_SIPUSH(); 
 			instr.constant = constant;
 			return instr;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "sipush", Integer.toString( constant ) };
 		}
 
 	}

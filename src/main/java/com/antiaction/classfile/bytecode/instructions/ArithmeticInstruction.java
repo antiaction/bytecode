@@ -38,6 +38,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "iadd" };
+		}
+
 	}
 
 	public static class Instruction_LADD extends ArithmeticInstruction {
@@ -62,6 +66,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 				instance = new Instruction_LADD();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "ladd" };
 		}
 
 	}
@@ -90,6 +98,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "fadd" };
+		}
+
 	}
 
 	public static class Instruction_DADD extends ArithmeticInstruction {
@@ -114,6 +126,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 				instance = new Instruction_DADD();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "dadd" };
 		}
 
 	}
@@ -142,6 +158,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "isub" };
+		}
+
 	}
 
 	public static class Instruction_LSUB extends ArithmeticInstruction {
@@ -166,6 +186,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 				instance = new Instruction_LSUB();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "lsub" };
 		}
 
 	}
@@ -194,6 +218,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "fsub" };
+		}
+
 	}
 
 	public static class Instruction_DSUB extends ArithmeticInstruction {
@@ -218,6 +246,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 				instance = new Instruction_DSUB();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "dsub" };
 		}
 
 	}
@@ -246,6 +278,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "imul" };
+		}
+
 	}
 
 	public static class Instruction_LMUL extends ArithmeticInstruction {
@@ -270,6 +306,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 				instance = new Instruction_LMUL();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "lmul" };
 		}
 
 	}
@@ -298,6 +338,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "fmul" };
+		}
+
 	}
 
 	public static class Instruction_DMUL extends ArithmeticInstruction {
@@ -322,6 +366,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 				instance = new Instruction_DMUL();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "dmul" };
 		}
 
 	}
@@ -350,6 +398,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "idiv" };
+		}
+
 	}
 
 	public static class Instruction_LDIV extends ArithmeticInstruction {
@@ -374,6 +426,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 				instance = new Instruction_LDIV();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "ldiv" };
 		}
 
 	}
@@ -402,6 +458,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "fdiv" };
+		}
+
 	}
 
 	public static class Instruction_DDIV extends ArithmeticInstruction {
@@ -426,6 +486,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 				instance = new Instruction_DDIV();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "ddiv" };
 		}
 
 	}
@@ -454,6 +518,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "irem" };
+		}
+
 	}
 
 	public static class Instruction_LREM extends ArithmeticInstruction {
@@ -478,6 +546,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 				instance = new Instruction_LREM();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "lrem" };
 		}
 
 	}
@@ -506,6 +578,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "frem" };
+		}
+
 	}
 
 	public static class Instruction_DREM extends ArithmeticInstruction {
@@ -530,6 +606,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 				instance = new Instruction_DREM();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "drem" };
 		}
 
 	}
@@ -558,6 +638,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "ineg" };
+		}
+
 	}
 
 	public static class Instruction_LNEG extends ArithmeticInstruction {
@@ -582,6 +666,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 				instance = new Instruction_LNEG();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "lneg" };
 		}
 
 	}
@@ -610,6 +698,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "fneg" };
+		}
+
 	}
 
 	public static class Instruction_DNEG extends ArithmeticInstruction {
@@ -634,6 +726,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 				instance = new Instruction_DNEG();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "dneg" };
 		}
 
 	}
@@ -662,6 +758,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "ishl" };
+		}
+
 	}
 
 	public static class Instruction_LSHL extends ArithmeticInstruction {
@@ -686,6 +786,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 				instance = new Instruction_LSHL();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "lshl" };
 		}
 
 	}
@@ -714,6 +818,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "ishr" };
+		}
+
 	}
 
 	public static class Instruction_LSHR extends ArithmeticInstruction {
@@ -738,6 +846,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 				instance = new Instruction_LSHR();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "lshr" };
 		}
 
 	}
@@ -766,6 +878,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "iushr" };
+		}
+
 	}
 
 	public static class Instruction_LUSHR extends ArithmeticInstruction {
@@ -790,6 +906,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 				instance = new Instruction_LUSHR();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "lushr" };
 		}
 
 	}
@@ -818,6 +938,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "iand" };
+		}
+
 	}
 
 	public static class Instruction_LAND extends ArithmeticInstruction {
@@ -842,6 +966,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 				instance = new Instruction_LAND();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "land" };
 		}
 
 	}
@@ -870,6 +998,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "ior" };
+		}
+
 	}
 
 	public static class Instruction_LOR extends ArithmeticInstruction {
@@ -894,6 +1026,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 				instance = new Instruction_LOR();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "lor" };
 		}
 
 	}
@@ -922,6 +1058,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "ixor" };
+		}
+
 	}
 
 	public static class Instruction_LXOR extends ArithmeticInstruction {
@@ -946,6 +1086,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 				instance = new Instruction_LXOR();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "lxor" };
 		}
 
 	}
@@ -976,6 +1120,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			instr.index = index;
 			instr.constant = constant;
 			return instr;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "iinc", Integer.toString( index ) + ", " + Integer.toString( constant ) };
 		}
 
 	}

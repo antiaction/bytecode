@@ -38,6 +38,10 @@ public abstract class MonitorInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "monitorenter" };
+		}
+
 	}
 
 	public static class Instruction_MONITOREXIT extends MonitorInstruction {
@@ -62,6 +66,10 @@ public abstract class MonitorInstruction extends IInstruction {
 				instance = new Instruction_MONITOREXIT();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "monitorexit" };
 		}
 
 	}

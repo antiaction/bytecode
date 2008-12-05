@@ -8,7 +8,9 @@
 package com.antiaction.classfile.constantpool;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
@@ -30,6 +32,8 @@ public class ConstantPool {
 	//public static final int CONSTANT_ = ;
 
 	public List<IConstantPool_Info> constantpool_infolist = null;
+
+	public Map<String, ConstantPool_Utf8> utf8_constants = new HashMap<String, ConstantPool_Utf8>();
 
 	public static ConstantPool parseConstantPool(ClassFileState cfs, int constant_pool_count) throws ClassFileException {
 		List<IConstantPool_Info> constantpool_infolist = new ArrayList<IConstantPool_Info>();

@@ -38,6 +38,10 @@ public abstract class ArrayStoreIntoInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "iastore" };
+		}
+
 	}
 
 	public static class Instruction_LASTORE extends ArrayStoreIntoInstruction {
@@ -62,6 +66,10 @@ public abstract class ArrayStoreIntoInstruction extends IInstruction {
 				instance = new Instruction_LASTORE();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "lastore" };
 		}
 
 	}
@@ -90,6 +98,10 @@ public abstract class ArrayStoreIntoInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "fastore" };
+		}
+
 	}
 
 	public static class Instruction_DASTORE extends ArrayStoreIntoInstruction {
@@ -114,6 +126,10 @@ public abstract class ArrayStoreIntoInstruction extends IInstruction {
 				instance = new Instruction_DASTORE();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "dastore" };
 		}
 
 	}
@@ -142,6 +158,10 @@ public abstract class ArrayStoreIntoInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "aastore" };
+		}
+
 	}
 
 	public static class Instruction_BASTORE extends ArrayStoreIntoInstruction {
@@ -166,6 +186,10 @@ public abstract class ArrayStoreIntoInstruction extends IInstruction {
 				instance = new Instruction_BASTORE();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "bastore" };
 		}
 
 	}
@@ -194,6 +218,10 @@ public abstract class ArrayStoreIntoInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "castore" };
+		}
+
 	}
 
 	public static class Instruction_SASTORE extends ArrayStoreIntoInstruction {
@@ -218,6 +246,10 @@ public abstract class ArrayStoreIntoInstruction extends IInstruction {
 				instance = new Instruction_SASTORE();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "sastore" };
 		}
 
 	}

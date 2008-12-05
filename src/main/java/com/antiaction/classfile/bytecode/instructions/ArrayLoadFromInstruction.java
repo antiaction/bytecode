@@ -38,6 +38,10 @@ public abstract class ArrayLoadFromInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "iaload" };
+		}
+
 	}
 
 	public static class Instruction_LALOAD extends ArrayLoadFromInstruction {
@@ -62,6 +66,10 @@ public abstract class ArrayLoadFromInstruction extends IInstruction {
 				instance = new Instruction_LALOAD();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "laload" };
 		}
 
 	}
@@ -90,6 +98,10 @@ public abstract class ArrayLoadFromInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "faload" };
+		}
+
 	}
 
 	public static class Instruction_DALOAD extends ArrayLoadFromInstruction {
@@ -114,6 +126,10 @@ public abstract class ArrayLoadFromInstruction extends IInstruction {
 				instance = new Instruction_DALOAD();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "daload" };
 		}
 
 	}
@@ -142,6 +158,10 @@ public abstract class ArrayLoadFromInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "aaload" };
+		}
+
 	}
 
 	public static class Instruction_BALOAD extends ArrayLoadFromInstruction {
@@ -166,6 +186,10 @@ public abstract class ArrayLoadFromInstruction extends IInstruction {
 				instance = new Instruction_BALOAD();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "baload" };
 		}
 
 	}
@@ -194,6 +218,10 @@ public abstract class ArrayLoadFromInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "caload" };
+		}
+
 	}
 
 	public static class Instruction_SALOAD extends ArrayLoadFromInstruction {
@@ -218,6 +246,10 @@ public abstract class ArrayLoadFromInstruction extends IInstruction {
 				instance = new Instruction_SALOAD();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "saload" };
 		}
 
 	}
