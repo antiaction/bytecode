@@ -7,14 +7,21 @@
 
 package com.antiaction.classfile.attributes;
 
+import java.io.IOException;
+
 import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
 import com.antiaction.classfile.IAttribute;
 
-public class Attribute_Deprecated implements IAttribute {
+public class Attribute_Deprecated extends IAttribute {
 
 	public static IAttribute parseDeprecated(ClassFileState cfs) throws ClassFileException {
 		return new Attribute_Deprecated();
+	}
+
+	@Override
+	public byte[] build() throws IOException {
+		return new byte[ 0 ];
 	}
 
 }

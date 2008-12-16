@@ -38,6 +38,10 @@ public abstract class ConvertInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "i2l" };
+		}
+
 	}
 
 	public static class Instruction_I2F extends ConvertInstruction {
@@ -62,6 +66,10 @@ public abstract class ConvertInstruction extends IInstruction {
 				instance = new Instruction_I2F();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "i2f" };
 		}
 
 	}
@@ -90,6 +98,10 @@ public abstract class ConvertInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "i2d" };
+		}
+
 	}
 
 	public static class Instruction_L2I extends ConvertInstruction {
@@ -114,6 +126,10 @@ public abstract class ConvertInstruction extends IInstruction {
 				instance = new Instruction_L2I();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "l2i" };
 		}
 
 	}
@@ -142,6 +158,10 @@ public abstract class ConvertInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "l2f" };
+		}
+
 	}
 
 	public static class Instruction_L2D extends ConvertInstruction {
@@ -166,6 +186,10 @@ public abstract class ConvertInstruction extends IInstruction {
 				instance = new Instruction_L2D();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "l2d" };
 		}
 
 	}
@@ -194,6 +218,10 @@ public abstract class ConvertInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "f2i" };
+		}
+
 	}
 
 	public static class Instruction_F2L extends ConvertInstruction {
@@ -218,6 +246,10 @@ public abstract class ConvertInstruction extends IInstruction {
 				instance = new Instruction_F2L();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "f2l" };
 		}
 
 	}
@@ -246,6 +278,10 @@ public abstract class ConvertInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "f2d" };
+		}
+
 	}
 
 	public static class Instruction_D2I extends ConvertInstruction {
@@ -270,6 +306,10 @@ public abstract class ConvertInstruction extends IInstruction {
 				instance = new Instruction_D2I();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "d2i" };
 		}
 
 	}
@@ -298,6 +338,10 @@ public abstract class ConvertInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "d2l" };
+		}
+
 	}
 
 	public static class Instruction_D2F extends ConvertInstruction {
@@ -322,6 +366,10 @@ public abstract class ConvertInstruction extends IInstruction {
 				instance = new Instruction_D2F();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "d2f" };
 		}
 
 	}
@@ -350,6 +398,10 @@ public abstract class ConvertInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "i2b" };
+		}
+
 	}
 
 	public static class Instruction_I2C extends ConvertInstruction {
@@ -376,6 +428,10 @@ public abstract class ConvertInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "i2c" };
+		}
+
 	}
 
 	public static class Instruction_I2S extends ConvertInstruction {
@@ -400,6 +456,10 @@ public abstract class ConvertInstruction extends IInstruction {
 				instance = new Instruction_I2S();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "i2s" };
 		}
 
 	}

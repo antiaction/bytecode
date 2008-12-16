@@ -7,15 +7,10 @@
 
 package com.antiaction.classfile.fields;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.antiaction.classfile.Bits;
 import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
-import com.antiaction.classfile.IAttribute;
+import com.antiaction.classfile.attributes.Attributes;
 
 public class Field {
 
@@ -37,9 +32,7 @@ public class Field {
 	public String name;
 	public String descriptor_string;
 
-	public List<IAttribute> attributeList = new ArrayList<IAttribute>();
-
-	public Map<String, IAttribute> attributeMap = new HashMap<String, IAttribute>();
+	public Attributes attributes;
 
 	public void validate_access_flags(ClassFileState cfs) throws ClassFileException {
 		if ( (access_flags & ~FIELD_ACCESS_FLAGS_MASK) != 0 ) {

@@ -7,11 +7,16 @@
 
 package com.antiaction.classfile.constantpool;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
 import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
 import com.antiaction.classfile.IConstantPool_Info;
 
 public class ConstantPool_Utf8 extends IConstantPool_Info {
+
+	public int tag = ConstantPool.CONSTANT_Utf8;
 
 	public String utf8;
 
@@ -39,7 +44,7 @@ public class ConstantPool_Utf8 extends IConstantPool_Info {
 				--length;
 
 				if ( (b0 & 0xe0) == 0xc0 && (b1 & 0xc0) == 0x80 ) {
-					c = (char)(((b0 & 0x1f) << 5) | (b1 & 0x3f));
+					c = (char)(((b0 & 0x1f) << 6) | (b1 & 0x3f));
 					sb.append( c );
 				}
 				else {
@@ -73,5 +78,36 @@ public class ConstantPool_Utf8 extends IConstantPool_Info {
 	@Override
 	public void parseResolve(ClassFileState cfs) {
  	}
+
+	@Override
+	public void build(ByteArrayOutputStream bytes) throws IOException {
+		ByteArrayOutputStream encoded = new ByteArrayOutputStream( utf8.length() );
+
+		char c;
+		for ( int i=0; i<utf8.length(); ++i ) {
+			c = utf8.charAt( i );
+			if ( c >= 0x01 && c <= 0x7f ) {
+				encoded.write( c & 0x7f );
+			}
+			else if ( (c >= 0x0080 && c <= 0x07ff) || c == 0 ) {
+				encoded.write( ((c >> 6) & 0x1f) | 0xc0 );
+				encoded.write( (c & 0x3f) | 0x80 );
+			}
+			else {
+				encoded.write( ((c >> 12) & 0x0f) | 0xe0 );
+				encoded.write( ((c >> 6) & 0x3f) | 0x80 );
+				encoded.write( (c & 0x3f) | 0x80 );
+			}
+		}
+
+		bytes.write( (byte)(tag & 255) );
+
+		int constant_pool_count = encoded.size();
+
+		bytes.write( (byte)(constant_pool_count >> 8) );
+		bytes.write( (byte)(constant_pool_count & 255) );
+
+		encoded.writeTo( bytes );
+	}
 
 }

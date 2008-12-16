@@ -7,6 +7,8 @@
 
 package com.antiaction.classfile.attributes;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +16,7 @@ import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
 import com.antiaction.classfile.IAttribute;
 
-public class Attribute_LineNumberTable implements IAttribute {
+public class Attribute_LineNumberTable extends IAttribute {
 
 	public List<LineNumberTable> lineNumberTableList;
 
@@ -48,6 +50,29 @@ public class Attribute_LineNumberTable implements IAttribute {
 		attribute.lineNumberTableList = lineNumberTableList;
 
 		return attribute;
+	}
+
+	@Override
+	public byte[] build() throws IOException {
+		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+
+		int line_number_table_length = lineNumberTableList.size();
+
+		bytes.write( (byte)(line_number_table_length >> 8) );
+		bytes.write( (byte)(line_number_table_length & 255) );
+
+		LineNumberTable lineNumberTable;
+		for ( int i=0; i<lineNumberTableList.size(); ++i ) {
+			lineNumberTable = lineNumberTableList.get( i );
+
+			bytes.write( (byte)(lineNumberTable.start_pc >> 8) );
+			bytes.write( (byte)(lineNumberTable.start_pc & 255) );
+
+			bytes.write( (byte)(lineNumberTable.line_number >> 8) );
+			bytes.write( (byte)(lineNumberTable.line_number & 255) );
+		}
+
+		return bytes.toByteArray();
 	}
 
 }

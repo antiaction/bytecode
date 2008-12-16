@@ -7,16 +7,12 @@
 
 package com.antiaction.classfile;
 
-import com.antiaction.classfile.constantpool.ConstantPool;
-import com.antiaction.classfile.fields.Fields;
-import com.antiaction.classfile.interfaces.Interfaces;
-import com.antiaction.classfile.methods.Methods;
-
-
 public class ClassFileState {
 
 	public byte[] bytes;
 	public int index = 0;
+
+	public ClassFile cf;
 
 	public boolean bClass = false;
 
@@ -25,14 +21,6 @@ public class ClassFileState {
 	public boolean bInterface = false;
 
 	public boolean bAbstract = false;
-
-	public ConstantPool constantpool;
-
-	public Interfaces interfaces;
-
-	public Fields fields;
-
-	public Methods methods;
 
 	public ClassFileState(byte[] bytes) {
 		this.bytes = bytes;

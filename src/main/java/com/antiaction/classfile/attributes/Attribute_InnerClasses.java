@@ -7,6 +7,8 @@
 
 package com.antiaction.classfile.attributes;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +16,7 @@ import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
 import com.antiaction.classfile.IAttribute;
 
-public class Attribute_InnerClasses implements IAttribute {
+public class Attribute_InnerClasses extends IAttribute {
 
 	public List<InnerClassTable> innerClassTableList = new ArrayList<InnerClassTable>();
 
@@ -54,6 +56,35 @@ public class Attribute_InnerClasses implements IAttribute {
 		attribute.innerClassTableList = innerClassTableList;
 
 		return attribute;
+	}
+
+	@Override
+	public byte[] build() throws IOException {
+		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+
+		int number_of_classes = innerClassTableList.size();
+
+		bytes.write( (byte)(number_of_classes >> 8) );
+		bytes.write( (byte)(number_of_classes & 255) );
+
+		InnerClassTable innerClassTable;
+		for ( int i=0; i<innerClassTableList.size(); ++i ) {
+			innerClassTable = innerClassTableList.get( i );
+
+			bytes.write( (byte)(innerClassTable.inner_class_info_index >> 8) );
+			bytes.write( (byte)(innerClassTable.inner_class_info_index & 255) );
+
+			bytes.write( (byte)(innerClassTable.outer_class_info_index >> 8) );
+			bytes.write( (byte)(innerClassTable.outer_class_info_index & 255) );
+
+			bytes.write( (byte)(innerClassTable.inner_name_index >> 8) );
+			bytes.write( (byte)(innerClassTable.inner_name_index & 255) );
+
+			bytes.write( (byte)(innerClassTable.inner_class_access_flags >> 8) );
+			bytes.write( (byte)(innerClassTable.inner_class_access_flags & 255) );
+		}
+
+		return bytes.toByteArray();
 	}
 
 }

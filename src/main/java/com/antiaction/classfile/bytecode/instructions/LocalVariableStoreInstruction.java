@@ -38,6 +38,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 			return instr;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "istore", Integer.toString( index ) };
+		}
+
 	}
 
 	public static class Instruction_LSTORE extends LocalVariableStoreInstruction {
@@ -60,6 +64,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 			Instruction_LSTORE instr = new Instruction_LSTORE(); 
 			instr.index = index;
 			return instr;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "lstore", Integer.toString( index ) };
 		}
 
 	}
@@ -86,6 +94,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 			return instr;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "fstore", Integer.toString( index ) };
+		}
+
 	}
 
 	public static class Instruction_DSTORE extends LocalVariableStoreInstruction {
@@ -110,6 +122,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 			return instr;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "dstore", Integer.toString( index ) };
+		}
+
 	}
 
 	public static class Instruction_ASTORE extends LocalVariableStoreInstruction {
@@ -132,6 +148,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 			Instruction_ASTORE instr = new Instruction_ASTORE(); 
 			instr.index = index;
 			return instr;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "astore", Integer.toString( index ) };
 		}
 
 	}
@@ -161,6 +181,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "istore_0", Integer.toString( index ) };
+		}
+
 	}
 
 	public static class Instruction_ISTORE_1 extends LocalVariableStoreInstruction {
@@ -186,6 +210,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 				instance = new Instruction_ISTORE_1();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "istore_1", Integer.toString( index ) };
 		}
 
 	}
@@ -215,6 +243,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "istore_2", Integer.toString( index ) };
+		}
+
 	}
 
 	public static class Instruction_ISTORE_3 extends LocalVariableStoreInstruction {
@@ -240,6 +272,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 				instance = new Instruction_ISTORE_3();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "istore_3", Integer.toString( index ) };
 		}
 
 	}
@@ -269,6 +305,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "lstore_0", Integer.toString( index ) };
+		}
+
 	}
 
 	public static class Instruction_LSTORE_1 extends LocalVariableStoreInstruction {
@@ -294,6 +334,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 				instance = new Instruction_LSTORE_1();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "lstore_1", Integer.toString( index ) };
 		}
 
 	}
@@ -323,6 +367,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "lstore_2", Integer.toString( index ) };
+		}
+
 	}
 
 	public static class Instruction_LSTORE_3 extends LocalVariableStoreInstruction {
@@ -348,6 +396,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 				instance = new Instruction_LSTORE_3();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "lstore_3", Integer.toString( index ) };
 		}
 
 	}
@@ -377,6 +429,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "fstore_0", Integer.toString( index ) };
+		}
+
 	}
 
 	public static class Instruction_FSTORE_1 extends LocalVariableStoreInstruction {
@@ -402,6 +458,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 				instance = new Instruction_FSTORE_1();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "fstore_1", Integer.toString( index ) };
 		}
 
 	}
@@ -431,6 +491,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "fstore_2", Integer.toString( index ) };
+		}
+
 	}
 
 	public static class Instruction_FSTORE_3 extends LocalVariableStoreInstruction {
@@ -456,6 +520,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 				instance = new Instruction_FSTORE_3();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "fstore_3", Integer.toString( index ) };
 		}
 
 	}
@@ -485,6 +553,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "dstore_0", Integer.toString( index ) };
+		}
+
 	}
 
 	public static class Instruction_DSTORE_1 extends LocalVariableStoreInstruction {
@@ -510,6 +582,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 				instance = new Instruction_DSTORE_1();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "dstore_1", Integer.toString( index ) };
 		}
 
 	}
@@ -539,6 +615,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "dstore_2", Integer.toString( index ) };
+		}
+
 	}
 
 	public static class Instruction_DSTORE_3 extends LocalVariableStoreInstruction {
@@ -564,6 +644,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 				instance = new Instruction_DSTORE_3();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "dstore_3", Integer.toString( index ) };
 		}
 
 	}
@@ -593,6 +677,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "astore_0", Integer.toString( index ) };
+		}
+
 	}
 
 	public static class Instruction_ASTORE_1 extends LocalVariableStoreInstruction {
@@ -618,6 +706,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 				instance = new Instruction_ASTORE_1();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "astore_1", Integer.toString( index ) };
 		}
 
 	}
@@ -647,6 +739,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "astore_2", Integer.toString( index ) };
+		}
+
 	}
 
 	public static class Instruction_ASTORE_3 extends LocalVariableStoreInstruction {
@@ -672,6 +768,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 				instance = new Instruction_ASTORE_3();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "astore_3", Integer.toString( index ) };
 		}
 
 	}

@@ -42,7 +42,7 @@ public abstract class ConstInstruction extends IInstruction {
 		}
 
 		public String[] toInstrString() {
-			return new String[]{ "iconst_m1" };
+			return new String[]{ "iconst_m1", "-1" };
 		}
 
 	}
@@ -73,7 +73,7 @@ public abstract class ConstInstruction extends IInstruction {
 		}
 
 		public String[] toInstrString() {
-			return new String[]{ "iconst_0" };
+			return new String[]{ "iconst_0", "0" };
 		}
 
 	}
@@ -104,7 +104,7 @@ public abstract class ConstInstruction extends IInstruction {
 		}
 
 		public String[] toInstrString() {
-			return new String[]{ "iconst_1" };
+			return new String[]{ "iconst_1", "1" };
 		}
 
 	}
@@ -135,7 +135,7 @@ public abstract class ConstInstruction extends IInstruction {
 		}
 
 		public String[] toInstrString() {
-			return new String[]{ "iconst_2" };
+			return new String[]{ "iconst_2", "2" };
 		}
 
 	}
@@ -166,7 +166,7 @@ public abstract class ConstInstruction extends IInstruction {
 		}
 
 		public String[] toInstrString() {
-			return new String[]{ "iconst_3" };
+			return new String[]{ "iconst_3", "3" };
 		}
 
 	}
@@ -197,7 +197,7 @@ public abstract class ConstInstruction extends IInstruction {
 		}
 
 		public String[] toInstrString() {
-			return new String[]{ "iconst_4" };
+			return new String[]{ "iconst_4", "4" };
 		}
 
 	}
@@ -228,7 +228,7 @@ public abstract class ConstInstruction extends IInstruction {
 		}
 
 		public String[] toInstrString() {
-			return new String[]{ "iconst_5" };
+			return new String[]{ "iconst_5", "5" };
 		}
 
 	}
@@ -259,7 +259,7 @@ public abstract class ConstInstruction extends IInstruction {
 		}
 
 		public String[] toInstrString() {
-			return new String[]{ "lconst_0" };
+			return new String[]{ "lconst_0", "0" };
 		}
 
 	}
@@ -290,7 +290,7 @@ public abstract class ConstInstruction extends IInstruction {
 		}
 
 		public String[] toInstrString() {
-			return new String[]{ "lconst_1" };
+			return new String[]{ "lconst_1", "1" };
 		}
 
 	}
@@ -321,7 +321,7 @@ public abstract class ConstInstruction extends IInstruction {
 		}
 
 		public String[] toInstrString() {
-			return new String[]{ "fconst_0" };
+			return new String[]{ "fconst_0", "0.0" };
 		}
 
 	}
@@ -352,7 +352,7 @@ public abstract class ConstInstruction extends IInstruction {
 		}
 
 		public String[] toInstrString() {
-			return new String[]{ "fconst_1" };
+			return new String[]{ "fconst_1", "1.0" };
 		}
 
 	}
@@ -383,7 +383,7 @@ public abstract class ConstInstruction extends IInstruction {
 		}
 
 		public String[] toInstrString() {
-			return new String[]{ "fconst_2" };
+			return new String[]{ "fconst_2", "2.0" };
 		}
 
 	}
@@ -414,7 +414,7 @@ public abstract class ConstInstruction extends IInstruction {
 		}
 
 		public String[] toInstrString() {
-			return new String[]{ "dconst_0" };
+			return new String[]{ "dconst_0", "0.0" };
 		}
 
 	}
@@ -445,7 +445,7 @@ public abstract class ConstInstruction extends IInstruction {
 		}
 
 		public String[] toInstrString() {
-			return new String[]{ "dconst_1" };
+			return new String[]{ "dconst_1", "1.0" };
 		}
 
 	}

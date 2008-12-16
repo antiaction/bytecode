@@ -7,19 +7,14 @@
 
 package com.antiaction.classfile.methods;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.antiaction.classfile.Bits;
 import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
-import com.antiaction.classfile.IAttribute;
 import com.antiaction.classfile.attributes.Attribute_Code;
 import com.antiaction.classfile.attributes.Attribute_Deprecated;
 import com.antiaction.classfile.attributes.Attribute_Exceptions;
 import com.antiaction.classfile.attributes.Attribute_Synthetic;
+import com.antiaction.classfile.attributes.Attributes;
 
 public class Method {
 
@@ -43,7 +38,7 @@ public class Method {
 	public String name;
 	public String descriptor_string;
 
-	public List<IAttribute> attributeList = new ArrayList<IAttribute>();
+	public Attributes attributes;
 
 	public Attribute_Code codeAttr = null;
 
@@ -52,8 +47,6 @@ public class Method {
 	public Attribute_Exceptions exceptionsAttr = null;
 
 	public Attribute_Synthetic syntheticAttr = null;
-
-	public Map<String, IAttribute> attributeMap = new HashMap<String, IAttribute>();
 
 	public void validate_access_flags(ClassFileState cfs) throws ClassFileException {
 		if ( (access_flags & ~METHOD_ACCESS_FLAGS_MASK) != 0 ) {

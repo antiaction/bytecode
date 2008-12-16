@@ -7,11 +7,16 @@
 
 package com.antiaction.classfile.constantpool;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
 import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
 import com.antiaction.classfile.IConstantPool_Info;
 
 public class ConstantPool_String extends IConstantPool_Info {
+
+	public int tag = ConstantPool.CONSTANT_String;
 
 	public int string_index;
 
@@ -31,6 +36,14 @@ public class ConstantPool_String extends IConstantPool_Info {
 
 	@Override
 	public void parseResolve(ClassFileState cfs) {
+	}
+
+	@Override
+	public void build(ByteArrayOutputStream bytes) throws IOException {
+		bytes.write( (byte)(tag & 255) );
+
+		bytes.write( (byte)(string_index >> 8) );
+		bytes.write( (byte)(string_index & 255) );
 	}
 
 }

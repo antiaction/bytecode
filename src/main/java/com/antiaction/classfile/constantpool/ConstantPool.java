@@ -7,6 +7,8 @@
 
 package com.antiaction.classfile.constantpool;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -50,10 +52,10 @@ public class ConstantPool {
 			}
 			tag = cfs.bytes[ cfs.index++ ] & 255;
 
-			// debug
-			//System.out.println( tag );
-
 			++constantpool_index;
+
+			// debug
+			System.out.println( "index: " + constantpool_index + " - tag: " + tag );
 
 			switch ( tag ) {
 			case CONSTANT_Utf8:
@@ -206,6 +208,19 @@ public class ConstantPool {
 		IConstantPool_Info cp_info = constantpool_infolist.get( index );
 
 		return null;
+	}
+
+	public void build(ByteArrayOutputStream bytes) throws IOException {
+		int constant_pool_count = constantpool_infolist.size();
+
+		bytes.write( (byte)(constant_pool_count >> 8) );
+		bytes.write( (byte)(constant_pool_count & 255) );
+
+		IConstantPool_Info cp_info;
+		for ( int i=1; i<constantpool_infolist.size(); ++i ) {
+			cp_info = constantpool_infolist.get( i );
+			cp_info.build( bytes );
+		}
 	}
 
 }

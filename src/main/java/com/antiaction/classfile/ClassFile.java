@@ -12,10 +12,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import com.antiaction.classfile.attributes.Attributes;
 import com.antiaction.classfile.bytecode.Bytecode;
@@ -81,17 +77,29 @@ public class ClassFile {
 		}
 	}
 
-	int magic = 0xcafebabe;
+	public int magic = 0xcafebabe;
 
-	int minor_version = 46;
+	public int minor_version = 46;
 
-	int major_version = 0;
+	public int major_version = 0;
 
-	int access_flags = 0;
+	public ConstantPool constantpool;
 
-	public List<IAttribute> attributeList = new ArrayList<IAttribute>();
+	public int access_flags = 0;
 
-	public Map<String, IAttribute> attributeMap = new HashMap<String, IAttribute>();
+	public int this_class_index = 0;
+	public String this_class_name = null;
+
+	public int super_class_index = 0;
+	public String super_class_name = null;
+
+	public Interfaces interfaces;
+
+	public Fields fields;
+
+	public Methods methods;
+
+	public Attributes attributes;
 
 	public static ClassFile parseClassFile(ClassFileState cfs) throws ClassFileException, BytecodeException {
 		if ( cfs.bytes == null || cfs.bytes.length == 0 ) {
@@ -99,6 +107,7 @@ public class ClassFile {
 		}
 
 		ClassFile cf = new ClassFile();
+		cfs.cf = cf;
 
 		/*
 		 * Magic.
@@ -138,7 +147,7 @@ public class ClassFile {
 		// debug
 		System.out.println( "constant pool count: " + constant_pool_count );
 
-		cfs.constantpool = ConstantPool.parseConstantPool( cfs, constant_pool_count );
+		cf.constantpool = ConstantPool.parseConstantPool( cfs, constant_pool_count );
 
 		/*
 		 * Access flags, This Class and Super Class.
@@ -153,17 +162,17 @@ public class ClassFile {
 
 		cf.validate_access_flags( cfs );
 
-		int this_class_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
-		String this_class_name = cfs.constantpool.getClassName( this_class_index );
+		cf.this_class_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
+		cf.this_class_name = cf.constantpool.getClassName( cf.this_class_index );
 
 		// debug
-		System.out.println( "this class: " + this_class_index + "=" + this_class_name );
+		System.out.println( "this class: " + cf.this_class_index + "=" + cf.this_class_name );
 
-		int super_class_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
-		String super_class_name = cfs.constantpool.getClassName( super_class_index );
+		cf.super_class_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
+		cf.super_class_name = cf.constantpool.getClassName( cf.super_class_index );
 
 		// debug
-		System.out.println( "super class: " + super_class_index + "=" + super_class_name );
+		System.out.println( "super class: " + cf.super_class_index + "=" + cf.super_class_name );
 
 		/*
 		 * Interfaces.
@@ -176,7 +185,7 @@ public class ClassFile {
 		// debug
 		System.out.println( "interfaces count: " + interfaces_count );
 
-		cfs.interfaces = Interfaces.parseInterfaces( cfs, interfaces_count );
+		cf.interfaces = Interfaces.parseInterfaces( cfs, interfaces_count );
 
 		/*
 		 * Fields.
@@ -187,48 +196,37 @@ public class ClassFile {
 		// debug
 		System.out.println( "fields count: " + fields_count );
 
-		cfs.fields = Fields.parseFields( cfs, fields_count );
+		cf.fields = Fields.parseFields( cfs, fields_count );
 
-		// Methods.
+		/*
+		 * Methods.
+		 */
 
 		int methods_count = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 
 		// debug
 		System.out.println( "methods count: " + methods_count );
 
-		cfs.methods = Methods.parseMethods( cfs, methods_count );
+		cf.methods = Methods.parseMethods( cfs, methods_count );
 
-		// Attributes.
+		/*
+		 * Attributes.
+		 */
 
 		int attributes_count = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 
 		// debug
 		System.out.println( "attributes count: " + attributes_count );
 
-		int attribute_name_index;
-		String attribute_name;
+		cf.attributes = Attributes.parseAttributes( cfs, attributes_count );
+
 		IAttribute attribute;
 
-		while ( attributes_count > 0 ) {
-			cfs.assert_unexpected_eof( 6 );
-
-			attribute_name_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
-			attribute_name = cfs.constantpool.getUtf8( attribute_name_index );
-
-			// debug
-			System.out.println( attribute_name );
-
-			attribute = Attributes.parseAttribute( cfs, attribute_name );
-
-			cf.attributeList.add( attribute );
-			cf.attributeMap.put( attribute_name, attribute );
-
-			--attributes_count;
-		}
+		// Post-processing.
 
 		Method method;
-		for ( int i=0; i<cfs.methods.methods_list.size(); ++i ) {
-			method = cfs.methods.methods_list.get( i );
+		for ( int i=0; i<cf.methods.methods_list.size(); ++i ) {
+			method = cf.methods.methods_list.get( i );
 
 			System.out.println( method.name );
 
@@ -237,7 +235,7 @@ public class ClassFile {
 			}
 		}
 
-		return null;
+		return cf;
 	}
 
 	public void validate_access_flags(ClassFileState cfs) throws ClassFileException {
@@ -264,7 +262,7 @@ public class ClassFile {
 		}
 	}
 
-	public byte[] build() {
+	public byte[] build() throws IOException {
 		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
 
 		/*
@@ -287,6 +285,53 @@ public class ClassFile {
 
 		bytes.write( (byte)(major_version >> 8) );
 		bytes.write( (byte)(major_version & 255) );
+
+		/*
+		 * Constant pool.
+		 */
+
+		constantpool.build( bytes );
+
+		/*
+		 * Access flags, This Class and Super Class.
+		 */
+
+		bytes.write( (byte)(access_flags >> 8) );
+		bytes.write( (byte)(access_flags & 255) );
+
+		bytes.write( (byte)(this_class_index >> 8) );
+		bytes.write( (byte)(this_class_index & 255) );
+
+		bytes.write( (byte)(super_class_index >> 8) );
+		bytes.write( (byte)(super_class_index & 255) );
+
+		/*
+		 * Interfaces.
+		 */
+
+		interfaces.build( bytes );
+
+		/*
+		 * Fields.
+		 */
+
+		System.out.println( "fields: " + bytes.size() );
+
+		fields.build( bytes );
+
+		/*
+		 * Methods.
+		 */
+
+		System.out.println( "methods: " + bytes.size() );
+
+		methods.build( bytes );
+
+		/*
+		 * Attributes.
+		 */
+
+		attributes.build( bytes );
 
 		return bytes.toByteArray();
 	}

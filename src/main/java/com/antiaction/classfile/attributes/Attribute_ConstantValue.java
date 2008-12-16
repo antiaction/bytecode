@@ -7,13 +7,16 @@
 
 package com.antiaction.classfile.attributes;
 
+import java.io.IOException;
+
 import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
 import com.antiaction.classfile.IAttribute;
 import com.antiaction.classfile.IConstantPool_Info;
 
-public class Attribute_ConstantValue implements IAttribute {
+public class Attribute_ConstantValue extends IAttribute {
 
+	public int constantvalue_index;
 	public IConstantPool_Info constantPool_ConstantValue;
 
 	public static IAttribute parseConstantValue(ClassFileState cfs) throws ClassFileException {
@@ -21,12 +24,21 @@ public class Attribute_ConstantValue implements IAttribute {
 
 		int constantvalue_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 
-		IConstantPool_Info constantPool_ConstantValue = cfs.constantpool.getConstantValue( constantvalue_index );
+		IConstantPool_Info constantPool_ConstantValue = cfs.cf.constantpool.getConstantValue( constantvalue_index );
 
 		Attribute_ConstantValue attribute = new Attribute_ConstantValue();
+		attribute.constantvalue_index = constantvalue_index;
 		attribute.constantPool_ConstantValue = constantPool_ConstantValue;
 
 		return attribute;
+	}
+
+	@Override
+	public byte[] build() throws IOException {
+		byte[] bytes = new byte[ 2 ];
+		bytes[ 0 ] = (byte)(constantvalue_index >> 8);
+		bytes[ 1 ] = (byte)(constantvalue_index & 255);
+		return bytes;
 	}
 
 }

@@ -8,6 +8,8 @@
 package com.antiaction.classfile;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 
 import com.antiaction.classfile.bytecode.BytecodeException;
 
@@ -36,21 +38,37 @@ public class Test1 {
 		}
 		*/
 
-		File root = new File( "bin" );
+		//File root = new File( "bin" );
+		File root = new File( "bin/com/antiaction/classfile/" );
 		parseDir( root );
 	}
 
 	public void parseDir(File parent) {
 		String[] files = parent.list();
 		File file;
+		ClassFile classfile = null;
+
+		byte[] bytes;
+		RandomAccessFile ram;
 
 		for ( int i=0; i<files.length; ++i ) {
 			file = new File( parent, files[ i ] );
 			if ( file.isDirectory() ) {
-				parseDir( file );
+				//parseDir( file );
 			}
 			else if ( file.isFile() ) {
-				parseClass( file );
+				classfile = parseClass( file );
+				if ( classfile != null ) {
+					try {
+						bytes = classfile.build();
+
+						ram = new RandomAccessFile( new File( file.getParentFile(), file.getName() + ".class" ), "rw" );
+						ram.write( bytes );
+						ram.close();
+					}
+					catch (IOException e) {
+					}
+				}
 			}
 		}
 	}

@@ -7,6 +7,8 @@
 
 package com.antiaction.classfile.methods;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +20,7 @@ import com.antiaction.classfile.attributes.Attribute_Deprecated;
 import com.antiaction.classfile.attributes.Attribute_Exceptions;
 import com.antiaction.classfile.attributes.Attribute_Synthetic;
 import com.antiaction.classfile.attributes.Attributes;
+import com.antiaction.classfile.fields.Field;
 
 public class Methods {
 
@@ -35,8 +38,6 @@ public class Methods {
 		String name;
 		String descriptor_string;
 
-		int attribute_name_index;
-		String attribute_name;
 		IAttribute attribute;
 
 		while( methods_count > 0 ) {
@@ -47,9 +48,9 @@ public class Methods {
 			descriptor_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 			attributes_count = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 
-			name = cfs.constantpool.getUtf8( name_index );
+			name = cfs.cf.constantpool.getUtf8( name_index );
 
-			descriptor_string = cfs.constantpool.getUtf8( descriptor_index );
+			descriptor_string = cfs.cf.constantpool.getUtf8( descriptor_index );
 
 			// debug
 			System.out.println( "Method: " + name_index + "=" + name + " of type " + descriptor_index + "=" + descriptor_string );
@@ -68,32 +69,20 @@ public class Methods {
 			// debug
 			System.out.println( "attributes count: " + attributes_count );
 
-			while ( attributes_count > 0 ) {
-				cfs.assert_unexpected_eof( 6 );
+			method.attributes = Attributes.parseAttributes( cfs, attributes_count );
 
-				attribute_name_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
-				attribute_name = cfs.constantpool.getUtf8( attribute_name_index );
-
-				// debug
-				System.out.println( attribute_name );
-
-				attribute = Attributes.parseAttribute( cfs, attribute_name );
-
-				method.attributeList.add( attribute );
-				method.attributeMap.put( attribute_name, attribute );
-
-				--attributes_count;
-
-				if ( "Code".compareToIgnoreCase( attribute_name ) == 0 ) {
+			for ( int i=0; i<method.attributes.attributeList.size(); ++i ) {
+				attribute = method.attributes.attributeList.get( i );
+				if ( "Code".compareToIgnoreCase( attribute.attribute_name ) == 0 ) {
 					method.codeAttr = (Attribute_Code)attribute;
 				}
-				else if ( "Deprecated".compareToIgnoreCase( attribute_name ) == 0 ) {
+				else if ( "Deprecated".compareToIgnoreCase( attribute.attribute_name ) == 0 ) {
 					method.deprecatedAttr = (Attribute_Deprecated)attribute;
 				}
-				else if ( "Exceptions".compareToIgnoreCase( attribute_name ) == 0 ) {
+				else if ( "Exceptions".compareToIgnoreCase( attribute.attribute_name ) == 0 ) {
 					method.exceptionsAttr = (Attribute_Exceptions)attribute;
 				}
-				else if ( "Synthetic".compareToIgnoreCase( attribute_name ) == 0 ) {
+				else if ( "Synthetic".compareToIgnoreCase( attribute.attribute_name ) == 0 ) {
 					method.syntheticAttr = (Attribute_Synthetic)attribute;
 				}
 				else {
@@ -110,6 +99,29 @@ public class Methods {
 		methods.methods_list = methods_list;
 
 		return methods;
+	}
+
+	public void build(ByteArrayOutputStream bytes) throws IOException {
+		int methods_count = methods_list.size();
+
+		bytes.write( (byte)(methods_count >> 8) );
+		bytes.write( (byte)(methods_count & 255) );
+
+		Method method;
+		for ( int i=0; i<methods_list.size(); ++i ) {
+			method = methods_list.get( i );
+
+			bytes.write( (byte)(method.access_flags >> 8) );
+			bytes.write( (byte)(method.access_flags & 255) );
+
+			bytes.write( (byte)(method.name_index >> 8) );
+			bytes.write( (byte)(method.name_index & 255) );
+
+			bytes.write( (byte)(method.descriptor_index >> 8) );
+			bytes.write( (byte)(method.descriptor_index & 255) );
+
+			method.attributes.build( bytes );
+		}
 	}
 
 }

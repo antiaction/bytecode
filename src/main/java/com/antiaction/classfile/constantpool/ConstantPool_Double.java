@@ -7,11 +7,16 @@
 
 package com.antiaction.classfile.constantpool;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
 import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
 import com.antiaction.classfile.IConstantPool_Info;
 
 public class ConstantPool_Double extends IConstantPool_Info {
+
+	public int tag = ConstantPool.CONSTANT_Double;
 
 	public double d;
 
@@ -40,6 +45,22 @@ public class ConstantPool_Double extends IConstantPool_Info {
 
 	@Override
 	public void parseResolve(ClassFileState cfs) {
+	}
+
+	@Override
+	public void build(ByteArrayOutputStream bytes) throws IOException {
+		bytes.write( (byte)(tag & 255) );
+
+		long l = Double.doubleToLongBits( d );
+
+		bytes.write( (byte)(l >> 54) );
+		bytes.write( (byte)(l >> 48) );
+		bytes.write( (byte)(l >> 40) );
+		bytes.write( (byte)(l >> 32) );
+		bytes.write( (byte)(l >> 24) );
+		bytes.write( (byte)(l >> 16) );
+		bytes.write( (byte)(l >> 8) );
+		bytes.write( (byte)(l & 255) );
 	}
 
 }

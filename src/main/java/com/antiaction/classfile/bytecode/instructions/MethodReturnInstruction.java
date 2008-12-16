@@ -38,6 +38,10 @@ public class MethodReturnInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "ireturn" };
+		}
+
 	}
 
 	public static class Instruction_LRETURN extends IInstruction {
@@ -62,6 +66,10 @@ public class MethodReturnInstruction {
 				instance = new Instruction_LRETURN();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "lreturn" };
 		}
 
 	}
@@ -90,6 +98,10 @@ public class MethodReturnInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "freturn" };
+		}
+
 	}
 
 	public static class Instruction_DRETURN extends IInstruction {
@@ -114,6 +126,10 @@ public class MethodReturnInstruction {
 				instance = new Instruction_DRETURN();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "dreturn" };
 		}
 
 	}
@@ -142,6 +158,10 @@ public class MethodReturnInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "areturn" };
+		}
+
 	}
 
 	public static class Instruction_RETURN extends IInstruction {
@@ -166,6 +186,10 @@ public class MethodReturnInstruction {
 				instance = new Instruction_RETURN();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "return" };
 		}
 
 	}

@@ -7,6 +7,14 @@
 
 package com.antiaction.classfile;
 
-public interface IAttribute {
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
+public abstract class IAttribute {
+
+	public int attribute_name_index;
+	public String attribute_name;
+
+	public abstract byte[] build() throws IOException;
 
 }

@@ -38,6 +38,10 @@ public abstract class CompareInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "lcmp" };
+		}
+
 	}
 
 	public static class Instruction_FCMPL extends CompareInstruction {
@@ -62,6 +66,10 @@ public abstract class CompareInstruction extends IInstruction {
 				instance = new Instruction_FCMPL();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "fcmpl" };
 		}
 
 	}
@@ -90,6 +98,10 @@ public abstract class CompareInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "fcmpg" };
+		}
+
 	}
 
 	public static class Instruction_DCMPL extends CompareInstruction {
@@ -116,6 +128,10 @@ public abstract class CompareInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "dcmpl" };
+		}
+
 	}
 
 	public static class Instruction_DCMPG extends CompareInstruction {
@@ -140,6 +156,10 @@ public abstract class CompareInstruction extends IInstruction {
 				instance = new Instruction_DCMPG();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "dcmpg" };
 		}
 
 	}

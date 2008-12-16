@@ -7,6 +7,8 @@
 
 package com.antiaction.classfile.attributes;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +16,7 @@ import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
 import com.antiaction.classfile.IAttribute;
 
-public class Attribute_Exceptions implements IAttribute {
+public class Attribute_Exceptions extends IAttribute {
 
 	public List<ExceptionIndexTable> exceptionIndexTableList;
 
@@ -36,7 +38,7 @@ public class Attribute_Exceptions implements IAttribute {
 			cfs.assert_unexpected_eof( 2 );
 
 			exception_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
-			exception_name = cfs.constantpool.getClassName( exception_index );
+			exception_name = cfs.cf.constantpool.getClassName( exception_index );
 
 			exceptionIndexTable = new ExceptionIndexTable();
 			exceptionIndexTable.exception_index = exception_index;
@@ -48,6 +50,26 @@ public class Attribute_Exceptions implements IAttribute {
 		attribute.exceptionIndexTableList = exceptionIndexTableList;
 
 		return attribute;
+	}
+
+	@Override
+	public byte[] build() throws IOException {
+		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+
+		int number_of_exceptions = exceptionIndexTableList.size();
+
+		bytes.write( (byte)(number_of_exceptions >> 8) );
+		bytes.write( (byte)(number_of_exceptions & 255) );
+
+		ExceptionIndexTable exceptionIndexTable;
+		for ( int i=0; i<exceptionIndexTableList.size(); ++i ) {
+			exceptionIndexTable = exceptionIndexTableList.get( i );
+
+			bytes.write( (byte)(exceptionIndexTable.exception_index >> 8) );
+			bytes.write( (byte)(exceptionIndexTable.exception_index & 255) );
+		}
+
+		return bytes.toByteArray();
 	}
 
 }

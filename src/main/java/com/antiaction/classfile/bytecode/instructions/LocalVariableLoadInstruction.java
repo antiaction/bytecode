@@ -38,6 +38,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 			return instr;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "iload", Integer.toString( index ) };
+		}
+
 	}
 
 	public static class Instruction_LLOAD extends LocalVariableLoadInstruction {
@@ -60,6 +64,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 			Instruction_LLOAD instr = new Instruction_LLOAD(); 
 			instr.index = index;
 			return instr;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "lload", Integer.toString( index ) };
 		}
 
 	}
@@ -86,6 +94,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 			return instr;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "fload", Integer.toString( index ) };
+		}
+
 	}
 
 	public static class Instruction_DLOAD extends LocalVariableLoadInstruction {
@@ -110,6 +122,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 			return instr;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "dload", Integer.toString( index ) };
+		}
+
 	}
 
 	public static class Instruction_ALOAD extends LocalVariableLoadInstruction {
@@ -132,6 +148,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 			Instruction_ALOAD instr = new Instruction_ALOAD(); 
 			instr.index = index;
 			return instr;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "aload", Integer.toString( index ) };
 		}
 
 	}
@@ -161,6 +181,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "iload_0", Integer.toString( index ) };
+		}
+
 	}
 
 	public static class Instruction_ILOAD_1 extends LocalVariableLoadInstruction {
@@ -186,6 +210,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 				instance = new Instruction_ILOAD_1();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "iload_1", Integer.toString( index ) };
 		}
 
 	}
@@ -215,6 +243,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "iload_2", Integer.toString( index ) };
+		}
+
 	}
 
 	public static class Instruction_ILOAD_3 extends LocalVariableLoadInstruction {
@@ -240,6 +272,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 				instance = new Instruction_ILOAD_3();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "iload_3", Integer.toString( index ) };
 		}
 
 	}
@@ -269,6 +305,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "lload_0", Integer.toString( index ) };
+		}
+
 	}
 
 	public static class Instruction_LLOAD_1 extends LocalVariableLoadInstruction {
@@ -294,6 +334,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 				instance = new Instruction_LLOAD_1();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "lload_1", Integer.toString( index ) };
 		}
 
 	}
@@ -323,6 +367,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "lload_2", Integer.toString( index ) };
+		}
+
 	}
 
 	public static class Instruction_LLOAD_3 extends LocalVariableLoadInstruction {
@@ -348,6 +396,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 				instance = new Instruction_LLOAD_3();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "lload_3", Integer.toString( index ) };
 		}
 
 	}
@@ -377,6 +429,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "fload_0", Integer.toString( index ) };
+		}
+
 	}
 
 	public static class Instruction_FLOAD_1 extends LocalVariableLoadInstruction {
@@ -402,6 +458,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 				instance = new Instruction_FLOAD_1();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "fload_1", Integer.toString( index ) };
 		}
 
 	}
@@ -431,6 +491,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "fload_2", Integer.toString( index ) };
+		}
+
 	}
 
 	public static class Instruction_FLOAD_3 extends LocalVariableLoadInstruction {
@@ -456,6 +520,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 				instance = new Instruction_FLOAD_3();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "fload_3", Integer.toString( index ) };
 		}
 
 	}
@@ -485,6 +553,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "dload_0", Integer.toString( index ) };
+		}
+
 	}
 
 	public static class Instruction_DLOAD_1 extends LocalVariableLoadInstruction {
@@ -510,6 +582,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 				instance = new Instruction_DLOAD_1();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "dload_1", Integer.toString( index ) };
 		}
 
 	}
@@ -539,6 +615,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "dload_2", Integer.toString( index ) };
+		}
+
 	}
 
 	public static class Instruction_DLOAD_3 extends LocalVariableLoadInstruction {
@@ -564,6 +644,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 				instance = new Instruction_DLOAD_3();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "dload_3", Integer.toString( index ) };
 		}
 
 	}
@@ -593,6 +677,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "aload_0", Integer.toString( index ) };
+		}
+
 	}
 
 	public static class Instruction_ALOAD_1 extends LocalVariableLoadInstruction {
@@ -618,6 +706,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 				instance = new Instruction_ALOAD_1();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "aload_1", Integer.toString( index ) };
 		}
 
 	}
@@ -647,6 +739,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 			return instance;
 		}
 
+		public String[] toInstrString() {
+			return new String[]{ "aload_2", Integer.toString( index ) };
+		}
+
 	}
 
 	public static class Instruction_ALOAD_3 extends LocalVariableLoadInstruction {
@@ -672,6 +768,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 				instance = new Instruction_ALOAD_3();
 			}
 			return instance;
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "aload_3", Integer.toString( index ) };
 		}
 
 	}

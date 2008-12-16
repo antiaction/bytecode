@@ -7,6 +7,8 @@
 
 package com.antiaction.classfile.attributes;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +18,7 @@ import com.antiaction.classfile.IAttribute;
 import com.antiaction.classfile.IDescriptor;
 import com.antiaction.classfile.descriptors.Descriptors;
 
-public class Attribute_LocalVariableTable implements IAttribute {
+public class Attribute_LocalVariableTable extends IAttribute {
 
 	public List<LocalVariableTable> localVariableTableList;
 
@@ -50,9 +52,9 @@ public class Attribute_LocalVariableTable implements IAttribute {
 			descriptor_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 			index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 
-			name = cfs.constantpool.getUtf8( name_index );
+			name = cfs.cf.constantpool.getUtf8( name_index );
 
-			descriptor_string = cfs.constantpool.getUtf8( descriptor_index );
+			descriptor_string = cfs.cf.constantpool.getUtf8( descriptor_index );
 
 			descriptor = Descriptors.parseFieldDescriptor( descriptor_string );
 
@@ -73,7 +75,39 @@ public class Attribute_LocalVariableTable implements IAttribute {
 		Attribute_LocalVariableTable attribute = new Attribute_LocalVariableTable();
 		attribute.localVariableTableList = localVariableTableList;
 
-		return null;
+		return attribute;
+	}
+
+	@Override
+	public byte[] build() throws IOException {
+		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+
+		int local_variable_table_length = localVariableTableList.size();
+
+		bytes.write( (byte)(local_variable_table_length >> 8) );
+		bytes.write( (byte)(local_variable_table_length & 255) );
+
+		LocalVariableTable localVariableTable;
+		for ( int i=0; i<localVariableTableList.size(); ++i ) {
+			localVariableTable = localVariableTableList.get( i );
+
+			bytes.write( (byte)(localVariableTable.start_pc >> 8) );
+			bytes.write( (byte)(localVariableTable.start_pc & 255) );
+
+			bytes.write( (byte)(localVariableTable.length >> 8) );
+			bytes.write( (byte)(localVariableTable.length & 255) );
+
+			bytes.write( (byte)(localVariableTable.name_index >> 8) );
+			bytes.write( (byte)(localVariableTable.name_index & 255) );
+
+			bytes.write( (byte)(localVariableTable.descriptor_index >> 8) );
+			bytes.write( (byte)(localVariableTable.descriptor_index & 255) );
+
+			bytes.write( (byte)(localVariableTable.index >> 8) );
+			bytes.write( (byte)(localVariableTable.index & 255) );
+		}
+
+		return bytes.toByteArray();
 	}
 
 }

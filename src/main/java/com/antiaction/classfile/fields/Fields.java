@@ -7,6 +7,8 @@
 
 package com.antiaction.classfile.fields;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,10 +36,6 @@ public class Fields {
 		String descriptor_string;
 		IDescriptor descriptor;
 
-		int attribute_name_index;
-		String attribute_name;
-		IAttribute attribute;
-
 		while( fields_count > 0 ) {
 			cfs.assert_unexpected_eof( 8 );
 
@@ -46,9 +44,9 @@ public class Fields {
 			descriptor_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 			attributes_count = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 
-			name = cfs.constantpool.getUtf8( name_index );
+			name = cfs.cf.constantpool.getUtf8( name_index );
 
-			descriptor_string = cfs.constantpool.getUtf8( descriptor_index );
+			descriptor_string = cfs.cf.constantpool.getUtf8( descriptor_index );
 
 			descriptor = Descriptors.parseFieldDescriptor( descriptor_string );
 
@@ -67,22 +65,7 @@ public class Fields {
 			// debug
 			System.out.println( "attributes count: " + attributes_count );
 
-			while ( attributes_count > 0 ) {
-				cfs.assert_unexpected_eof( 6 );
-
-				attribute_name_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
-				attribute_name = cfs.constantpool.getUtf8( attribute_name_index );
-
-				// debug
-				System.out.println( attribute_name );
-
-				attribute = Attributes.parseAttribute( cfs, attribute_name );
-
-				field.attributeList.add( attribute );
-				field.attributeMap.put( attribute_name, attribute );
-
-				--attributes_count;
-			}
+			field.attributes = Attributes.parseAttributes( cfs, attributes_count );
 
 			fields_list.add( field );
 
@@ -93,6 +76,29 @@ public class Fields {
 		fields.fields_list = fields_list;
 
 		return fields;
+	}
+
+	public void build(ByteArrayOutputStream bytes) throws IOException {
+		int fields_count = fields_list.size();
+
+		bytes.write( (byte)(fields_count >> 8) );
+		bytes.write( (byte)(fields_count & 255) );
+
+		Field field;
+		for ( int i=0; i<fields_list.size(); ++i ) {
+			field = fields_list.get( i );
+
+			bytes.write( (byte)(field.access_flags >> 8) );
+			bytes.write( (byte)(field.access_flags & 255) );
+
+			bytes.write( (byte)(field.name_index >> 8) );
+			bytes.write( (byte)(field.name_index & 255) );
+
+			bytes.write( (byte)(field.descriptor_index >> 8) );
+			bytes.write( (byte)(field.descriptor_index & 255) );
+
+			field.attributes.build( bytes );
+		}
 	}
 
 }
