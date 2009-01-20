@@ -34,7 +34,7 @@ public class Attribute_InnerClasses extends IAttribute {
 		int inner_class_access_flags;
 
 		// debug
-		System.out.println( " Entries: " + number_of_classes );
+		//System.out.println( " Entries: " + number_of_classes );
 
 		for ( int i=0; i<number_of_classes; ++i ) {
 			cfs.assert_unexpected_eof( 8 );
@@ -56,6 +56,10 @@ public class Attribute_InnerClasses extends IAttribute {
 		attribute.innerClassTableList = innerClassTableList;
 
 		return attribute;
+	}
+
+	@Override
+	public void buildResolve() throws ClassFileException {
 	}
 
 	@Override

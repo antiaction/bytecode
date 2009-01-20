@@ -34,6 +34,10 @@ public class Attribute_ConstantValue extends IAttribute {
 	}
 
 	@Override
+	public void buildResolve() throws ClassFileException {
+	}
+
+	@Override
 	public byte[] build() throws IOException {
 		byte[] bytes = new byte[ 2 ];
 		bytes[ 0 ] = (byte)(constantvalue_index >> 8);

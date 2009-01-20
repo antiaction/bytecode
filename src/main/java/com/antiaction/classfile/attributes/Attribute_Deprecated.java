@@ -20,6 +20,10 @@ public class Attribute_Deprecated extends IAttribute {
 	}
 
 	@Override
+	public void buildResolve() throws ClassFileException {
+	}
+
+	@Override
 	public byte[] build() throws IOException {
 		return new byte[ 0 ];
 	}

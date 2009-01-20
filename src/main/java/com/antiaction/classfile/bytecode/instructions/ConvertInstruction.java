@@ -7,6 +7,9 @@
 
 package com.antiaction.classfile.bytecode.instructions;
 
+import com.antiaction.classfile.ClassFileException;
+import com.antiaction.classfile.ClassFileState;
+import com.antiaction.classfile.bytecode.Bytecode;
 import com.antiaction.classfile.bytecode.BytecodeException;
 import com.antiaction.classfile.bytecode.BytecodeState;
 import com.antiaction.classfile.bytecode.IInstruction;
@@ -36,6 +39,10 @@ public abstract class ConvertInstruction extends IInstruction {
 				instance = new Instruction_I2L();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -68,6 +75,10 @@ public abstract class ConvertInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "i2f" };
 		}
@@ -96,6 +107,10 @@ public abstract class ConvertInstruction extends IInstruction {
 				instance = new Instruction_I2D();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -128,6 +143,10 @@ public abstract class ConvertInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "l2i" };
 		}
@@ -156,6 +175,10 @@ public abstract class ConvertInstruction extends IInstruction {
 				instance = new Instruction_L2F();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -188,6 +211,10 @@ public abstract class ConvertInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "l2d" };
 		}
@@ -216,6 +243,10 @@ public abstract class ConvertInstruction extends IInstruction {
 				instance = new Instruction_F2I();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -248,6 +279,10 @@ public abstract class ConvertInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "f2l" };
 		}
@@ -276,6 +311,10 @@ public abstract class ConvertInstruction extends IInstruction {
 				instance = new Instruction_F2D();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -308,6 +347,10 @@ public abstract class ConvertInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "d2i" };
 		}
@@ -336,6 +379,10 @@ public abstract class ConvertInstruction extends IInstruction {
 				instance = new Instruction_D2L();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -368,6 +415,10 @@ public abstract class ConvertInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "d2f" };
 		}
@@ -396,6 +447,10 @@ public abstract class ConvertInstruction extends IInstruction {
 				instance = new Instruction_I2B();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -428,6 +483,10 @@ public abstract class ConvertInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "i2c" };
 		}
@@ -456,6 +515,10 @@ public abstract class ConvertInstruction extends IInstruction {
 				instance = new Instruction_I2S();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {

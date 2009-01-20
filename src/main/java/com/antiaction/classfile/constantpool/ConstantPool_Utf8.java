@@ -67,7 +67,7 @@ public class ConstantPool_Utf8 extends IConstantPool_Info {
 		}
 
 		// debug
-		System.out.println( "Utf8: " + sb.toString() );
+		//System.out.println( "Utf8: " + sb.toString() );
 
 		ConstantPool_Utf8 cp_info = new ConstantPool_Utf8();
 		cp_info.utf8 = sb.toString();
@@ -75,9 +75,24 @@ public class ConstantPool_Utf8 extends IConstantPool_Info {
 		return cp_info;
 	}
 
+	public static ConstantPool_Utf8 createUtf8(ConstantPool cp, String utf8) throws ClassFileException {
+		ConstantPool_Utf8 cp_info = new ConstantPool_Utf8();
+		cp_info.cp = cp;
+		cp_info.utf8 = utf8;
+		return cp_info;
+	}
+
 	@Override
-	public void parseResolve(ClassFileState cfs) {
+	public void parseResolve(ClassFileState cfs) throws ClassFileException {
  	}
+
+	@Override
+	public void buildResolve() throws ClassFileException {
+		if ( index == 0 ) {
+			index = cp.constantpool_infolist.size();
+			cp.constantpool_infolist.add( this );
+		}
+	}
 
 	@Override
 	public void build(ByteArrayOutputStream bytes) throws IOException {

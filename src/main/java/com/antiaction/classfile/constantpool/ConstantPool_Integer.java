@@ -26,7 +26,7 @@ public class ConstantPool_Integer extends IConstantPool_Info {
 		int i = (cfs.bytes[ cfs.index++ ] & 255) << 24 | (cfs.bytes[ cfs.index++ ] & 255) << 16 | (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 
 		// debug
-		System.out.println( "Integer: " + i );
+		//System.out.println( "Integer: " + i );
 
 		ConstantPool_Integer cp_info = new ConstantPool_Integer();
 		cp_info.i = i;
@@ -35,7 +35,15 @@ public class ConstantPool_Integer extends IConstantPool_Info {
 	}
 
 	@Override
-	public void parseResolve(ClassFileState cfs) {
+	public void parseResolve(ClassFileState cfs) throws ClassFileException {
+	}
+
+	@Override
+	public void buildResolve() throws ClassFileException {
+		if ( index == 0 ) {
+			index = cp.constantpool_infolist.size();
+			cp.constantpool_infolist.add( this );
+		}
 	}
 
 	@Override

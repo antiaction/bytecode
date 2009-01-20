@@ -7,6 +7,11 @@
 
 package com.antiaction.classfile.bytecode;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.antiaction.classfile.ClassFileException;
+import com.antiaction.classfile.ClassFileState;
 import com.antiaction.classfile.attributes.Attribute_Code;
 import com.antiaction.classfile.bytecode.instructions.ArithmeticInstruction;
 import com.antiaction.classfile.bytecode.instructions.ArrayLoadFromInstruction;
@@ -26,16 +31,23 @@ import com.antiaction.classfile.bytecode.instructions.SwitchInstruction;
 
 public class Bytecode {
 
-	public static Bytecode parseBytecode(Attribute_Code codeAttr) throws BytecodeException {
-		BytecodeState bcs = new BytecodeState( codeAttr.code );
+	public static Bytecode parseBytecode(ClassFileState cfs, Attribute_Code codeAttr) throws BytecodeException, ClassFileException {
 		int c;
+
+		Bytecode bc = new Bytecode();
+		BytecodeState bcs = new BytecodeState( codeAttr.code );
+
+		List<IInstruction> instructions = new ArrayList<IInstruction>();
 		IInstruction instruction = null;
 
 		while ( bcs.index < bcs.bytes.length ) {
 			bcs.assert_unexpected_eof( 1 );
 
+			bcs.opcode_index = bcs.index;
 			c = bcs.bytes[ bcs.index++ ] & 255;
-			System.out.println( c );
+
+			// debug
+			//System.out.println( c );
 
 			switch ( c ) {
 			case Opcodes.OPCODE_NOP:
@@ -624,7 +636,8 @@ public class Bytecode {
 				instruction = MonitorInstruction.Instruction_MONITOREXIT.parse( bcs );
 				break;
 			case Opcodes.OPCODE_WIDE:
-				throw new BytecodeException( "Unknown opcode", bcs.index - 1 );
+				instruction = parseWide( bcs );
+				break;
 			case Opcodes.OPCODE_MULTINEWARRAY:
 				instruction = SpecialInstruction.Instruction_MULTINEWARRAY.parse( bcs );
 				break;
@@ -641,9 +654,13 @@ public class Bytecode {
 				instruction = SpecialInstruction.Instruction_JSR_W.parse( bcs );
 				break;
 			default:
-				throw new BytecodeException( "Unknown opcode", bcs.index - 1 );
+				throw new BytecodeException( "Unknown opcode " + c + "/0x" + Integer.toHexString( c ), bcs.index - 1 );
 			}
 
+			instruction.index = bcs.opcode_index;
+			instructions.add( instruction );
+
+			/*
 			//System.out.println( instruction );
 			String[] instrStrings = instruction.toInstrString();
 			if ( instrStrings != null ) {
@@ -653,9 +670,72 @@ public class Bytecode {
 				}
 				System.out.println();
 			}
+			*/
 
 		}
 
+		for ( int i=0; i<instructions.size(); ++i ) {
+			instruction = instructions.get( i );
+			instruction.parseResolve( cfs, bc );
+		}
+
+		return null;
+	}
+
+	public static IInstruction parseWide(BytecodeState bcs) throws BytecodeException {
+		bcs.assert_unexpected_eof( 1 );
+
+		int c = bcs.bytes[ bcs.index++ ] & 255;
+		IInstruction instruction = null;
+
+		// debug
+		//System.out.println( c );
+
+		switch ( c ) {
+		case Opcodes.OPCODE_ILOAD:
+			instruction = LocalVariableLoadInstruction.Instruction_ILOAD.parseWide( bcs );
+			break;
+		case Opcodes.OPCODE_LLOAD:
+			instruction = LocalVariableLoadInstruction.Instruction_LLOAD.parseWide( bcs );
+			break;
+		case Opcodes.OPCODE_FLOAD:
+			instruction = LocalVariableLoadInstruction.Instruction_FLOAD.parseWide( bcs );
+			break;
+		case Opcodes.OPCODE_DLOAD:
+			instruction = LocalVariableLoadInstruction.Instruction_DLOAD.parseWide( bcs );
+			break;
+		case Opcodes.OPCODE_ALOAD:
+			instruction = LocalVariableLoadInstruction.Instruction_ALOAD.parseWide( bcs );
+			break;
+		case Opcodes.OPCODE_ISTORE:
+			instruction = LocalVariableStoreInstruction.Instruction_ISTORE.parseWide( bcs );
+			break;
+		case Opcodes.OPCODE_LSTORE:
+			instruction = LocalVariableStoreInstruction.Instruction_LSTORE.parseWide( bcs );
+			break;
+		case Opcodes.OPCODE_FSTORE:
+			instruction = LocalVariableStoreInstruction.Instruction_FSTORE.parseWide( bcs );
+			break;
+		case Opcodes.OPCODE_DSTORE:
+			instruction = LocalVariableStoreInstruction.Instruction_DSTORE.parseWide( bcs );
+			break;
+		case Opcodes.OPCODE_ASTORE:
+			instruction = LocalVariableStoreInstruction.Instruction_ASTORE.parseWide( bcs );
+			break;
+		case Opcodes.OPCODE_IINC:
+			instruction = ArithmeticInstruction.Instruction_IINC.parseWide( bcs );
+			break;
+		case Opcodes.OPCODE_RET:
+			instruction = SpecialInstruction.Instruction_RET.parseWide( bcs );
+			break;
+		default:
+			throw new BytecodeException( "Unknown wide opcode " + c + "/0x" + Integer.toHexString( c ), bcs.index - 1 );
+		}
+
+		return instruction;
+	}
+
+	public Label jumpTarget(int index) {
 		return null;
 	}
 

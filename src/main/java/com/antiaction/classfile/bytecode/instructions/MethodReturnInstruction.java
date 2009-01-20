@@ -7,6 +7,9 @@
 
 package com.antiaction.classfile.bytecode.instructions;
 
+import com.antiaction.classfile.ClassFileException;
+import com.antiaction.classfile.ClassFileState;
+import com.antiaction.classfile.bytecode.Bytecode;
 import com.antiaction.classfile.bytecode.BytecodeException;
 import com.antiaction.classfile.bytecode.BytecodeState;
 import com.antiaction.classfile.bytecode.IInstruction;
@@ -36,6 +39,10 @@ public class MethodReturnInstruction {
 				instance = new Instruction_IRETURN();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -68,6 +75,10 @@ public class MethodReturnInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "lreturn" };
 		}
@@ -96,6 +107,10 @@ public class MethodReturnInstruction {
 				instance = new Instruction_FRETURN();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -128,6 +143,10 @@ public class MethodReturnInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "dreturn" };
 		}
@@ -158,6 +177,10 @@ public class MethodReturnInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "areturn" };
 		}
@@ -186,6 +209,10 @@ public class MethodReturnInstruction {
 				instance = new Instruction_RETURN();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {

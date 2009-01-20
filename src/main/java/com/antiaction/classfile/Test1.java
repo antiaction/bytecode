@@ -67,6 +67,10 @@ public class Test1 {
 						ram.close();
 					}
 					catch (IOException e) {
+						e.printStackTrace();
+					}
+					catch (ClassFileException e) {
+						e.printStackTrace();
 					}
 				}
 			}

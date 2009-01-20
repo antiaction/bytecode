@@ -24,18 +24,18 @@ public class ConstantPool_Double extends IConstantPool_Info {
 		cfs.assert_unexpected_eof( 8 );
 
 		long l;
-		l = (cfs.bytes[ cfs.index++ ] & 255) << 56;
-		l |= (cfs.bytes[ cfs.index++ ] & 255) << 48;
-		l |= (cfs.bytes[ cfs.index++ ] & 255) << 40;
-		l |= (cfs.bytes[ cfs.index++ ] & 255) << 32;
-		l |= (cfs.bytes[ cfs.index++ ] & 255) << 24;
-		l |= (cfs.bytes[ cfs.index++ ] & 255) << 16;
-		l |= (cfs.bytes[ cfs.index++ ] & 255) << 8;
-		l |= cfs.bytes[ cfs.index++ ] & 255;
+		l = (long)(cfs.bytes[ cfs.index++ ] & 255) << 56;
+		l |= (long)(cfs.bytes[ cfs.index++ ] & 255) << 48;
+		l |= (long)(cfs.bytes[ cfs.index++ ] & 255) << 40;
+		l |= (long)(cfs.bytes[ cfs.index++ ] & 255) << 32;
+		l |= (long)(cfs.bytes[ cfs.index++ ] & 255) << 24;
+		l |= (long)(cfs.bytes[ cfs.index++ ] & 255) << 16;
+		l |= (long)(cfs.bytes[ cfs.index++ ] & 255) << 8;
+		l |= (long)cfs.bytes[ cfs.index++ ] & 255;
 		double d = Double.longBitsToDouble( l );
 
 		// debug
-		System.out.println( "Double: " + d );
+		//System.out.println( "Double: " + d );
 
 		ConstantPool_Double cp_info = new ConstantPool_Double();
 		cp_info.d = d;
@@ -44,7 +44,16 @@ public class ConstantPool_Double extends IConstantPool_Info {
 	}
 
 	@Override
-	public void parseResolve(ClassFileState cfs) {
+	public void parseResolve(ClassFileState cfs) throws ClassFileException {
+	}
+
+	@Override
+	public void buildResolve() throws ClassFileException {
+		if ( index == 0 ) {
+			index = cp.constantpool_infolist.size();
+			cp.constantpool_infolist.add( this );
+			cp.constantpool_infolist.add( null );
+		}
 	}
 
 	@Override
@@ -53,7 +62,7 @@ public class ConstantPool_Double extends IConstantPool_Info {
 
 		long l = Double.doubleToLongBits( d );
 
-		bytes.write( (byte)(l >> 54) );
+		bytes.write( (byte)(l >> 56) );
 		bytes.write( (byte)(l >> 48) );
 		bytes.write( (byte)(l >> 40) );
 		bytes.write( (byte)(l >> 32) );

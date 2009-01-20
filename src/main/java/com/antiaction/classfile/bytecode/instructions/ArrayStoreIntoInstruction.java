@@ -7,6 +7,9 @@
 
 package com.antiaction.classfile.bytecode.instructions;
 
+import com.antiaction.classfile.ClassFileException;
+import com.antiaction.classfile.ClassFileState;
+import com.antiaction.classfile.bytecode.Bytecode;
 import com.antiaction.classfile.bytecode.BytecodeException;
 import com.antiaction.classfile.bytecode.BytecodeState;
 import com.antiaction.classfile.bytecode.IInstruction;
@@ -36,6 +39,10 @@ public abstract class ArrayStoreIntoInstruction extends IInstruction {
 				instance = new Instruction_IASTORE();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -68,6 +75,10 @@ public abstract class ArrayStoreIntoInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "lastore" };
 		}
@@ -96,6 +107,10 @@ public abstract class ArrayStoreIntoInstruction extends IInstruction {
 				instance = new Instruction_FASTORE();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -128,6 +143,10 @@ public abstract class ArrayStoreIntoInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "dastore" };
 		}
@@ -156,6 +175,10 @@ public abstract class ArrayStoreIntoInstruction extends IInstruction {
 				instance = new Instruction_AASTORE();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -188,6 +211,10 @@ public abstract class ArrayStoreIntoInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "bastore" };
 		}
@@ -218,6 +245,10 @@ public abstract class ArrayStoreIntoInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "castore" };
 		}
@@ -246,6 +277,10 @@ public abstract class ArrayStoreIntoInstruction extends IInstruction {
 				instance = new Instruction_SASTORE();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {

@@ -7,9 +7,13 @@
 
 package com.antiaction.classfile.bytecode.instructions;
 
+import com.antiaction.classfile.ClassFileException;
+import com.antiaction.classfile.ClassFileState;
+import com.antiaction.classfile.bytecode.Bytecode;
 import com.antiaction.classfile.bytecode.BytecodeException;
 import com.antiaction.classfile.bytecode.BytecodeState;
 import com.antiaction.classfile.bytecode.IInstruction;
+import com.antiaction.classfile.bytecode.Label;
 import com.antiaction.classfile.bytecode.Opcodes;
 
 public abstract class BranchInstruction extends IInstruction {
@@ -17,6 +21,8 @@ public abstract class BranchInstruction extends IInstruction {
 	public int instruction_index;
 
 	public int branch_offset;
+
+	public Label label;
 
 	public static class Instruction_IFEQ extends BranchInstruction {
 
@@ -42,6 +48,15 @@ public abstract class BranchInstruction extends IInstruction {
 			instr.branch_offset = branch_offset;
 			instr.instruction_branch = instr;
 			return instr;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+			label = bc.jumpTarget( instruction_index + branch_offset );
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "ifeq", Integer.toString( branch_offset ), Integer.toString( instruction_index + branch_offset ) };
 		}
 
 	}
@@ -72,6 +87,15 @@ public abstract class BranchInstruction extends IInstruction {
 			return instr;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+			label = bc.jumpTarget( instruction_index + branch_offset );
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "ifne", Integer.toString( branch_offset ), Integer.toString( instruction_index + branch_offset ) };
+		}
+
 	}
 
 	public static class Instruction_IFLT extends BranchInstruction {
@@ -98,6 +122,15 @@ public abstract class BranchInstruction extends IInstruction {
 			instr.branch_offset = branch_offset;
 			instr.instruction_branch = instr;
 			return instr;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+			label = bc.jumpTarget( instruction_index + branch_offset );
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "iflt", Integer.toString( branch_offset ), Integer.toString( instruction_index + branch_offset ) };
 		}
 
 	}
@@ -128,6 +161,15 @@ public abstract class BranchInstruction extends IInstruction {
 			return instr;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+			label = bc.jumpTarget( instruction_index + branch_offset );
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "ifge", Integer.toString( branch_offset ), Integer.toString( instruction_index + branch_offset ) };
+		}
+
 	}
 
 	public static class Instruction_IFGT extends BranchInstruction {
@@ -154,6 +196,15 @@ public abstract class BranchInstruction extends IInstruction {
 			instr.branch_offset = branch_offset;
 			instr.instruction_branch = instr;
 			return instr;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+			label = bc.jumpTarget( instruction_index + branch_offset );
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "ifgt", Integer.toString( branch_offset ), Integer.toString( instruction_index + branch_offset ) };
 		}
 
 	}
@@ -184,6 +235,15 @@ public abstract class BranchInstruction extends IInstruction {
 			return instr;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+			label = bc.jumpTarget( instruction_index + branch_offset );
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "ifle", Integer.toString( branch_offset ), Integer.toString( instruction_index + branch_offset ) };
+		}
+
 	}
 
 	public static class Instruction_IF_ICMPEQ extends BranchInstruction {
@@ -210,6 +270,15 @@ public abstract class BranchInstruction extends IInstruction {
 			instr.branch_offset = branch_offset;
 			instr.instruction_branch = instr;
 			return instr;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+			label = bc.jumpTarget( instruction_index + branch_offset );
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "if_icmpeq", Integer.toString( branch_offset ), Integer.toString( instruction_index + branch_offset ) };
 		}
 
 	}
@@ -240,6 +309,15 @@ public abstract class BranchInstruction extends IInstruction {
 			return instr;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+			label = bc.jumpTarget( instruction_index + branch_offset );
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "if_icmpne", Integer.toString( branch_offset ), Integer.toString( instruction_index + branch_offset ) };
+		}
+
 	}
 
 	public static class Instruction_IF_ICMPLT extends BranchInstruction {
@@ -266,6 +344,15 @@ public abstract class BranchInstruction extends IInstruction {
 			instr.branch_offset = branch_offset;
 			instr.instruction_branch = instr;
 			return instr;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+			label = bc.jumpTarget( instruction_index + branch_offset );
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "if_icmplt", Integer.toString( branch_offset ), Integer.toString( instruction_index + branch_offset ) };
 		}
 
 	}
@@ -296,6 +383,15 @@ public abstract class BranchInstruction extends IInstruction {
 			return instr;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+			label = bc.jumpTarget( instruction_index + branch_offset );
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "if_icmpge", Integer.toString( branch_offset ), Integer.toString( instruction_index + branch_offset ) };
+		}
+
 	}
 
 	public static class Instruction_IF_ICMPGT extends BranchInstruction {
@@ -322,6 +418,15 @@ public abstract class BranchInstruction extends IInstruction {
 			instr.branch_offset = branch_offset;
 			instr.instruction_branch = instr;
 			return instr;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+			label = bc.jumpTarget( instruction_index + branch_offset );
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "if_icmpgt", Integer.toString( branch_offset ), Integer.toString( instruction_index + branch_offset ) };
 		}
 
 	}
@@ -352,6 +457,15 @@ public abstract class BranchInstruction extends IInstruction {
 			return instr;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+			label = bc.jumpTarget( instruction_index + branch_offset );
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "if_icmple", Integer.toString( branch_offset ), Integer.toString( instruction_index + branch_offset ) };
+		}
+
 	}
 
 	public static class Instruction_IF_ACMPEQ extends BranchInstruction {
@@ -378,6 +492,15 @@ public abstract class BranchInstruction extends IInstruction {
 			instr.branch_offset = branch_offset;
 			instr.instruction_branch = instr;
 			return instr;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+			label = bc.jumpTarget( instruction_index + branch_offset );
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "if_acmpeq", Integer.toString( branch_offset ), Integer.toString( instruction_index + branch_offset ) };
 		}
 
 	}
@@ -408,6 +531,15 @@ public abstract class BranchInstruction extends IInstruction {
 			return instr;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+			label = bc.jumpTarget( instruction_index + branch_offset );
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "if_acmpne", Integer.toString( branch_offset ), Integer.toString( instruction_index + branch_offset ) };
+		}
+
 	}
 
 	public static class Instruction_GOTO extends BranchInstruction {
@@ -434,6 +566,15 @@ public abstract class BranchInstruction extends IInstruction {
 			instr.branch_offset = branch_offset;
 			instr.instruction_branch = instr;
 			return instr;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+			label = bc.jumpTarget( instruction_index + branch_offset );
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "goto", Integer.toString( branch_offset ), Integer.toString( instruction_index + branch_offset ) };
 		}
 
 	}
@@ -464,6 +605,15 @@ public abstract class BranchInstruction extends IInstruction {
 			return instr;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+			label = bc.jumpTarget( instruction_index + branch_offset );
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "ifnull", Integer.toString( branch_offset ), Integer.toString( instruction_index + branch_offset ) };
+		}
+
 	}
 
 	public static class Instruction_IFNONNULL extends BranchInstruction {
@@ -492,6 +642,15 @@ public abstract class BranchInstruction extends IInstruction {
 			return instr;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+			label = bc.jumpTarget( instruction_index + branch_offset );
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "ifnonnull", Integer.toString( branch_offset ), Integer.toString( instruction_index + branch_offset ) };
+		}
+
 	}
 
 	public static class Instruction_GOTO_W extends BranchInstruction {
@@ -518,6 +677,15 @@ public abstract class BranchInstruction extends IInstruction {
 			instr.branch_offset = branch_offset;
 			instr.instruction_branch = instr;
 			return instr;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+			label = bc.jumpTarget( instruction_index + branch_offset );
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "goto_w", Integer.toString( branch_offset ), Integer.toString( instruction_index + branch_offset ) };
 		}
 
 	}

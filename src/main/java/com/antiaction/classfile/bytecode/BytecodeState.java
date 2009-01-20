@@ -10,7 +10,10 @@ package com.antiaction.classfile.bytecode;
 public class BytecodeState {
 
 	public byte[] bytes;
+
 	public int index = 0;
+
+	public int opcode_index = 0;
 
 	public BytecodeState(byte[] bytes) {
 		this.bytes = bytes;

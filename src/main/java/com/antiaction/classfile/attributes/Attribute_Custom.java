@@ -31,6 +31,10 @@ public class Attribute_Custom extends IAttribute {
 	}
 
 	@Override
+	public void buildResolve() throws ClassFileException {
+	}
+
+	@Override
 	public byte[] build() throws IOException {
 		return bytes;
 	}

@@ -12,13 +12,19 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.antiaction.classfile.constantpool.ConstantPool;
+
 public abstract class IConstantPool_Info {
 
 	public Set<Object> referenced_by = new HashSet<Object>();
 
+	public ConstantPool cp;
+
 	public int index = 0;
 
-	public abstract void parseResolve(ClassFileState cfs);
+	public abstract void parseResolve(ClassFileState cfs) throws ClassFileException;
+
+	public abstract void buildResolve() throws ClassFileException;
 
 	public abstract void build(ByteArrayOutputStream bytes) throws IOException;
 

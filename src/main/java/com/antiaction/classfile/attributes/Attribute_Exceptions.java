@@ -32,7 +32,7 @@ public class Attribute_Exceptions extends IAttribute {
 		int number_of_exceptions = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 
 		// debug
-		System.out.println( " Exceptions: " + number_of_exceptions );
+		//System.out.println( " Exceptions: " + number_of_exceptions );
 
 		for ( int i=0; i<number_of_exceptions; ++i ) {
 			cfs.assert_unexpected_eof( 2 );
@@ -50,6 +50,10 @@ public class Attribute_Exceptions extends IAttribute {
 		attribute.exceptionIndexTableList = exceptionIndexTableList;
 
 		return attribute;
+	}
+
+	@Override
+	public void buildResolve() throws ClassFileException {
 	}
 
 	@Override

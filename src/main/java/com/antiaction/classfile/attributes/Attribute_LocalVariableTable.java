@@ -16,6 +16,7 @@ import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
 import com.antiaction.classfile.IAttribute;
 import com.antiaction.classfile.IDescriptor;
+import com.antiaction.classfile.constantpool.ConstantPool_Utf8;
 import com.antiaction.classfile.descriptors.Descriptors;
 
 public class Attribute_LocalVariableTable extends IAttribute {
@@ -30,18 +31,22 @@ public class Attribute_LocalVariableTable extends IAttribute {
 
 		int start_pc;
 		int length;
-		int name_index;
-		int descriptor_index;
-		int index;
 
+		int name_index;
+		ConstantPool_Utf8 name_cp;
 		String name;
+
+		int descriptor_index;
+		ConstantPool_Utf8 descriptor_cp;
 		String descriptor_string;
 		IDescriptor descriptor;
+
+		int index;
 
 		int local_variable_table_length = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 
 		// debug
-		System.out.println( " Entries: " + local_variable_table_length );
+		//System.out.println( " Entries: " + local_variable_table_length );
 
 		for ( int i=0; i<local_variable_table_length; ++i ) {
 			cfs.assert_unexpected_eof( 10 );
@@ -52,22 +57,26 @@ public class Attribute_LocalVariableTable extends IAttribute {
 			descriptor_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 			index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 
-			name = cfs.cf.constantpool.getUtf8( name_index );
+			name_cp = cfs.cf.constantpool.getUtf8( name_index );
+			name = name_cp.utf8;
 
-			descriptor_string = cfs.cf.constantpool.getUtf8( descriptor_index );
+			descriptor_cp = cfs.cf.constantpool.getUtf8( descriptor_index );
+			descriptor_string = descriptor_cp.utf8;
 
 			descriptor = Descriptors.parseFieldDescriptor( descriptor_string );
 
 			// debug
-			System.out.println( "Field: " + name_index + "=" + name + " of type " + descriptor_index + "=" + descriptor_string );
+			//System.out.println( "Field: " + name_index + "=" + name + " of type " + descriptor_index + "=" + descriptor_string );
 
 			localVariableTable = new LocalVariableTable();
 			localVariableTable.start_pc = start_pc;
 			localVariableTable.length = length;
 			localVariableTable.name_index = name_index;
-			localVariableTable.descriptor_index = descriptor_index;
-			localVariableTable.index = index;
+			localVariableTable.name_cp = name_cp;
 			localVariableTable.name = name;
+			localVariableTable.descriptor_index = descriptor_index;
+			localVariableTable.descriptor_cp = descriptor_cp;
+			localVariableTable.index = index;
 			localVariableTable.descriptor_string = descriptor_string;
 			localVariableTableList.add( localVariableTable );
 		}
@@ -76,6 +85,18 @@ public class Attribute_LocalVariableTable extends IAttribute {
 		attribute.localVariableTableList = localVariableTableList;
 
 		return attribute;
+	}
+
+	@Override
+	public void buildResolve() throws ClassFileException {
+		LocalVariableTable localVariableTable;
+		for ( int i=0; i<localVariableTableList.size(); ++i ) {
+			localVariableTable = localVariableTableList.get( i );
+			localVariableTable.name_cp.buildResolve();
+			localVariableTable.name_index = localVariableTable.name_cp.index;
+			localVariableTable.descriptor_cp.buildResolve();
+			localVariableTable.descriptor_index = localVariableTable.descriptor_cp.index;
+		}
 	}
 
 	@Override

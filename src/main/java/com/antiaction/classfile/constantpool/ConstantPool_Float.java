@@ -27,7 +27,7 @@ public class ConstantPool_Float extends IConstantPool_Info {
 		float f = Float.intBitsToFloat( i );
 
 		// debug
-		System.out.println( "Float: " + f );
+		//System.out.println( "Float: " + f );
 
 		ConstantPool_Float cp_info = new ConstantPool_Float();
 		cp_info.f = f;
@@ -36,7 +36,15 @@ public class ConstantPool_Float extends IConstantPool_Info {
 	}
 
 	@Override
-	public void parseResolve(ClassFileState cfs) {
+	public void parseResolve(ClassFileState cfs) throws ClassFileException {
+	}
+
+	@Override
+	public void buildResolve() throws ClassFileException {
+		if ( index == 0 ) {
+			index = cp.constantpool_infolist.size();
+			cp.constantpool_infolist.add( this );
+		}
 	}
 
 	@Override

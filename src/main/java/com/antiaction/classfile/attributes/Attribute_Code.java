@@ -71,7 +71,7 @@ public class Attribute_Code extends IAttribute {
 		int attributes_count = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 
 		// debug
-		System.out.println( "Attributes: " + attributes_count );
+		//System.out.println( "Attributes: " + attributes_count );
 
 		Attributes attributes = Attributes.parseAttributes( cfs, attributes_count );
 
@@ -83,6 +83,11 @@ public class Attribute_Code extends IAttribute {
 		attribute.attributes = attributes;
 
 		return attribute;
+	}
+
+	@Override
+	public void buildResolve() throws ClassFileException {
+		attributes.buildResolve();
 	}
 
 	@Override

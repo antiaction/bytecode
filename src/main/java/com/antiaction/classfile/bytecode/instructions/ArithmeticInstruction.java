@@ -7,6 +7,9 @@
 
 package com.antiaction.classfile.bytecode.instructions;
 
+import com.antiaction.classfile.ClassFileException;
+import com.antiaction.classfile.ClassFileState;
+import com.antiaction.classfile.bytecode.Bytecode;
 import com.antiaction.classfile.bytecode.BytecodeException;
 import com.antiaction.classfile.bytecode.BytecodeState;
 import com.antiaction.classfile.bytecode.IInstruction;
@@ -36,6 +39,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 				instance = new Instruction_IADD();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -68,6 +75,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "ladd" };
 		}
@@ -96,6 +107,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 				instance = new Instruction_FADD();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -128,6 +143,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "dadd" };
 		}
@@ -156,6 +175,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 				instance = new Instruction_ISUB();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -188,6 +211,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "lsub" };
 		}
@@ -216,6 +243,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 				instance = new Instruction_FSUB();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -248,6 +279,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "dsub" };
 		}
@@ -276,6 +311,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 				instance = new Instruction_IMUL();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -308,6 +347,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "lmul" };
 		}
@@ -336,6 +379,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 				instance = new Instruction_FMUL();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -368,6 +415,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "dmul" };
 		}
@@ -396,6 +447,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 				instance = new Instruction_IDIV();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -428,6 +483,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "ldiv" };
 		}
@@ -456,6 +515,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 				instance = new Instruction_FDIV();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -488,6 +551,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "ddiv" };
 		}
@@ -516,6 +583,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 				instance = new Instruction_IREM();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -548,6 +619,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "lrem" };
 		}
@@ -576,6 +651,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 				instance = new Instruction_FREM();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -608,6 +687,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "drem" };
 		}
@@ -636,6 +719,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 				instance = new Instruction_INEG();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -668,6 +755,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "lneg" };
 		}
@@ -696,6 +787,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 				instance = new Instruction_FNEG();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -728,6 +823,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "dneg" };
 		}
@@ -756,6 +855,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 				instance = new Instruction_ISHL();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -788,6 +891,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "lshl" };
 		}
@@ -816,6 +923,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 				instance = new Instruction_ISHR();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -848,6 +959,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "lshr" };
 		}
@@ -876,6 +991,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 				instance = new Instruction_IUSHR();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -908,6 +1027,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "lushr" };
 		}
@@ -936,6 +1059,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 				instance = new Instruction_IAND();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -968,6 +1095,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "land" };
 		}
@@ -996,6 +1127,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 				instance = new Instruction_IOR();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -1028,6 +1163,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "lor" };
 		}
@@ -1056,6 +1195,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 				instance = new Instruction_IXOR();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -1088,6 +1231,10 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "lxor" };
 		}
@@ -1115,11 +1262,24 @@ public abstract class ArithmeticInstruction extends IInstruction {
 			return instr;
 		}
 
+		public static IInstruction parseWide(BytecodeState bcs) throws BytecodeException {
+			bcs.assert_unexpected_eof( 2 );
+			Instruction_IINC instr = new Instruction_IINC();
+			instr.length = 5;
+			instr.index = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+			instr.constant = bcs.bytes[ bcs.index++ ] << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+			return instr;
+		}
+
 		public static IInstruction getInstance(int index, int constant) {
 			Instruction_IINC instr = new Instruction_IINC(); 
 			instr.index = index;
 			instr.constant = constant;
 			return instr;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {

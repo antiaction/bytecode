@@ -20,13 +20,17 @@ public class ConstantPool_String extends IConstantPool_Info {
 
 	public int string_index;
 
+	public ConstantPool_Utf8 cp_string;
+
+	public String string;
+
 	public static IConstantPool_Info parseString(ClassFileState cfs) throws ClassFileException {
 		cfs.assert_unexpected_eof( 2 );
 
 		int string_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 
 		// debug
-		System.out.println( "String: " + string_index );
+		//System.out.println( "String: " + string_index );
 
 		ConstantPool_String cp_info = new ConstantPool_String();
 		cp_info.string_index = string_index;
@@ -35,7 +39,19 @@ public class ConstantPool_String extends IConstantPool_Info {
 	}
 
 	@Override
-	public void parseResolve(ClassFileState cfs) {
+	public void parseResolve(ClassFileState cfs) throws ClassFileException {
+		cp_string = cp.getUtf8( string_index );
+		string = cp_string.utf8;
+	}
+
+	@Override
+	public void buildResolve() throws ClassFileException {
+		if ( index == 0 ) {
+			index = cp.constantpool_infolist.size();
+			cp.constantpool_infolist.add( this );
+			cp_string.buildResolve();
+			string_index = cp_string.index;
+		}
 	}
 
 	@Override

@@ -7,6 +7,9 @@
 
 package com.antiaction.classfile.bytecode.instructions;
 
+import com.antiaction.classfile.ClassFileException;
+import com.antiaction.classfile.ClassFileState;
+import com.antiaction.classfile.bytecode.Bytecode;
 import com.antiaction.classfile.bytecode.BytecodeException;
 import com.antiaction.classfile.bytecode.BytecodeState;
 import com.antiaction.classfile.bytecode.IInstruction;
@@ -32,10 +35,22 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 			return instr;
 		}
 
+		public static IInstruction parseWide(BytecodeState bcs) throws BytecodeException {
+			bcs.assert_unexpected_eof( 2 );
+			Instruction_ILOAD instr = new Instruction_ILOAD(); 
+			instr.length = 3;
+			instr.index = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+			return instr;
+		}
+
 		public static IInstruction getInstance(int index) {
 			Instruction_ILOAD instr = new Instruction_ILOAD(); 
 			instr.index = index;
 			return instr;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -60,10 +75,22 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 			return instr;
 		}
 
+		public static IInstruction parseWide(BytecodeState bcs) throws BytecodeException {
+			bcs.assert_unexpected_eof( 2 );
+			Instruction_LLOAD instr = new Instruction_LLOAD(); 
+			instr.length = 3;
+			instr.index = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+			return instr;
+		}
+
 		public static IInstruction getInstance(int index) {
 			Instruction_LLOAD instr = new Instruction_LLOAD(); 
 			instr.index = index;
 			return instr;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -88,10 +115,22 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 			return instr;
 		}
 
+		public static IInstruction parseWide(BytecodeState bcs) throws BytecodeException {
+			bcs.assert_unexpected_eof( 2 );
+			Instruction_FLOAD instr = new Instruction_FLOAD(); 
+			instr.length = 3;
+			instr.index = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+			return instr;
+		}
+
 		public static IInstruction getInstance(int index) {
 			Instruction_FLOAD instr = new Instruction_FLOAD(); 
 			instr.index = index;
 			return instr;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -116,10 +155,22 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 			return instr;
 		}
 
+		public static IInstruction parseWide(BytecodeState bcs) throws BytecodeException {
+			bcs.assert_unexpected_eof( 2 );
+			Instruction_DLOAD instr = new Instruction_DLOAD(); 
+			instr.length = 3;
+			instr.index = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+			return instr;
+		}
+
 		public static IInstruction getInstance(int index) {
 			Instruction_DLOAD instr = new Instruction_DLOAD(); 
 			instr.index = index;
 			return instr;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -144,10 +195,22 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 			return instr;
 		}
 
+		public static IInstruction parseWide(BytecodeState bcs) throws BytecodeException {
+			bcs.assert_unexpected_eof( 2 );
+			Instruction_ALOAD instr = new Instruction_ALOAD(); 
+			instr.length = 3;
+			instr.index = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+			return instr;
+		}
+
 		public static IInstruction getInstance(int index) {
 			Instruction_ALOAD instr = new Instruction_ALOAD(); 
 			instr.index = index;
 			return instr;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -181,6 +244,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "iload_0", Integer.toString( index ) };
 		}
@@ -210,6 +277,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 				instance = new Instruction_ILOAD_1();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -243,6 +314,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "iload_2", Integer.toString( index ) };
 		}
@@ -272,6 +347,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 				instance = new Instruction_ILOAD_3();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -305,6 +384,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "lload_0", Integer.toString( index ) };
 		}
@@ -334,6 +417,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 				instance = new Instruction_LLOAD_1();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -367,6 +454,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "lload_2", Integer.toString( index ) };
 		}
@@ -396,6 +487,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 				instance = new Instruction_LLOAD_3();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -429,6 +524,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "fload_0", Integer.toString( index ) };
 		}
@@ -458,6 +557,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 				instance = new Instruction_FLOAD_1();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -491,6 +594,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "fload_2", Integer.toString( index ) };
 		}
@@ -520,6 +627,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 				instance = new Instruction_FLOAD_3();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -553,6 +664,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "dload_0", Integer.toString( index ) };
 		}
@@ -582,6 +697,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 				instance = new Instruction_DLOAD_1();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -615,6 +734,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "dload_2", Integer.toString( index ) };
 		}
@@ -644,6 +767,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 				instance = new Instruction_DLOAD_3();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -677,6 +804,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "aload_0", Integer.toString( index ) };
 		}
@@ -706,6 +837,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 				instance = new Instruction_ALOAD_1();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -739,6 +874,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "aload_2", Integer.toString( index ) };
 		}
@@ -768,6 +907,10 @@ public abstract class LocalVariableLoadInstruction extends IInstruction {
 				instance = new Instruction_ALOAD_3();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {

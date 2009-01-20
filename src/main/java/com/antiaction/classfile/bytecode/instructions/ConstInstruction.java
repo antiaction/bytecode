@@ -7,6 +7,9 @@
 
 package com.antiaction.classfile.bytecode.instructions;
 
+import com.antiaction.classfile.ClassFileException;
+import com.antiaction.classfile.ClassFileState;
+import com.antiaction.classfile.bytecode.Bytecode;
 import com.antiaction.classfile.bytecode.BytecodeException;
 import com.antiaction.classfile.bytecode.BytecodeState;
 import com.antiaction.classfile.bytecode.IInstruction;
@@ -41,6 +44,10 @@ public abstract class ConstInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "iconst_m1", "-1" };
 		}
@@ -70,6 +77,10 @@ public abstract class ConstInstruction extends IInstruction {
 				instance = new Instruction_ICONST_0();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -103,6 +114,10 @@ public abstract class ConstInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "iconst_1", "1" };
 		}
@@ -132,6 +147,10 @@ public abstract class ConstInstruction extends IInstruction {
 				instance = new Instruction_ICONST_2();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -165,6 +184,10 @@ public abstract class ConstInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "iconst_3", "3" };
 		}
@@ -194,6 +217,10 @@ public abstract class ConstInstruction extends IInstruction {
 				instance = new Instruction_ICONST_4();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -227,6 +254,10 @@ public abstract class ConstInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "iconst_5", "5" };
 		}
@@ -256,6 +287,10 @@ public abstract class ConstInstruction extends IInstruction {
 				instance = new Instruction_LCONST_0();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -289,6 +324,10 @@ public abstract class ConstInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "lconst_1", "1" };
 		}
@@ -318,6 +357,10 @@ public abstract class ConstInstruction extends IInstruction {
 				instance = new Instruction_FCONST_0();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -351,6 +394,10 @@ public abstract class ConstInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "fconst_1", "1.0" };
 		}
@@ -380,6 +427,10 @@ public abstract class ConstInstruction extends IInstruction {
 				instance = new Instruction_FCONST_2();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -413,6 +464,10 @@ public abstract class ConstInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "dconst_0", "0.0" };
 		}
@@ -444,6 +499,10 @@ public abstract class ConstInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "dconst_1", "1.0" };
 		}
@@ -472,6 +531,10 @@ public abstract class ConstInstruction extends IInstruction {
 			return instr;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "bipush", Integer.toString( constant ) };
 		}
@@ -498,6 +561,10 @@ public abstract class ConstInstruction extends IInstruction {
 			Instruction_SIPUSH instr = new Instruction_SIPUSH(); 
 			instr.constant = constant;
 			return instr;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {

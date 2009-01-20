@@ -14,14 +14,6 @@ public class ClassFileState {
 
 	public ClassFile cf;
 
-	public boolean bClass = false;
-
-	public boolean bFinal = false;
-
-	public boolean bInterface = false;
-
-	public boolean bAbstract = false;
-
 	public ClassFileState(byte[] bytes) {
 		this.bytes = bytes;
 	}

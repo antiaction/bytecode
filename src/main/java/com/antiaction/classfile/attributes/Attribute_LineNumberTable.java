@@ -32,7 +32,7 @@ public class Attribute_LineNumberTable extends IAttribute {
 		int line_number_table_length = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 
 		// debug
-		System.out.println( " Entries: " + line_number_table_length );
+		//System.out.println( " Entries: " + line_number_table_length );
 
 		for ( int i=0; i<line_number_table_length; ++i ) {
 			cfs.assert_unexpected_eof( 4 );
@@ -50,6 +50,10 @@ public class Attribute_LineNumberTable extends IAttribute {
 		attribute.lineNumberTableList = lineNumberTableList;
 
 		return attribute;
+	}
+
+	@Override
+	public void buildResolve() throws ClassFileException {
 	}
 
 	@Override

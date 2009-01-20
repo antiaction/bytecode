@@ -7,6 +7,9 @@
 
 package com.antiaction.classfile.bytecode.instructions;
 
+import com.antiaction.classfile.ClassFileException;
+import com.antiaction.classfile.ClassFileState;
+import com.antiaction.classfile.bytecode.Bytecode;
 import com.antiaction.classfile.bytecode.BytecodeException;
 import com.antiaction.classfile.bytecode.BytecodeState;
 import com.antiaction.classfile.bytecode.IInstruction;
@@ -38,6 +41,14 @@ public abstract class ConstantPoolLoadFromInstruction extends IInstruction {
 			return instr;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "ldc", Integer.toString( index ) };
+		}
+
 	}
 
 	public static class Instruction_LDC_W extends ConstantPoolLoadFromInstruction {
@@ -62,6 +73,14 @@ public abstract class ConstantPoolLoadFromInstruction extends IInstruction {
 			return instr;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "ldc_w", Integer.toString( index ) };
+		}
+
 	}
 
 	public static class Instruction_LDC2_W extends ConstantPoolLoadFromInstruction {
@@ -84,6 +103,14 @@ public abstract class ConstantPoolLoadFromInstruction extends IInstruction {
 			Instruction_LDC2_W instr = new Instruction_LDC2_W(); 
 			instr.index = index;
 			return instr;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
+		public String[] toInstrString() {
+			return new String[]{ "ldc2_w", Integer.toString( index ) };
 		}
 
 	}

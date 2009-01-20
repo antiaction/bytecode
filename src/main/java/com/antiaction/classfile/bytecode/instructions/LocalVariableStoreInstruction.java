@@ -7,6 +7,9 @@
 
 package com.antiaction.classfile.bytecode.instructions;
 
+import com.antiaction.classfile.ClassFileException;
+import com.antiaction.classfile.ClassFileState;
+import com.antiaction.classfile.bytecode.Bytecode;
 import com.antiaction.classfile.bytecode.BytecodeException;
 import com.antiaction.classfile.bytecode.BytecodeState;
 import com.antiaction.classfile.bytecode.IInstruction;
@@ -32,10 +35,22 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 			return instr;
 		}
 
+		public static IInstruction parseWide(BytecodeState bcs) throws BytecodeException {
+			bcs.assert_unexpected_eof( 1 );
+			Instruction_ISTORE instr = new Instruction_ISTORE(); 
+			instr.length = 3;
+			instr.index = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+			return instr;
+		}
+
 		public static IInstruction getInstance(int index) {
 			Instruction_ISTORE instr = new Instruction_ISTORE(); 
 			instr.index = index;
 			return instr;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -60,10 +75,22 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 			return instr;
 		}
 
+		public static IInstruction parseWide(BytecodeState bcs) throws BytecodeException {
+			bcs.assert_unexpected_eof( 1 );
+			Instruction_LSTORE instr = new Instruction_LSTORE(); 
+			instr.length = 3;
+			instr.index = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+			return instr;
+		}
+
 		public static IInstruction getInstance(int index) {
 			Instruction_LSTORE instr = new Instruction_LSTORE(); 
 			instr.index = index;
 			return instr;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -88,10 +115,22 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 			return instr;
 		}
 
+		public static IInstruction parseWide(BytecodeState bcs) throws BytecodeException {
+			bcs.assert_unexpected_eof( 1 );
+			Instruction_FSTORE instr = new Instruction_FSTORE(); 
+			instr.length = 3;
+			instr.index = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+			return instr;
+		}
+
 		public static IInstruction getInstance(int index) {
 			Instruction_FSTORE instr = new Instruction_FSTORE(); 
 			instr.index = index;
 			return instr;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -116,10 +155,22 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 			return instr;
 		}
 
+		public static IInstruction parseWide(BytecodeState bcs) throws BytecodeException {
+			bcs.assert_unexpected_eof( 1 );
+			Instruction_DSTORE instr = new Instruction_DSTORE(); 
+			instr.length = 3;
+			instr.index = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+			return instr;
+		}
+
 		public static IInstruction getInstance(int index) {
 			Instruction_DSTORE instr = new Instruction_DSTORE(); 
 			instr.index = index;
 			return instr;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -144,10 +195,22 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 			return instr;
 		}
 
+		public static IInstruction parseWide(BytecodeState bcs) throws BytecodeException {
+			bcs.assert_unexpected_eof( 1 );
+			Instruction_ASTORE instr = new Instruction_ASTORE(); 
+			instr.length = 3;
+			instr.index = (bcs.bytes[ bcs.index++ ] & 255) << 8 | (bcs.bytes[ bcs.index++ ] & 255);
+			return instr;
+		}
+
 		public static IInstruction getInstance(int index) {
 			Instruction_ASTORE instr = new Instruction_ASTORE(); 
 			instr.index = index;
 			return instr;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -181,6 +244,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "istore_0", Integer.toString( index ) };
 		}
@@ -210,6 +277,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 				instance = new Instruction_ISTORE_1();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -243,6 +314,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "istore_2", Integer.toString( index ) };
 		}
@@ -272,6 +347,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 				instance = new Instruction_ISTORE_3();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -305,6 +384,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "lstore_0", Integer.toString( index ) };
 		}
@@ -334,6 +417,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 				instance = new Instruction_LSTORE_1();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -367,6 +454,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "lstore_2", Integer.toString( index ) };
 		}
@@ -396,6 +487,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 				instance = new Instruction_LSTORE_3();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -429,6 +524,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "fstore_0", Integer.toString( index ) };
 		}
@@ -458,6 +557,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 				instance = new Instruction_FSTORE_1();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -491,6 +594,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "fstore_2", Integer.toString( index ) };
 		}
@@ -520,6 +627,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 				instance = new Instruction_FSTORE_3();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -553,6 +664,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "dstore_0", Integer.toString( index ) };
 		}
@@ -582,6 +697,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 				instance = new Instruction_DSTORE_1();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -615,6 +734,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "dstore_2", Integer.toString( index ) };
 		}
@@ -644,6 +767,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 				instance = new Instruction_DSTORE_3();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -677,6 +804,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "astore_0", Integer.toString( index ) };
 		}
@@ -706,6 +837,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 				instance = new Instruction_ASTORE_1();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {
@@ -739,6 +874,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 			return instance;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 		public String[] toInstrString() {
 			return new String[]{ "astore_2", Integer.toString( index ) };
 		}
@@ -768,6 +907,10 @@ public abstract class LocalVariableStoreInstruction extends IInstruction {
 				instance = new Instruction_ASTORE_3();
 			}
 			return instance;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 		public String[] toInstrString() {

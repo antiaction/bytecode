@@ -7,6 +7,9 @@
 
 package com.antiaction.classfile.bytecode.instructions;
 
+import com.antiaction.classfile.ClassFileException;
+import com.antiaction.classfile.ClassFileState;
+import com.antiaction.classfile.bytecode.Bytecode;
 import com.antiaction.classfile.bytecode.BytecodeException;
 import com.antiaction.classfile.bytecode.BytecodeState;
 import com.antiaction.classfile.bytecode.IInstruction;
@@ -36,7 +39,7 @@ public abstract class SwitchInstruction extends IInstruction {
 			instr.instruction_index = bcs.index - 1;
 
 			byte pad;
-			while ( bcs.index % 3 != 0 ) {
+			while ( bcs.index % 4 != 0 ) {
 				bcs.assert_unexpected_eof( 1 );
 				pad = bcs.bytes[ bcs.index++ ];
 				if ( pad != 0 ) {
@@ -66,6 +69,10 @@ public abstract class SwitchInstruction extends IInstruction {
 			return instr;
 		}
 
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
+		}
+
 	}
 
 	public static class Instruction_LOOKUPSWITCH extends SwitchInstruction {
@@ -88,7 +95,7 @@ public abstract class SwitchInstruction extends IInstruction {
 			instr.instruction_index = bcs.index - 1;
 
 			byte pad;
-			while ( bcs.index % 3 != 0 ) {
+			while ( bcs.index % 4 != 0 ) {
 				bcs.assert_unexpected_eof( 1 );
 				pad = bcs.bytes[ bcs.index++ ];
 				if ( pad != 0 ) {
@@ -116,6 +123,10 @@ public abstract class SwitchInstruction extends IInstruction {
 		public static IInstruction getInstance(int s) {
 			Instruction_LOOKUPSWITCH instr = new Instruction_LOOKUPSWITCH(); 
 			return instr;
+		}
+
+		@Override
+		public void parseResolve(ClassFileState cfs, Bytecode bc) throws ClassFileException {
 		}
 
 	}
