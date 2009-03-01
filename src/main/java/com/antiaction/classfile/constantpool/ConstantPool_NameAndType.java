@@ -16,8 +16,6 @@ import com.antiaction.classfile.IConstantPool_Info;
 
 public class ConstantPool_NameAndType extends IConstantPool_Info {
 
-	public int tag = ConstantPool.CONSTANT_NameAndType;
-
 	public int name_index;
 
 	public ConstantPool_Utf8 cp_name;
@@ -29,6 +27,10 @@ public class ConstantPool_NameAndType extends IConstantPool_Info {
 	public ConstantPool_Utf8 cp_descriptor;
 
 	public String descriptor;
+
+	public ConstantPool_NameAndType() {
+		tag = ConstantPool.CONSTANT_NameAndType;
+	}
 
 	public static IConstantPool_Info parseNameAndType(ClassFileState cfs) throws ClassFileException {
 		cfs.assert_unexpected_eof( 4 );

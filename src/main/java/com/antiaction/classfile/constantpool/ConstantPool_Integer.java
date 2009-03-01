@@ -16,9 +16,11 @@ import com.antiaction.classfile.IConstantPool_Info;
 
 public class ConstantPool_Integer extends IConstantPool_Info {
 
-	public int tag = ConstantPool.CONSTANT_Integer;
-
 	public int i;
+
+	public ConstantPool_Integer() {
+		tag = ConstantPool.CONSTANT_Integer;
+	}
 
 	public static IConstantPool_Info parseInteger(ClassFileState cfs) throws ClassFileException {
 		cfs.assert_unexpected_eof( 4 );

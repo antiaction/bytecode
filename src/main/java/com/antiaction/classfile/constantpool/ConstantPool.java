@@ -31,6 +31,28 @@ public class ConstantPool {
 	public static final int CONSTANT_NameAndType = 12;
 	//public static final int CONSTANT_ = ;
 
+	public static final int CT_CONST = 1;
+	public static final int CT_UTF8 = 2;
+	public static final int CT_CLASS = 3;
+	public static final int CT_REF = 4;
+	public static final int CT_NT = 5;
+
+	public static final int[] cp_info2type = new int[ 12 + 1 ];
+
+	static {
+		cp_info2type[ CONSTANT_Integer ] = CT_CONST;
+		cp_info2type[ CONSTANT_Float ] = CT_CONST;
+		cp_info2type[ CONSTANT_Long ] = CT_CONST;
+		cp_info2type[ CONSTANT_Double ] = CT_CONST;
+   		cp_info2type[ CONSTANT_String ] = CT_CONST;
+		cp_info2type[ CONSTANT_Utf8 ] = CT_UTF8;
+		cp_info2type[ CONSTANT_Class ] = CT_CLASS;
+		cp_info2type[ CONSTANT_Fieldref ] = CT_REF;
+		cp_info2type[ CONSTANT_Methodref ] = CT_REF;
+		cp_info2type[ CONSTANT_InterfaceMethodref ] = CT_REF;
+		cp_info2type[ CONSTANT_NameAndType ] = CT_NT;
+	}
+
 	public List<IConstantPool_Info> constantpool_infolist = null;
 
 	protected List<ConstantPool_Utf8> utf8_constants = new ArrayList<ConstantPool_Utf8>();
@@ -381,6 +403,11 @@ public class ConstantPool {
 		}
 
 		IConstantPool_Info cp_info = constantpool_infolist.get( index );
+
+		if ( cp_info2type[ cp_info.tag ] != CT_CONST ) {
+			System.out.println( cp_info.tag );
+			throw new ClassFileException( "cp_info not a constant value" );
+		}
 
 		return null;
 	}

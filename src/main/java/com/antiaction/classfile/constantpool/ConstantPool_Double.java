@@ -16,9 +16,11 @@ import com.antiaction.classfile.IConstantPool_Info;
 
 public class ConstantPool_Double extends IConstantPool_Info {
 
-	public int tag = ConstantPool.CONSTANT_Double;
-
 	public double d;
+
+	public ConstantPool_Double() {
+		tag = ConstantPool.CONSTANT_Double;
+	}
 
 	public static IConstantPool_Info parseDouble(ClassFileState cfs) throws ClassFileException {
 		cfs.assert_unexpected_eof( 8 );

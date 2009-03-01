@@ -16,6 +16,8 @@ import com.antiaction.classfile.constantpool.ConstantPool;
 
 public abstract class IConstantPool_Info {
 
+	public int tag;
+
 	public Set<Object> referenced_by = new HashSet<Object>();
 
 	public ConstantPool cp;

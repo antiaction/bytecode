@@ -16,13 +16,15 @@ import com.antiaction.classfile.IConstantPool_Info;
 
 public class ConstantPool_String extends IConstantPool_Info {
 
-	public int tag = ConstantPool.CONSTANT_String;
-
 	public int string_index;
 
 	public ConstantPool_Utf8 cp_string;
 
 	public String string;
+
+	public ConstantPool_String() {
+		tag = ConstantPool.CONSTANT_String;
+	}
 
 	public static IConstantPool_Info parseString(ClassFileState cfs) throws ClassFileException {
 		cfs.assert_unexpected_eof( 2 );

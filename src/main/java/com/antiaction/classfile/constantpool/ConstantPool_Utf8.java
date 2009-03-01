@@ -16,9 +16,11 @@ import com.antiaction.classfile.IConstantPool_Info;
 
 public class ConstantPool_Utf8 extends IConstantPool_Info {
 
-	public int tag = ConstantPool.CONSTANT_Utf8;
-
 	public String utf8;
+
+	public ConstantPool_Utf8() {
+		tag = ConstantPool.CONSTANT_Utf8;
+	}
 
 	public static IConstantPool_Info parseUtf8(ClassFileState cfs) throws ClassFileException {
 		cfs.assert_unexpected_eof( 2 );

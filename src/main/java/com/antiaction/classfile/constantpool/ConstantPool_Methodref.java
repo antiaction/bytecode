@@ -16,8 +16,6 @@ import com.antiaction.classfile.IConstantPool_Info;
 
 public class ConstantPool_Methodref extends IConstantPool_Info {
 
-	public int tag = ConstantPool.CONSTANT_Methodref;
-
 	public int class_index;
 
 	public ConstantPool_Class cp_class;
@@ -27,6 +25,10 @@ public class ConstantPool_Methodref extends IConstantPool_Info {
 	public int name_and_type_index;
 
 	public ConstantPool_NameAndType cp_name_and_type;
+
+	public ConstantPool_Methodref() {
+		tag = ConstantPool.CONSTANT_Methodref;
+	}
 
 	public static IConstantPool_Info parseMethodref(ClassFileState cfs) throws ClassFileException {
 		cfs.assert_unexpected_eof( 4 );

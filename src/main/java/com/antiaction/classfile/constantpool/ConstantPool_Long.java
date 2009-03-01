@@ -16,9 +16,11 @@ import com.antiaction.classfile.IConstantPool_Info;
 
 public class ConstantPool_Long extends IConstantPool_Info {
 
-	public int tag = ConstantPool.CONSTANT_Long;
-
 	public long l;
+
+	public ConstantPool_Long() {
+		tag = ConstantPool.CONSTANT_Long;
+	}
 
 	public static IConstantPool_Info parseLong(ClassFileState cfs) throws ClassFileException {
 		cfs.assert_unexpected_eof( 8 );

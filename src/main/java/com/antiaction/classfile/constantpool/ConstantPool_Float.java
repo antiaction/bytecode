@@ -16,9 +16,11 @@ import com.antiaction.classfile.IConstantPool_Info;
 
 public class ConstantPool_Float extends IConstantPool_Info {
 
-	public int tag = ConstantPool.CONSTANT_Float;
-
 	public float f;
+
+	public ConstantPool_Float() {
+		tag = ConstantPool.CONSTANT_Float;
+	}
 
 	public static IConstantPool_Info parseFloat(ClassFileState cfs) throws ClassFileException {
 		cfs.assert_unexpected_eof( 4 );
