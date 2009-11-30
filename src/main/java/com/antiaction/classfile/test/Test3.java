@@ -5,10 +5,12 @@
  * Window - Preferences - Java - Code Style - Code Templates
  */
 
-package com.antiaction.classfile;
+package com.antiaction.classfile.test;
 
 import java.io.IOException;
 
+import com.antiaction.classfile.ClassFile;
+import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.bytecode.BytecodeException;
 
 public class Test3 {
