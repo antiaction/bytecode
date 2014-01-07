@@ -24,8 +24,9 @@ public class Test2 {
 
 	public void Main(String[] args) {
 		//File root = new File( "bin" );
-		File root = new File( "D:\\[Java-work]\\workspace\\" );
+		//File root = new File( "D:\\[Java-work]\\workspace\\" );
 		//File root = new File( "bin/com/antiaction/classfile/" );
+		File root = new File( "C:\\data\\[Java-work]\\workspace\\" );
 		parseDir( root );
 
 		System.out.println( loaded );

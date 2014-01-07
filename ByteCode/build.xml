@@ -1,0 +1,89 @@
+<project name="classfile" default="compile" basedir=".">
+	<description>
+		Classfile
+	</description>
+
+	<!-- set global properties for this build -->
+	<property name="src" location="src"/>
+	<property name="build" location="build"/>
+	<property name="build-dbg" location="build-dbg"/>
+	<property name="dist"  location="dist"/>
+	<property name="lib.dir" location="lib" />
+
+	<!-- set classpath -->
+	<path id="project.class.path">
+		<!--
+		<pathelement location="c:/java/eclipse/workspace/packages/bin/" />
+		<pathelement location="${lib.dir}/antiaction-commons.jar" />
+		-->
+	</path>
+
+	<target name="clean" description="clean up" >
+		<!-- Delete the ${build} and ${dist} directory trees -->
+		<delete dir="${build}"/>
+		<delete dir="${build-dbg}"/>
+		<delete dir="${dist}"/>
+	</target>
+
+	<target name="init">
+		<!-- Create the time stamp -->
+		<tstamp/>
+		<!-- Create the build directory structure used by compile -->
+		<mkdir dir="${build}"/>
+		<mkdir dir="${build-dbg}"/>
+	</target>
+
+	<target name="compile" depends="init" description="compile the source " >
+		<!-- Compile the java code from ${src} into ${build} -->
+		<javac srcdir="${src}"
+				classpathref="project.class.path"
+				destdir="${build}"
+				fork="true"
+				optimize="true"
+				debug="off"
+				excludes="com/antiaction/classfile/test/**"
+		/>
+		<javac srcdir="${src}"
+				classpathref="project.class.path"
+				destdir="${build-dbg}"
+				fork="true"
+				optimize="true"
+				debug="on"
+				debuglevel="source,lines"
+				excludes="com/antiaction/classfile/test/**"
+		/>
+	</target>
+
+	<target name="dist" depends="clean,compile,javadoc" description="generate the distribution" >
+		<!-- Create the distribution directory -->
+		<mkdir dir="${dist}/lib"/>
+
+		<!-- Put everything in ${build} into the mayhem-${DSTAMP}.jar file -->
+		<jar jarfile="${dist}/lib/antiaction-bittorrent-${DSTAMP}.jar" basedir="${build}"/>
+		<jar jarfile="${dist}/lib/antiaction-bittorrent.jar" basedir="${build}"/>
+
+		<jar jarfile="${dist}/lib/antiaction-bittorrent-debug-${DSTAMP}.jar" basedir="${build-dbg}"/>
+		<jar jarfile="${dist}/lib/antiaction-bittorrent-debug.jar" basedir="${build-dbg}"/>
+	</target>
+
+	<target name="javadoc" description="javadoc api" >
+		<javadoc destdir="docs/api"
+				author="true"
+				version="true"
+				use="true"
+				windowtitle="Classfile API">
+			<packageset dir="src" defaultexcludes="yes">
+				<include name="com/antiaction/classfile/**" />
+			</packageset>
+			<doctitle><![CDATA[<h1>Antiaction classfile</h1>]]></doctitle>
+			<bottom><![CDATA[<i>Copyright &#169; 2007 Nicholas Clarke. All Rights Reserved.</i>]]></bottom>
+			<tag name="todo" scope="all" description="To do:" />
+			<group title="..." packages="com.antiaction.classfile.**"/>
+<!--
+			<link offline="true" href="http://java.sun.com/products/jdk/1.2/docs/api/" packagelistLoc="C:\tmp"/>
+			<link href="http://developer.java.sun.com/developer/products/xml/docs/api/"/>
+-->
+		</javadoc>
+	</target>
+
+</project>
