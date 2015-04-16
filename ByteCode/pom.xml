@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<groupId>com.antiaction</groupId>
@@ -9,7 +9,6 @@
 		<version>1-SNAPSHOT</version>
 	</parent>
 
-	<groupId>com.antiaction</groupId>
 	<artifactId>bytecode</artifactId>
 	<version>0.1.0-SNAPSHOT</version>
 
@@ -20,6 +19,10 @@
 	<url>http://www.antiaction.com/</url>
 
 	<inceptionYear>2008</inceptionYear>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 
 	<developers>
 		<developer>
@@ -32,6 +35,31 @@
 			<organizationUrl>http://www.antiaction.com</organizationUrl>
 		</developer>
 	</developers>
+
+	<repositories>
+		<repository>
+			<id>antiaction-snapshots</id>
+			<name>Antiaction Snapshots Repository</name>
+			<url>https://www.antiaction.com:8443/repository/snapshots/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</repository>
+		<repository>
+			<id>antiaction-releases</id>
+			<name>Antiaction Releases Repository</name>
+			<url>https://www.antiaction.com:8443/repository/releases/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+	</repositories>
 
 	<dependencies>
 		<dependency>
@@ -47,10 +75,6 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
 
 	<build>
 		<plugins>
