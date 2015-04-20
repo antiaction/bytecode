@@ -26,19 +26,7 @@ import com.antiaction.classfile.methods.Methods;
 
 public class ClassFile {
 
-	public static final int ACC_PUBLIC = 0x0001;		// Declared public; may be accessed from outside its package.
-	public static final int ACC_FINAL = 0x0010;			// Declared final; no subclasses allowed.
-	public static final int ACC_SUPER = 0x0020;			// Treat superclass methods specially when invoked by the invokespecial instruction.
-	public static final int ACC_INTERFACE = 0x0200;		// Is an interface, not a class.
-	public static final int ACC_ABSTRACT = 0x0400;		// Declared abstract; must not be instantiated.
-	public static final int ACC_SYNTHETIC = 0x1000; 	// Declared synthetic; Not present in the source code.
-	public static final int ACC_ANNOTATION = 0x2000;	// Declared as an annotation type.
-	public static final int ACC_ENUM = 0x4000;			// Declared as an enum type.
-	//public static final int ACC_ = ;
-
-	public static final int ACCESS_FLAGS_MASK = ACC_PUBLIC | ACC_FINAL | ACC_SUPER | ACC_INTERFACE | ACC_ABSTRACT | ACC_SYNTHETIC | ACC_ANNOTATION | ACC_ENUM;
-
-	public int magic = 0xcafebabe;
+	public int magic = Constants.MAGIC;
 
 	public int major_version = 46;
 
@@ -139,7 +127,7 @@ public class ClassFile {
 		// debug
 		//System.out.println( Integer.toHexString( cf.magic ) );
 
-		if ( cf.magic != 0xcafebabe ) {
+		if ( cf.magic != Constants.MAGIC ) {
 			throw new ClassFileException( "Invalid magic (0x" + Integer.toHexString( cf.magic ) + ")", cfs.index );
 		}
 
@@ -219,7 +207,7 @@ public class ClassFile {
 
 		cf.attributes = Attributes.parseAttributes( cfs, attributes_count );
 
-		IAttribute attribute;
+		AttributeAbstrsct attribute;
 
 		// Post-processing.
 
@@ -238,11 +226,11 @@ public class ClassFile {
 	}
 
 	public void validate_access_flags(ClassFileState cfs) throws ClassFileException {
-		if ( (access_flags & ~ACCESS_FLAGS_MASK) != 0 ) {
-			throw new ClassFileException( "Invalid access flags: 0x" + Integer.toHexString( access_flags & ~ACCESS_FLAGS_MASK ) );
+		if ( (access_flags & ~Constants.ACCESS_FLAGS_MASK) != 0 ) {
+			throw new ClassFileException( "Invalid access flags: 0x" + Integer.toHexString( access_flags & ~Constants.ACCESS_FLAGS_MASK ) );
 		}
 
-		if ( (access_flags & ACC_INTERFACE) == 0 ) {
+		if ( (access_flags & Constants.ACC_INTERFACE) == 0 ) {
 			// Class
 			cfs.cf.bClass = true;
 		}
@@ -252,20 +240,20 @@ public class ClassFile {
 		}
 
 		if ( cfs.cf.bClass ) {
-			if ( (access_flags & ( ACC_FINAL | ACC_ABSTRACT )) == ( ACC_FINAL | ACC_ABSTRACT ) ) {
-				throw new ClassFileException( "Invalid access flags combination: 0x" + Integer.toHexString( access_flags & ( ACC_FINAL | ACC_ABSTRACT ) ) + " (0x" + Integer.toHexString( access_flags ) + ")" );
+			if ( (access_flags & ( Constants.ACC_FINAL | Constants.ACC_ABSTRACT )) == ( Constants.ACC_FINAL | Constants.ACC_ABSTRACT ) ) {
+				throw new ClassFileException( "Invalid access flags combination: 0x" + Integer.toHexString( access_flags & ( Constants.ACC_FINAL | Constants.ACC_ABSTRACT ) ) + " (0x" + Integer.toHexString( access_flags ) + ")" );
 			}
-			if ( (access_flags & ACC_ANNOTATION ) == ACC_ANNOTATION ) {
-				throw new ClassFileException( "Invalid access flags, class and annotation combination: 0x" + Integer.toHexString( access_flags & ACC_ANNOTATION ) + " (0x" + Integer.toHexString( access_flags ) + ")" );
+			if ( (access_flags & Constants.ACC_ANNOTATION ) == Constants.ACC_ANNOTATION ) {
+				throw new ClassFileException( "Invalid access flags, class and annotation combination: 0x" + Integer.toHexString( access_flags & Constants.ACC_ANNOTATION ) + " (0x" + Integer.toHexString( access_flags ) + ")" );
 			}
 		}
 		if ( cfs.cf.bInterface ) {
-			if ( (access_flags & ( ACC_FINAL | ACC_INTERFACE | ACC_ABSTRACT )) != ( ACC_INTERFACE | ACC_ABSTRACT ) ) {
-				throw new ClassFileException( "Invalid access flags combination: 0x" + Integer.toHexString( access_flags & ( ACC_FINAL | ACC_INTERFACE | ACC_ABSTRACT ) ) + " (0x" + Integer.toHexString( access_flags ) + ")" );
+			if ( (access_flags & ( Constants.ACC_FINAL | Constants.ACC_INTERFACE | Constants.ACC_ABSTRACT )) != ( Constants.ACC_INTERFACE | Constants.ACC_ABSTRACT ) ) {
+				throw new ClassFileException( "Invalid access flags combination: 0x" + Integer.toHexString( access_flags & ( Constants.ACC_FINAL | Constants.ACC_INTERFACE | Constants.ACC_ABSTRACT ) ) + " (0x" + Integer.toHexString( access_flags ) + ")" );
 			}
 		}
-		cfs.cf.bFinal = ((access_flags & ACC_FINAL) != 0);
-		cfs.cf.bAbstract = ((access_flags & ACC_ABSTRACT) != 0);
+		cfs.cf.bFinal = ((access_flags & Constants.ACC_FINAL) != 0);
+		cfs.cf.bAbstract = ((access_flags & Constants.ACC_ABSTRACT) != 0);
 	}
 
 	public byte[] build() throws IOException, ClassFileException {
@@ -400,31 +388,31 @@ public class ClassFile {
 	public String accessFlagsToString() {
 		StringBuffer sb = new StringBuffer();
 
-		if ( (access_flags & ACC_PUBLIC) != 0 ) {
+		if ( (access_flags & Constants.ACC_PUBLIC) != 0 ) {
 			if ( sb.length() > 0 ) {
 				sb.append( ", " );
 			}
 			sb.append( "public" );
 		}
-		if ( (access_flags & ACC_FINAL) != 0 ) {
+		if ( (access_flags & Constants.ACC_FINAL) != 0 ) {
 			if ( sb.length() > 0 ) {
 				sb.append( ", " );
 			}
 			sb.append( "final" );
 		}
-		if ( (access_flags & ACC_SUPER) != 0 ) {
+		if ( (access_flags & Constants.ACC_SUPER) != 0 ) {
 			if ( sb.length() > 0 ) {
 				sb.append( ", " );
 			}
 			sb.append( "super" );
 		}
-		if ( (access_flags & ACC_INTERFACE) != 0 ) {
+		if ( (access_flags & Constants.ACC_INTERFACE) != 0 ) {
 			if ( sb.length() > 0 ) {
 				sb.append( ", " );
 			}
 			sb.append( "interface" );
 		}
-		if ( (access_flags & ACC_ABSTRACT) != 0 ) {
+		if ( (access_flags & Constants.ACC_ABSTRACT) != 0 ) {
 			if ( sb.length() > 0 ) {
 				sb.append( ", " );
 			}
@@ -501,7 +489,7 @@ public class ClassFile {
 
 		//cf.attributes = Attributes.parseAttributes( cfs, attributes_count );
 
-		IAttribute attribute;
+		AttributeAbstrsct attribute;
 
 		// Post-processing.
 

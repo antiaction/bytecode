@@ -11,11 +11,11 @@ import java.io.IOException;
 
 import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
-import com.antiaction.classfile.IAttribute;
+import com.antiaction.classfile.AttributeAbstrsct;
 
-public class Attribute_Synthetic extends IAttribute {
+public class Attribute_Synthetic extends AttributeAbstrsct {
 
-	public static IAttribute parseSynthetic(ClassFileState cfs) throws ClassFileException {
+	public static AttributeAbstrsct parseSynthetic(ClassFileState cfs) throws ClassFileException {
 		return new Attribute_Synthetic();
 	}
 

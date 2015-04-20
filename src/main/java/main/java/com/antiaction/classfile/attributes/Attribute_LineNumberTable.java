@@ -14,13 +14,13 @@ import java.util.List;
 
 import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
-import com.antiaction.classfile.IAttribute;
+import com.antiaction.classfile.AttributeAbstrsct;
 
-public class Attribute_LineNumberTable extends IAttribute {
+public class Attribute_LineNumberTable extends AttributeAbstrsct {
 
 	public List<LineNumberTable> lineNumberTableList;
 
-	public static IAttribute parseLineNumberTable(ClassFileState cfs) throws ClassFileException {
+	public static AttributeAbstrsct parseLineNumberTable(ClassFileState cfs) throws ClassFileException {
 		cfs.assert_unexpected_eof( 2 );
 
 		List<LineNumberTable> lineNumberTableList = new ArrayList<LineNumberTable>();

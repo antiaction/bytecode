@@ -14,13 +14,13 @@ import java.util.List;
 
 import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
-import com.antiaction.classfile.IAttribute;
+import com.antiaction.classfile.AttributeAbstrsct;
 
-public class Attribute_InnerClasses extends IAttribute {
+public class Attribute_InnerClasses extends AttributeAbstrsct {
 
 	public List<InnerClassTable> innerClassTableList = new ArrayList<InnerClassTable>();
 
-	public static IAttribute parseInnerClasses(ClassFileState cfs) throws ClassFileException {
+	public static AttributeAbstrsct parseInnerClasses(ClassFileState cfs) throws ClassFileException {
 		cfs.assert_unexpected_eof( 2 );
 
 		int number_of_classes = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);

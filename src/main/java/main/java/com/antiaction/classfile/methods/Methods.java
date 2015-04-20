@@ -14,7 +14,7 @@ import java.util.List;
 
 import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
-import com.antiaction.classfile.IAttribute;
+import com.antiaction.classfile.AttributeAbstrsct;
 import com.antiaction.classfile.attributes.Attribute_Code;
 import com.antiaction.classfile.attributes.Attribute_Deprecated;
 import com.antiaction.classfile.attributes.Attribute_Exceptions;
@@ -50,7 +50,7 @@ public class Methods {
 
 		int attributes_count;
 
-		IAttribute attribute;
+		AttributeAbstrsct attribute;
 
 		while( methods_count > 0 ) {
 			cfs.assert_unexpected_eof( 8 );

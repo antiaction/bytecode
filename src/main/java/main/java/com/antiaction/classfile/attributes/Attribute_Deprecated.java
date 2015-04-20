@@ -11,11 +11,11 @@ import java.io.IOException;
 
 import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
-import com.antiaction.classfile.IAttribute;
+import com.antiaction.classfile.AttributeAbstrsct;
 
-public class Attribute_Deprecated extends IAttribute {
+public class Attribute_Deprecated extends AttributeAbstrsct {
 
-	public static IAttribute parseDeprecated(ClassFileState cfs) throws ClassFileException {
+	public static AttributeAbstrsct parseDeprecated(ClassFileState cfs) throws ClassFileException {
 		return new Attribute_Deprecated();
 	}
 

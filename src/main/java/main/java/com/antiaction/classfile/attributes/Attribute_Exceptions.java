@@ -14,13 +14,13 @@ import java.util.List;
 
 import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
-import com.antiaction.classfile.IAttribute;
+import com.antiaction.classfile.AttributeAbstrsct;
 
-public class Attribute_Exceptions extends IAttribute {
+public class Attribute_Exceptions extends AttributeAbstrsct {
 
 	public List<ExceptionIndexTable> exceptionIndexTableList;
 
-	public static IAttribute parseExceptions(ClassFileState cfs) throws ClassFileException {
+	public static AttributeAbstrsct parseExceptions(ClassFileState cfs) throws ClassFileException {
 		cfs.assert_unexpected_eof( 2 );
 
 		List<ExceptionIndexTable> exceptionIndexTableList = new ArrayList<ExceptionIndexTable>();

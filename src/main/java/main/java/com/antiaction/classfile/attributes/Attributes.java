@@ -17,16 +17,16 @@ import java.util.Map;
 import com.antiaction.classfile.ClassFile;
 import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
-import com.antiaction.classfile.IAttribute;
+import com.antiaction.classfile.AttributeAbstrsct;
 import com.antiaction.classfile.constantpool.ConstantPool_Utf8;
 
 public class Attributes {
 
 	protected ClassFile cf;
 
-	public List<IAttribute> attributes_list = new ArrayList<IAttribute>();
+	public List<AttributeAbstrsct> attributes_list = new ArrayList<AttributeAbstrsct>();
 
-	protected Map<String, IAttribute> attributes_map = new HashMap<String, IAttribute>();
+	protected Map<String, AttributeAbstrsct> attributes_map = new HashMap<String, AttributeAbstrsct>();
 
 	protected Attribute_SourceFile sourceFile_attr = null;
 
@@ -44,7 +44,7 @@ public class Attributes {
 		ConstantPool_Utf8 attribute_name_cp;
 		String attribute_name;
 		int attribute_length;
-		IAttribute attribute = null;
+		AttributeAbstrsct attribute = null;
 
 		Attributes attributes = new Attributes();
 		attributes.cf = cfs.cf;
@@ -111,7 +111,7 @@ public class Attributes {
 	}
 
 	public void buildResolve() throws ClassFileException {
-		IAttribute attribute;
+		AttributeAbstrsct attribute;
 		for ( int i=0; i<attributes_list.size(); ++i ) {
 			attribute = attributes_list.get( i );
 			attribute.attribute_name_cp.buildResolve();
@@ -126,7 +126,7 @@ public class Attributes {
 		bytes.write( (byte)(attributes_count >> 8) );
 		bytes.write( (byte)(attributes_count & 255) );
 
-		IAttribute attribute;
+		AttributeAbstrsct attribute;
 		byte[] attrBytes;
 		for ( int i=0; i<attributes_list.size(); ++i) {
 			attribute = attributes_list.get( i );
@@ -153,7 +153,7 @@ public class Attributes {
 	}
 
 	public Attribute_SourceFile putSourceFile(String sourcefile) throws ClassFileException {
-		Attribute_SourceFile a_sourcefile = Attribute_SourceFile.createSourceFil( cf.constantpool, sourcefile );
+		Attribute_SourceFile a_sourcefile = Attribute_SourceFile.createSourceFile( cf.constantpool, sourcefile );
 		return a_sourcefile;
 	}
 

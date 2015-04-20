@@ -11,15 +11,15 @@ import java.io.IOException;
 
 import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
-import com.antiaction.classfile.IAttribute;
+import com.antiaction.classfile.AttributeAbstrsct;
 import com.antiaction.classfile.IConstantPool_Info;
 
-public class Attribute_ConstantValue extends IAttribute {
+public class Attribute_ConstantValue extends AttributeAbstrsct {
 
 	public int constantvalue_index;
 	public IConstantPool_Info constantPool_ConstantValue;
 
-	public static IAttribute parseConstantValue(ClassFileState cfs) throws ClassFileException {
+	public static AttributeAbstrsct parseConstantValue(ClassFileState cfs) throws ClassFileException {
 		cfs.assert_unexpected_eof( 2 );
 
 		int constantvalue_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);

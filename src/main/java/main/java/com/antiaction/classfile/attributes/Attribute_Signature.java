@@ -11,17 +11,17 @@ import java.io.IOException;
 
 import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
-import com.antiaction.classfile.IAttribute;
+import com.antiaction.classfile.AttributeAbstrsct;
 import com.antiaction.classfile.constantpool.ConstantPool;
 import com.antiaction.classfile.constantpool.ConstantPool_Utf8;
 
-public class Attribute_Signature extends IAttribute {
+public class Attribute_Signature extends AttributeAbstrsct {
 
 	public int signature_index;
 	public ConstantPool_Utf8 signature_cp;
 	public String signature;
 
-	public static IAttribute parseSignature(ClassFileState cfs) throws ClassFileException {
+	public static AttributeAbstrsct parseSignature(ClassFileState cfs) throws ClassFileException {
 		cfs.assert_unexpected_eof( 2 );
 
 		int signature_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);

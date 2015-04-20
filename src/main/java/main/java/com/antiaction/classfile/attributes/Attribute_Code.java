@@ -14,9 +14,9 @@ import java.util.List;
 
 import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
-import com.antiaction.classfile.IAttribute;
+import com.antiaction.classfile.AttributeAbstrsct;
 
-public class Attribute_Code extends IAttribute {
+public class Attribute_Code extends AttributeAbstrsct {
 
 	public int max_stack;
 	public int max_locals;
@@ -27,7 +27,7 @@ public class Attribute_Code extends IAttribute {
 
 	public Attributes attributes;
 
-	public static IAttribute parseCode(ClassFileState cfs) throws ClassFileException {
+	public static AttributeAbstrsct parseCode(ClassFileState cfs) throws ClassFileException {
 		cfs.assert_unexpected_eof( 8 );
 
 		int max_stack = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);

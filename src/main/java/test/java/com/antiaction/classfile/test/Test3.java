@@ -11,6 +11,7 @@ import java.io.IOException;
 
 import com.antiaction.classfile.ClassFile;
 import com.antiaction.classfile.ClassFileException;
+import com.antiaction.classfile.Constants;
 import com.antiaction.classfile.bytecode.BytecodeException;
 
 public class Test3 {
@@ -24,7 +25,7 @@ public class Test3 {
 		//ClassFile cf = ClassFile.createInstance();
 
 		try {
-			ClassFile cf = ClassFile.createInstance( "com.antiaction.classfile.test.Testing", "java.lang.Object", ClassFile.ACC_PUBLIC | ClassFile.ACC_SUPER );
+			ClassFile cf = ClassFile.createInstance( "com.antiaction.classfile.test.Testing", "java.lang.Object", Constants.ACC_PUBLIC | Constants.ACC_SUPER );
 			cf.setSourceFile( "Testing.java" );
 
 			byte[] bytes = cf.build();

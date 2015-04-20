@@ -11,17 +11,17 @@ import java.io.IOException;
 
 import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
-import com.antiaction.classfile.IAttribute;
+import com.antiaction.classfile.AttributeAbstrsct;
 import com.antiaction.classfile.constantpool.ConstantPool;
 import com.antiaction.classfile.constantpool.ConstantPool_Utf8;
 
-public class Attribute_SourceFile extends IAttribute {
+public class Attribute_SourceFile extends AttributeAbstrsct {
 
 	public int sourcefile_index;
 	public ConstantPool_Utf8 sourcefile_cp;
 	public String sourcefile;
 
-	public static IAttribute parseSourceFile(ClassFileState cfs) throws ClassFileException {
+	public static AttributeAbstrsct parseSourceFile(ClassFileState cfs) throws ClassFileException {
 		cfs.assert_unexpected_eof( 2 );
 
 		int sourcefile_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
@@ -40,7 +40,7 @@ public class Attribute_SourceFile extends IAttribute {
 		return attribute;
 	}
 
-	public static Attribute_SourceFile createSourceFil(ConstantPool cp, String sourcefile) throws ClassFileException {
+	public static Attribute_SourceFile createSourceFile(ConstantPool cp, String sourcefile) throws ClassFileException {
 		Attribute_SourceFile sourcefile_attr = new Attribute_SourceFile();
 		sourcefile_attr.sourcefile = sourcefile;
 		sourcefile_attr.sourcefile_cp = cp.putUtf8( sourcefile );

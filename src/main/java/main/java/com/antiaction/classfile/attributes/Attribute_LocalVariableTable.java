@@ -14,16 +14,16 @@ import java.util.List;
 
 import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
-import com.antiaction.classfile.IAttribute;
+import com.antiaction.classfile.AttributeAbstrsct;
 import com.antiaction.classfile.IDescriptor;
 import com.antiaction.classfile.constantpool.ConstantPool_Utf8;
 import com.antiaction.classfile.descriptors.Descriptors;
 
-public class Attribute_LocalVariableTable extends IAttribute {
+public class Attribute_LocalVariableTable extends AttributeAbstrsct {
 
 	public List<LocalVariableTable> localVariableTableList;
 
-	public static IAttribute parseLocalVariableTable(ClassFileState cfs) throws ClassFileException {
+	public static AttributeAbstrsct parseLocalVariableTable(ClassFileState cfs) throws ClassFileException {
 		cfs.assert_unexpected_eof( 2 );
 
 		List<LocalVariableTable> localVariableTableList = new ArrayList<LocalVariableTable>();

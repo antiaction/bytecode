@@ -11,13 +11,13 @@ import java.io.IOException;
 
 import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
-import com.antiaction.classfile.IAttribute;
+import com.antiaction.classfile.AttributeAbstrsct;
 
-public class Attribute_Custom extends IAttribute {
+public class Attribute_Custom extends AttributeAbstrsct {
 
 	public byte[] bytes;
 
-	public static IAttribute parseCustom(ClassFileState cfs, int attribute_length) throws ClassFileException {
+	public static AttributeAbstrsct parseCustom(ClassFileState cfs, int attribute_length) throws ClassFileException {
 		cfs.assert_unexpected_eof( attribute_length );
 
 		byte[] bytes = new byte[ attribute_length ];
