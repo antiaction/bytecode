@@ -5,14 +5,15 @@
  * Window - Preferences - Java - Code Style - Code Templates
  */
 
-package com.antiaction.classfile;
+package com.antiaction.classfile.constantpool;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.antiaction.classfile.constantpool.ConstantPool;
+import com.antiaction.classfile.ClassFileException;
+import com.antiaction.classfile.ClassFileState;
 
 public abstract class IConstantPool_Info {
 

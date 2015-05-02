@@ -12,7 +12,6 @@ import java.io.IOException;
 
 import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
-import com.antiaction.classfile.IConstantPool_Info;
 
 public class ConstantPool_Integer extends IConstantPool_Info {
 

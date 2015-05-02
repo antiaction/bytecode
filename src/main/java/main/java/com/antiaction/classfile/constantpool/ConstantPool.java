@@ -14,7 +14,6 @@ import java.util.List;
 
 import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
-import com.antiaction.classfile.IConstantPool_Info;
 
 public class ConstantPool {
 
