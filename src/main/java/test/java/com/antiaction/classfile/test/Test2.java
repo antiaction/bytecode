@@ -64,10 +64,10 @@ public class Test2 {
 					ram.readFully( bytes_org );
 
 					++loaded;
-					classfile = ClassFile.parseClassFile( file );
+					classfile = ClassFile.disassembleClassFile( file );
 					if ( classfile != null ) {
 						++parsed;
-						bytes_new = classfile.build();
+						bytes_new = classfile.assemble();
 						if ( bytes_new != null ) {
 							++built;
 							if ( compare( bytes_org, bytes_new ) ) {

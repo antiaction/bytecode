@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
@@ -20,8 +23,8 @@ public class Test4 {
 	}
 
 	public void Main(String[] args) {
-		File testResources = TestHelpers.getTestResourceFile( "" );
-		File libFile = new File( testResources, "lib" );
+		File testResourcesFile = TestHelpers.getTestResourceFile( "" );
+		File libFile = new File( testResourcesFile, "lib" );
 
 		parseDir( libFile );
 
@@ -32,6 +35,41 @@ public class Test4 {
 		System.out.println( "  Built: " + built );
 		System.out.println( "  Equal: " + equal );
 		System.out.println( "   Diff: " + diff );
+
+		Iterator<String> iter;
+		RandomAccessFile raf;
+		String tmpStr;
+
+		try {
+			File diffFile = new File( testResourcesFile, "diff.list" );
+			raf = new RandomAccessFile( diffFile, "rw" );
+			raf.setLength( 0 );
+			iter = filenameDiffList.iterator();
+			while ( iter.hasNext() ) {
+				tmpStr = iter.next();
+				raf.writeBytes( tmpStr );
+				raf.writeBytes( "\n" );
+				// debug
+				// System.out.println( "diff: " + tmpStr );
+			}
+			raf.close();
+
+			File failFile = new File( testResourcesFile, "fail.list" );
+			raf = new RandomAccessFile( failFile, "rw" );
+			raf.setLength( 0 );
+			iter = filenameFailList.iterator();
+			while ( iter.hasNext() ) {
+				tmpStr = iter.next();
+				raf.writeBytes( tmpStr );
+				raf.writeBytes( "\n" );
+				// debug
+				//System.out.println( "fail: " + tmpStr );
+			}
+			raf.close();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	int jars = 0;
@@ -98,20 +136,25 @@ public class Test4 {
 		}
 	}
 
+	public List<String> filenameFailList = new LinkedList<String>();
+
+	public List<String> filenameDiffList = new LinkedList<String>();
+
 	public void parseBytes(String filename, byte[] bytes_org) {
 		byte[] bytes_new;
 		try {
 			++loaded;
-			ClassFile classfile = ClassFile.parseClassFile( bytes_org );
+			ClassFile classfile = ClassFile.disassembleClassFile( bytes_org );
 			if ( classfile != null ) {
 				++parsed;
-				bytes_new = classfile.build();
+				bytes_new = classfile.assemble();
 				if ( bytes_new != null ) {
 					++built;
 					if ( compare( bytes_org, bytes_new ) ) {
 						++equal;
 					}
 					else {
+						filenameDiffList.add( filename );
 						System.out.println( filename + " " + bytes_org.length + " " + bytes_new.length );
 						diff( bytes_org, bytes_new );
 						System.out.println( classfile.toString() );
@@ -121,12 +164,15 @@ public class Test4 {
 			}
 		}
 		catch (ClassFileException e) {
+			filenameFailList.add( filename );
 			e.printStackTrace();
 		}
 		catch (BytecodeException e) {
+			filenameFailList.add( filename );
 			e.printStackTrace();
 		}
 		catch (IOException e) {
+			filenameFailList.add( filename );
 			e.printStackTrace();
 		}
 	}

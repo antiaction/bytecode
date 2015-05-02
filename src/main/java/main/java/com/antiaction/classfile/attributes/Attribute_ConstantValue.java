@@ -7,42 +7,43 @@
 
 package com.antiaction.classfile.attributes;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
-import com.antiaction.classfile.AttributeAbstrsct;
+import com.antiaction.classfile.Constants;
 import com.antiaction.classfile.IConstantPool_Info;
 
-public class Attribute_ConstantValue extends AttributeAbstrsct {
+public class Attribute_ConstantValue extends AttributeAbstract {
 
 	public int constantvalue_index;
+
 	public IConstantPool_Info constantPool_ConstantValue;
 
-	public static AttributeAbstrsct parseConstantValue(ClassFileState cfs) throws ClassFileException {
+	public Attribute_ConstantValue() {
+		classfileVersion = Constants.CLASSFILE_VERSION_45_3;
+		jvmVersion = Constants.JVM_VERSION_1_0_2;
+		usage = Constants.ATTR_LOCATION_FIELD_INFO;
+	}
+
+	@Override
+	public void disassemble(ClassFileState cfs) throws ClassFileException {
 		cfs.assert_unexpected_eof( 2 );
-
-		int constantvalue_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
-
-		IConstantPool_Info constantPool_ConstantValue = cfs.cf.constantpool.getConstantValue( constantvalue_index );
-
-		Attribute_ConstantValue attribute = new Attribute_ConstantValue();
-		attribute.constantvalue_index = constantvalue_index;
-		attribute.constantPool_ConstantValue = constantPool_ConstantValue;
-
-		return attribute;
+		constantvalue_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
+		constantPool_ConstantValue = cfs.cf.constantpool.getConstantValue( constantvalue_index );
+		// TODO validate type appropriate to field.
 	}
 
 	@Override
-	public void buildResolve() throws ClassFileException {
+	public void resolve() throws ClassFileException {
+		// TODO add constant if not present in constants.
 	}
 
 	@Override
-	public byte[] build() throws IOException {
-		byte[] bytes = new byte[ 2 ];
-		bytes[ 0 ] = (byte)(constantvalue_index >> 8);
-		bytes[ 1 ] = (byte)(constantvalue_index & 255);
-		return bytes;
+	public void assemble(ByteArrayOutputStream out) throws IOException {
+		out.write( (byte)(constantvalue_index >> 8) );
+		out.write( (byte)(constantvalue_index & 255) );
 	}
 
 }

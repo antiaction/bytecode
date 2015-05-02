@@ -1,6 +1,22 @@
 package com.antiaction.classfile;
 
+import java.util.Map;
+import java.util.TreeMap;
+
 public class Constants {
+
+	public static final int CLASSFILE_VERSION_45_3 = 1;
+	public static final int CLASSFILE_VERSION_49_0 = 2;
+	public static final int CLASSFILE_VERSION_50_0 = 3;
+	public static final int CLASSFILE_VERSION_51_0 = 4;
+	public static final int CLASSFILE_VERSION_52_0 = 5;
+
+	public static final int JVM_VERSION_1_0_2 = 1;
+	public static final int JVM_VERSION_1_1 = 2;
+	public static final int JVM_VERSION_5_0 = 3;
+	public static final int JVM_VERSION_6 = 4;
+	public static final int JVM_VERSION_7 = 5;
+	public static final int JVM_VERSION_8 = 6;
 
 	public static final int MAGIC = 0xCAFEBABE;
 
@@ -46,5 +62,62 @@ public class Constants {
 	public static final int FIELD_ACCESS_FLAGS_MASK = ACC_PUBLIC | ACC_PRIVATE | ACC_PROTECTED | ACC_STATIC | ACC_FINAL | ACC_VOLATILE | ACC_TRANSIENT | ACC_SYNTHETIC | ACC_ENUM;
 
 	public static final int METHOD_ACCESS_FLAGS_MASK = ACC_PUBLIC | ACC_PRIVATE | ACC_PROTECTED | ACC_STATIC | ACC_FINAL | ACC_SYNCHRONIZED | ACC_BRIDGE | ACC_VARARGS | ACC_NATIVE | ACC_ABSTRACT | ACC_STRICT | ACC_SYNTHETIC;
+
+	public static final int ATTR_LOCATION_CLASSFILE = 1;
+	public static final int ATTR_LOCATION_FIELD_INFO = 2;
+	public static final int ATTR_LOCATION_METHOD_INFO = 4;
+	public static final int ATTR_LOCATION_CODE = 8;
+
+	public static final Map<String, Integer> attrNameIdMap = new TreeMap<String, Integer>();
+
+	public static final int ATTR_CONSTANTVALUE_ID = 1;
+	public static final int ATTR_CODE_ID = 2;
+	public static final int ATTR_EXCEPTIONS_ID = 3;
+	public static final int ATTR_SOURCEFILE_ID = 4;
+	public static final int ATTR_LINENUMBERTABLE_ID = 5;
+	public static final int ATTR_LOCALVARIABLETABLE_ID = 6;
+	public static final int ATTR_INNERCLASSES_ID = 7;
+	public static final int ATTR_SYNTHETIC_ID = 8;
+	public static final int ATTR_DEPRECATED_ID = 9;
+	public static final int ATTR_ENCLOSINGMETHOD_ID = 10;
+	public static final int ATTR_SIGNATURE_ID = 11;
+	public static final int ATTR_SOURCEDEBUGEXTENSION_ID = 12;
+	public static final int ATTR_LOCALVARIABLETYPETABLE_ID = 13;
+	public static final int ATTR_RUNTIMEVISIBLEANNOTATIONS_ID = 14;
+	public static final int ATTR_RUNTIMEINVISIBLEANNOTATIONS_ID = 15;
+	public static final int ATTR_RUNTIMEVISIBLEPARAMETERANNOTATIONS_ID = 16;
+	public static final int ATTR_RUNTIMEINVISIBLEPARAMETERANNOTATIONS_ID = 17;
+	public static final int ATTR_ANNOTATIONDEFAULT_ID = 18;
+	public static final int ATTR_STACKMAPTABLE_ID = 19;
+	public static final int ATTR_BOOTSTRAPMETHODS_ID = 20;
+	public static final int ATTR_RUNTIMEVISIBLETYPEANNOTATIONS_ID = 21;
+	public static final int ATTR_RUNTIMEINVISIBLETYPEANNOTATIONS_ID = 22;
+	public static final int ATTR_METHODPARAMETERS_ID = 23;
+
+	static {
+		attrNameIdMap.put( "ConstantValue", ATTR_CONSTANTVALUE_ID );
+		attrNameIdMap.put( "Code", ATTR_CODE_ID );
+		attrNameIdMap.put( "Exceptions", ATTR_EXCEPTIONS_ID );
+		attrNameIdMap.put( "SourceFile", ATTR_SOURCEFILE_ID );
+		attrNameIdMap.put( "LineNumberTable", ATTR_LINENUMBERTABLE_ID );
+		attrNameIdMap.put( "LocalVariableTable", ATTR_LOCALVARIABLETABLE_ID );
+		attrNameIdMap.put( "InnerClasses", ATTR_INNERCLASSES_ID );
+		attrNameIdMap.put( "Synthetic", ATTR_SYNTHETIC_ID );
+		attrNameIdMap.put( "Deprecated", ATTR_DEPRECATED_ID );
+		attrNameIdMap.put( "EnclosingMethod", ATTR_ENCLOSINGMETHOD_ID );
+		attrNameIdMap.put( "Signature", ATTR_SIGNATURE_ID );
+		attrNameIdMap.put( "SourceDebugExtension", ATTR_SOURCEDEBUGEXTENSION_ID );
+		attrNameIdMap.put( "LocalVariableTypeTable", ATTR_LOCALVARIABLETYPETABLE_ID );
+		attrNameIdMap.put( "RuntimeVisibleAnnotations", ATTR_RUNTIMEVISIBLEANNOTATIONS_ID );
+		attrNameIdMap.put( "RuntimeInvisibleAnnotations", ATTR_RUNTIMEINVISIBLEANNOTATIONS_ID );
+		attrNameIdMap.put( "RuntimeVisibleParameterAnnotations", ATTR_RUNTIMEVISIBLEPARAMETERANNOTATIONS_ID );
+		attrNameIdMap.put( "RuntimeInvisibleParameterAnnotations", ATTR_RUNTIMEINVISIBLEPARAMETERANNOTATIONS_ID );
+		attrNameIdMap.put( "AnnotationDefault", ATTR_ANNOTATIONDEFAULT_ID );
+		attrNameIdMap.put( "StackMapTable", ATTR_STACKMAPTABLE_ID );
+		attrNameIdMap.put( "BootstrapMethods", ATTR_BOOTSTRAPMETHODS_ID );
+		attrNameIdMap.put( "RuntimeVisibleTypeAnnotations", ATTR_RUNTIMEVISIBLETYPEANNOTATIONS_ID );
+		attrNameIdMap.put( "RuntimeInvisibleTypeAnnotations", ATTR_RUNTIMEINVISIBLETYPEANNOTATIONS_ID );
+		attrNameIdMap.put( "MethodParameters", ATTR_METHODPARAMETERS_ID );
+	}
 
 }

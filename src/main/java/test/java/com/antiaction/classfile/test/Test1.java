@@ -62,7 +62,7 @@ public class Test1 {
 				classfile = parseClass( file );
 				if ( classfile != null ) {
 					try {
-						bytes = classfile.build();
+						bytes = classfile.assemble();
 
 						ram = new RandomAccessFile( new File( file.getParentFile(), file.getName() + ".class" ), "rw" );
 						ram.write( bytes );
@@ -82,7 +82,7 @@ public class Test1 {
 	public ClassFile parseClass(File file) {
 		ClassFile classfile = null;
 		try {
-			classfile = ClassFile.parseClassFile( file );
+			classfile = ClassFile.disassembleClassFile( file );
 		}
 		catch (ClassFileException e) {
 			e.printStackTrace();
@@ -96,7 +96,7 @@ public class Test1 {
 	public ClassFile parseClass(String filename) {
 		ClassFile classfile = null;
 		try {
-			classfile = ClassFile.parseClassFile( filename );
+			classfile = ClassFile.disassembleClassFile( filename );
 		}
 		catch (ClassFileException e) {
 			e.printStackTrace();

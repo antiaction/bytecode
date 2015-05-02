@@ -28,8 +28,8 @@ public class Test3 {
 			ClassFile cf = ClassFile.createInstance( "com.antiaction.classfile.test.Testing", "java.lang.Object", Constants.ACC_PUBLIC | Constants.ACC_SUPER );
 			cf.setSourceFile( "Testing.java" );
 
-			byte[] bytes = cf.build();
-			ClassFile.parseClassFile( bytes );
+			byte[] bytes = cf.assemble();
+			ClassFile.disassembleClassFile( bytes );
 		}
 		catch (IOException e) {
 			e.printStackTrace();

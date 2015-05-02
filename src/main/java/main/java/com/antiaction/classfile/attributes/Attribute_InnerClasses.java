@@ -14,81 +14,52 @@ import java.util.List;
 
 import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
-import com.antiaction.classfile.AttributeAbstrsct;
+import com.antiaction.classfile.Constants;
 
-public class Attribute_InnerClasses extends AttributeAbstrsct {
+public class Attribute_InnerClasses extends AttributeAbstract {
 
 	public List<InnerClassTable> innerClassTableList = new ArrayList<InnerClassTable>();
 
-	public static AttributeAbstrsct parseInnerClasses(ClassFileState cfs) throws ClassFileException {
+	public Attribute_InnerClasses() {
+		classfileVersion = Constants.CLASSFILE_VERSION_45_3;
+		jvmVersion = Constants.JVM_VERSION_1_1;
+		usage = Constants.ATTR_LOCATION_CLASSFILE;
+	}
+
+	@Override
+	public void disassemble(ClassFileState cfs) throws ClassFileException {
 		cfs.assert_unexpected_eof( 2 );
-
 		int number_of_classes = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
-
-		List<InnerClassTable> innerClassTableList = new ArrayList<InnerClassTable>();
+		innerClassTableList = new ArrayList<InnerClassTable>();
 		InnerClassTable innerClassTable;
-
-		int inner_class_info_index;
-		int outer_class_info_index;
-		int inner_name_index;
-		int inner_class_access_flags;
-
 		// debug
 		//System.out.println( " Entries: " + number_of_classes );
-
 		for ( int i=0; i<number_of_classes; ++i ) {
-			cfs.assert_unexpected_eof( 8 );
-
-			inner_class_info_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
-			outer_class_info_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
-			inner_name_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
-			inner_class_access_flags = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
-
 			innerClassTable = new InnerClassTable();
-			innerClassTable.inner_class_info_index = inner_class_info_index;
-			innerClassTable.outer_class_info_index = outer_class_info_index;
-			innerClassTable.inner_name_index = inner_name_index;
-			innerClassTable.inner_class_access_flags = inner_class_access_flags;
+			innerClassTable.disassemble( cfs );
 			innerClassTableList.add( innerClassTable );
 		}
-
-		Attribute_InnerClasses attribute = new Attribute_InnerClasses();
-		attribute.innerClassTableList = innerClassTableList;
-
-		return attribute;
 	}
 
 	@Override
-	public void buildResolve() throws ClassFileException {
-	}
-
-	@Override
-	public byte[] build() throws IOException {
-		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-
-		int number_of_classes = innerClassTableList.size();
-
-		bytes.write( (byte)(number_of_classes >> 8) );
-		bytes.write( (byte)(number_of_classes & 255) );
-
+	public void resolve() throws ClassFileException {
 		InnerClassTable innerClassTable;
 		for ( int i=0; i<innerClassTableList.size(); ++i ) {
 			innerClassTable = innerClassTableList.get( i );
-
-			bytes.write( (byte)(innerClassTable.inner_class_info_index >> 8) );
-			bytes.write( (byte)(innerClassTable.inner_class_info_index & 255) );
-
-			bytes.write( (byte)(innerClassTable.outer_class_info_index >> 8) );
-			bytes.write( (byte)(innerClassTable.outer_class_info_index & 255) );
-
-			bytes.write( (byte)(innerClassTable.inner_name_index >> 8) );
-			bytes.write( (byte)(innerClassTable.inner_name_index & 255) );
-
-			bytes.write( (byte)(innerClassTable.inner_class_access_flags >> 8) );
-			bytes.write( (byte)(innerClassTable.inner_class_access_flags & 255) );
+			innerClassTable.resolve();
 		}
+	}
 
-		return bytes.toByteArray();
+	@Override
+	public void assemble(ByteArrayOutputStream out) throws IOException {
+		int number_of_classes = innerClassTableList.size();
+		out.write( (byte)(number_of_classes >> 8) );
+		out.write( (byte)(number_of_classes & 255) );
+		InnerClassTable innerClassTable;
+		for ( int i=0; i<innerClassTableList.size(); ++i ) {
+			innerClassTable = innerClassTableList.get( i );
+			innerClassTable.assemble( out );
+		}
 	}
 
 }

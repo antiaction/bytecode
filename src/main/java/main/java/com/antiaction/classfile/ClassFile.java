@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
+import com.antiaction.classfile.attributes.AttributeAbstract;
 import com.antiaction.classfile.attributes.Attribute_SourceFile;
 import com.antiaction.classfile.attributes.Attributes;
 import com.antiaction.classfile.bytecode.Bytecode;
@@ -59,12 +60,12 @@ public class ClassFile {
 
 	public Attribute_SourceFile sourcefile_attr;
 
-	public static ClassFile parseClassFile(String filename) throws ClassFileException, BytecodeException {
+	public static ClassFile disassembleClassFile(String filename) throws ClassFileException, BytecodeException {
 		File classFile = new File( filename );
-		return parseClassFile( classFile );
+		return disassembleClassFile( classFile );
 	}
 
-	public static ClassFile parseClassFile(File classFile) throws ClassFileException, BytecodeException {
+	public static ClassFile disassembleClassFile(File classFile) throws ClassFileException, BytecodeException {
 		byte[] bytes = null;
 
 		RandomAccessFile ram = null;
@@ -96,19 +97,21 @@ public class ClassFile {
 
 		if ( bytes != null ) {
 			ClassFileState cfs = new ClassFileState( bytes );
-			return parseClassFile( cfs );
+			return disassembleClassFile( cfs );
 		}
 		else {
 			return null;
 		}
 	}
 
-	public static ClassFile parseClassFile(byte[] bytes) throws ClassFileException, BytecodeException {
+	public static ClassFile disassembleClassFile(byte[] bytes) throws ClassFileException, BytecodeException {
 		ClassFileState cfs = new ClassFileState( bytes );
-		return parseClassFile( cfs );
+		return disassembleClassFile( cfs );
 	}
 
-	private static ClassFile parseClassFile(ClassFileState cfs) throws ClassFileException, BytecodeException {
+	public static ITraceHandler traceHandler;
+
+	private static ClassFile disassembleClassFile(ClassFileState cfs) throws ClassFileException, BytecodeException {
 		if ( cfs.bytes == null || cfs.bytes.length == 0 ) {
 			return null;
 		}
@@ -182,32 +185,31 @@ public class ClassFile {
 		 * Interfaces.
 		 */
 
-		cf.interfaces = Interfaces.parseInterfaces( cfs );
+		cf.interfaces = new Interfaces( traceHandler );
+		cf.interfaces.disassemble( cfs );
 
 		/*
 		 * Fields.
 		 */
 
-		cf.fields = Fields.parseFields( cfs );
+		cf.fields = new Fields( traceHandler );
+		cf.fields.disassemble( cfs );
 
 		/*
 		 * Methods.
 		 */
 
-		cf.methods = Methods.parseMethods( cfs );
+		cf.methods = new Methods( traceHandler );
+		cf.methods.disassemble( cfs );
 
 		/*
 		 * Attributes.
 		 */
 
-		int attributes_count = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
+		cf.attributes = new Attributes( traceHandler );
+		cf.attributes.disassemble( cfs );
 
-		// debug
-		//System.out.println( "attributes count: " + attributes_count );
-
-		cf.attributes = Attributes.parseAttributes( cfs, attributes_count );
-
-		AttributeAbstrsct attribute;
+		AttributeAbstract attribute;
 
 		// Post-processing.
 
@@ -256,8 +258,8 @@ public class ClassFile {
 		cfs.cf.bAbstract = ((access_flags & Constants.ACC_ABSTRACT) != 0);
 	}
 
-	public byte[] build() throws IOException, ClassFileException {
-		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+	public byte[] assemble() throws IOException, ClassFileException {
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
 
 		/*
 		 * Resolve constantpool indexes.
@@ -269,13 +271,13 @@ public class ClassFile {
 		super_class_cp.buildResolve();
 		super_class_index = super_class_cp.index;
 
-		interfaces.buildResolve();
+		interfaces.resolve();
 
-		fields.buildResolve();
+		fields.resolve();
 
-		methods.buildResolve();
+		methods.resolve();
 
-		attributes.buildResolve();
+		attributes.resolve();
 
 		/*
 		 * Magic.
@@ -283,45 +285,45 @@ public class ClassFile {
 
 		int magic = 0xcafebabe;
 
-		bytes.write( (byte)(magic >> 24) );
-		bytes.write( (byte)(magic >> 16) );
-		bytes.write( (byte)(magic >> 8) );
-		bytes.write( (byte)(magic & 255) );
+		out.write( (byte)(magic >> 24) );
+		out.write( (byte)(magic >> 16) );
+		out.write( (byte)(magic >> 8) );
+		out.write( (byte)(magic & 255) );
 
 		/*
 		 * Major.Minor version.
 		 */
 
-		bytes.write( (byte)(minor_version >> 8) );
-		bytes.write( (byte)(minor_version & 255) );
+		out.write( (byte)(minor_version >> 8) );
+		out.write( (byte)(minor_version & 255) );
 
-		bytes.write( (byte)(major_version >> 8) );
-		bytes.write( (byte)(major_version & 255) );
+		out.write( (byte)(major_version >> 8) );
+		out.write( (byte)(major_version & 255) );
 
 		/*
 		 * Constant pool.
 		 */
 
-		constantpool.build( bytes );
+		constantpool.build( out );
 
 		/*
 		 * Access flags, This Class and Super Class.
 		 */
 
-		bytes.write( (byte)(access_flags >> 8) );
-		bytes.write( (byte)(access_flags & 255) );
+		out.write( (byte)(access_flags >> 8) );
+		out.write( (byte)(access_flags & 255) );
 
-		bytes.write( (byte)(this_class_index >> 8) );
-		bytes.write( (byte)(this_class_index & 255) );
+		out.write( (byte)(this_class_index >> 8) );
+		out.write( (byte)(this_class_index & 255) );
 
-		bytes.write( (byte)(super_class_index >> 8) );
-		bytes.write( (byte)(super_class_index & 255) );
+		out.write( (byte)(super_class_index >> 8) );
+		out.write( (byte)(super_class_index & 255) );
 
 		/*
 		 * Interfaces.
 		 */
 
-		interfaces.build( bytes );
+		interfaces.assemble( out );
 
 		/*
 		 * Fields.
@@ -330,7 +332,7 @@ public class ClassFile {
 		// debug
 		//System.out.println( "fields: " + bytes.size() );
 
-		fields.build( bytes );
+		fields.assemble( out );
 
 		/*
 		 * Methods.
@@ -339,15 +341,15 @@ public class ClassFile {
 		// debug
 		//System.out.println( "methods: " + bytes.size() );
 
-		methods.build( bytes );
+		methods.assemble( out );
 
 		/*
 		 * Attributes.
 		 */
 
-		attributes.build( bytes );
+		attributes.assemble( out );
 
-		return bytes.toByteArray();
+		return out.toByteArray();
 	}
 
 	public static ClassFile createInstance() {
@@ -489,7 +491,7 @@ public class ClassFile {
 
 		//cf.attributes = Attributes.parseAttributes( cfs, attributes_count );
 
-		AttributeAbstrsct attribute;
+		AttributeAbstract attribute;
 
 		// Post-processing.
 

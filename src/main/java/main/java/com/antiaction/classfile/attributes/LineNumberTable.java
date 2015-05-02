@@ -7,9 +7,36 @@
 
 package com.antiaction.classfile.attributes;
 
-public class LineNumberTable {
+import java.io.ByteArrayOutputStream;
 
-	int start_pc;
-	int line_number;
+import com.antiaction.classfile.BuildingBlockAbstract;
+import com.antiaction.classfile.ClassFileException;
+import com.antiaction.classfile.ClassFileState;
+
+public class LineNumberTable extends BuildingBlockAbstract {
+
+	public int start_pc;
+
+	public int line_number;
+
+	@Override
+	public void disassemble(ClassFileState cfs) throws ClassFileException {
+		cfs.assert_unexpected_eof( 4 );
+		start_pc = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
+		line_number = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
+		// TODO validate start_pc
+	}
+
+	@Override
+	public void resolve() throws ClassFileException {
+	}
+
+	@Override
+	public void assemble(ByteArrayOutputStream out) {
+		out.write( (byte)(start_pc >> 8) );
+		out.write( (byte)(start_pc & 255) );
+		out.write( (byte)(line_number >> 8) );
+		out.write( (byte)(line_number & 255) );
+	}
 
 }
