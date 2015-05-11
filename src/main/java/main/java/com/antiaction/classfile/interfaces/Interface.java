@@ -32,7 +32,7 @@ public class Interface extends BuildingBlockAbstract {
 
 	@Override
 	public void resolve() throws ClassFileException {
-		interface_cp.buildResolve();
+		interface_cp.resolve();
 		interface_index = interface_cp.index;
 	}
 

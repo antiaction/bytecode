@@ -51,7 +51,7 @@ public class Attribute_SourceFile extends AttributeAbstract {
 
 	@Override
 	public void resolve() throws ClassFileException {
-		sourcefile_cp.buildResolve();
+		sourcefile_cp.resolve();
 		sourcefile_index = sourcefile_cp.index;
 	}
 

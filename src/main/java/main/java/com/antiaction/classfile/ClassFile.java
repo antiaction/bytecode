@@ -265,10 +265,10 @@ public class ClassFile {
 		 * Resolve constantpool indexes.
 		 */
 
-		this_class_cp.buildResolve();
+		this_class_cp.resolve();
 		this_class_index = this_class_cp.index;
 
-		super_class_cp.buildResolve();
+		super_class_cp.resolve();
 		super_class_index = super_class_cp.index;
 
 		interfaces.resolve();

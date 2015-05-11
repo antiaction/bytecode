@@ -13,13 +13,13 @@ import java.io.IOException;
 import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
 import com.antiaction.classfile.Constants;
-import com.antiaction.classfile.constantpool.IConstantPool_Info;
+import com.antiaction.classfile.constantpool.ConstantPool_Info;
 
 public class Attribute_ConstantValue extends AttributeAbstract {
 
 	public int constantvalue_index;
 
-	public IConstantPool_Info constantPool_ConstantValue;
+	public ConstantPool_Info constantPool_ConstantValue;
 
 	public Attribute_ConstantValue() {
 		classfileVersion = Constants.CLASSFILE_VERSION_45_3;

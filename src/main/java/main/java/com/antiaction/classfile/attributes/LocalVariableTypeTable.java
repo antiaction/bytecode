@@ -45,9 +45,9 @@ public class LocalVariableTypeTable extends BuildingBlockAbstract {
 
 	@Override
 	public void resolve() throws ClassFileException {
-		name_cp.buildResolve();
+		name_cp.resolve();
 		name_index = name_cp.index;
-		signature_cp.buildResolve();
+		signature_cp.resolve();
 		signature_index = signature_cp.index;
 	}
 

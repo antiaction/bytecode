@@ -13,7 +13,7 @@ import java.io.IOException;
 import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
 
-public class ConstantPool_Utf8 extends IConstantPool_Info {
+public class ConstantPool_Utf8 extends ConstantPool_Info {
 
 	public String utf8;
 
@@ -21,7 +21,8 @@ public class ConstantPool_Utf8 extends IConstantPool_Info {
 		tag = ConstantPool.CONSTANT_Utf8;
 	}
 
-	public static IConstantPool_Info parseUtf8(ClassFileState cfs) throws ClassFileException {
+	@Override
+	public void disassemble(ClassFileState cfs) throws ClassFileException {
 		cfs.assert_unexpected_eof( 2 );
 
 		int length = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
@@ -70,10 +71,7 @@ public class ConstantPool_Utf8 extends IConstantPool_Info {
 		// debug
 		//System.out.println( "Utf8: " + sb.toString() );
 
-		ConstantPool_Utf8 cp_info = new ConstantPool_Utf8();
-		cp_info.utf8 = sb.toString();
-
-		return cp_info;
+		utf8 = sb.toString();
 	}
 
 	public static ConstantPool_Utf8 createUtf8(ConstantPool cp, String utf8) throws ClassFileException {
@@ -84,11 +82,11 @@ public class ConstantPool_Utf8 extends IConstantPool_Info {
 	}
 
 	@Override
-	public void parseResolve(ClassFileState cfs) throws ClassFileException {
+	public void validate(ClassFileState cfs) throws ClassFileException {
  	}
 
 	@Override
-	public void buildResolve() throws ClassFileException {
+	public void resolve() throws ClassFileException {
 		if ( index == 0 ) {
 			index = cp.constantpool_infolist.size();
 			cp.constantpool_infolist.add( this );
@@ -96,7 +94,7 @@ public class ConstantPool_Utf8 extends IConstantPool_Info {
 	}
 
 	@Override
-	public void build(ByteArrayOutputStream bytes) throws IOException {
+	public void assemble(ByteArrayOutputStream bytes) throws IOException {
 		ByteArrayOutputStream encoded = new ByteArrayOutputStream( utf8.length() );
 
 		char c;

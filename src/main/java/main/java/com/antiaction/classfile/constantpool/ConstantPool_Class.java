@@ -13,7 +13,7 @@ import java.io.IOException;
 import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
 
-public class ConstantPool_Class extends IConstantPool_Info {
+public class ConstantPool_Class extends ConstantPool_Info {
 
 	public int name_index;
 
@@ -21,22 +21,16 @@ public class ConstantPool_Class extends IConstantPool_Info {
 
 	public String name;
 
-	private ConstantPool_Class() {
+	public ConstantPool_Class() {
 		tag = ConstantPool.CONSTANT_Class;
 	}
 
-	public static IConstantPool_Info parseClass(ClassFileState cfs) throws ClassFileException {
+	@Override
+	public void disassemble(ClassFileState cfs) throws ClassFileException {
 		cfs.assert_unexpected_eof( 2 );
-
-		int name_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
-
+		name_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 		// debug
 		//System.out.println( "Class: " + name_index );
-
-		ConstantPool_Class cp_info = new ConstantPool_Class();
-		cp_info.name_index = name_index;
-
-		return cp_info;
 	}
 
 	public static ConstantPool_Class createClass(ConstantPool cp, String class_name) throws ClassFileException {
@@ -48,23 +42,23 @@ public class ConstantPool_Class extends IConstantPool_Info {
 	}
 
 	@Override
-	public void parseResolve(ClassFileState cfs) throws ClassFileException {
+	public void validate(ClassFileState cfs) throws ClassFileException {
 		cp_name = cp.getUtf8( name_index );
 		name = cp_name.utf8;
 	}
 
 	@Override
-	public void buildResolve() throws ClassFileException {
+	public void resolve() throws ClassFileException {
 		if ( index == 0 ) {
 			index = cp.constantpool_infolist.size();
 			cp.constantpool_infolist.add( this );
-			cp_name.buildResolve();
+			cp_name.resolve();
 			name_index = cp_name.index;
 		}
 	}
 
 	@Override
-	public void build(ByteArrayOutputStream bytes) throws IOException {
+	public void assemble(ByteArrayOutputStream bytes) throws IOException {
 		bytes.write( (byte)(tag & 255) );
 
 		bytes.write( (byte)(name_index >> 8) );

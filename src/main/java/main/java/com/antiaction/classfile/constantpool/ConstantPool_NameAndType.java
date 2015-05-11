@@ -13,7 +13,7 @@ import java.io.IOException;
 import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
 
-public class ConstantPool_NameAndType extends IConstantPool_Info {
+public class ConstantPool_NameAndType extends ConstantPool_Info {
 
 	public int name_index;
 
@@ -31,24 +31,17 @@ public class ConstantPool_NameAndType extends IConstantPool_Info {
 		tag = ConstantPool.CONSTANT_NameAndType;
 	}
 
-	public static IConstantPool_Info parseNameAndType(ClassFileState cfs) throws ClassFileException {
+	@Override
+	public void disassemble(ClassFileState cfs) throws ClassFileException {
 		cfs.assert_unexpected_eof( 4 );
-
-		int name_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
-		int descriptor_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
-
+		name_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
+		descriptor_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 		// debug
 		//System.out.println( "NameAndType: " + name_index + ", " + descriptor_index );
-
-		ConstantPool_NameAndType cp_info = new ConstantPool_NameAndType();
-		cp_info.name_index = name_index;
-		cp_info.descriptor_index = descriptor_index;
-
-		return cp_info;
 	}
 
 	@Override
-	public void parseResolve(ClassFileState cfs) throws ClassFileException {
+	public void validate(ClassFileState cfs) throws ClassFileException {
 		cp_name = cp.getUtf8( name_index );
 		name = cp_name.utf8;
 		cp_descriptor = cp.getUtf8( descriptor_index );
@@ -56,19 +49,19 @@ public class ConstantPool_NameAndType extends IConstantPool_Info {
 	}
 
 	@Override
-	public void buildResolve() throws ClassFileException {
+	public void resolve() throws ClassFileException {
 		if ( index == 0 ) {
 			index = cp.constantpool_infolist.size();
 			cp.constantpool_infolist.add( this );
-			cp_name.buildResolve();
+			cp_name.resolve();
 			name_index = cp_name.index;
-			cp_descriptor.buildResolve();
+			cp_descriptor.resolve();
 			descriptor_index = cp_descriptor.index;
 		}
 	}
 
 	@Override
-	public void build(ByteArrayOutputStream bytes) throws IOException {
+	public void assemble(ByteArrayOutputStream bytes) throws IOException {
 		bytes.write( (byte)(tag & 255) );
 
 		bytes.write( (byte)(name_index >> 8) );

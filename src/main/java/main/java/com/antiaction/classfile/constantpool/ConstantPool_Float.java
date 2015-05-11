@@ -13,7 +13,7 @@ import java.io.IOException;
 import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
 
-public class ConstantPool_Float extends IConstantPool_Info {
+public class ConstantPool_Float extends ConstantPool_Info {
 
 	public float f;
 
@@ -21,27 +21,21 @@ public class ConstantPool_Float extends IConstantPool_Info {
 		tag = ConstantPool.CONSTANT_Float;
 	}
 
-	public static IConstantPool_Info parseFloat(ClassFileState cfs) throws ClassFileException {
+	@Override
+	public void disassemble(ClassFileState cfs) throws ClassFileException {
 		cfs.assert_unexpected_eof( 4 );
-
 		int i = (cfs.bytes[ cfs.index++ ] & 255) << 24 | (cfs.bytes[ cfs.index++ ] & 255) << 16 | (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
-		float f = Float.intBitsToFloat( i );
-
+		f = Float.intBitsToFloat( i );
 		// debug
 		//System.out.println( "Float: " + f );
-
-		ConstantPool_Float cp_info = new ConstantPool_Float();
-		cp_info.f = f;
-
-		return cp_info;
 	}
 
 	@Override
-	public void parseResolve(ClassFileState cfs) throws ClassFileException {
+	public void validate(ClassFileState cfs) throws ClassFileException {
 	}
 
 	@Override
-	public void buildResolve() throws ClassFileException {
+	public void resolve() throws ClassFileException {
 		if ( index == 0 ) {
 			index = cp.constantpool_infolist.size();
 			cp.constantpool_infolist.add( this );
@@ -49,7 +43,7 @@ public class ConstantPool_Float extends IConstantPool_Info {
 	}
 
 	@Override
-	public void build(ByteArrayOutputStream bytes) throws IOException {
+	public void assemble(ByteArrayOutputStream bytes) throws IOException {
 		bytes.write( (byte)(tag & 255) );
 
 		int i = Float.floatToIntBits( f );

@@ -13,7 +13,7 @@ import java.io.IOException;
 import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
 
-public class ConstantPool_Methodref extends IConstantPool_Info {
+public class ConstantPool_Methodref extends ConstantPool_Info {
 
 	public int class_index;
 
@@ -29,43 +29,36 @@ public class ConstantPool_Methodref extends IConstantPool_Info {
 		tag = ConstantPool.CONSTANT_Methodref;
 	}
 
-	public static IConstantPool_Info parseMethodref(ClassFileState cfs) throws ClassFileException {
+	@Override
+	public void disassemble(ClassFileState cfs) throws ClassFileException {
 		cfs.assert_unexpected_eof( 4 );
-
-		int class_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
-		int name_and_type_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
-
+		class_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
+		name_and_type_index = (cfs.bytes[ cfs.index++ ] & 255) << 8 | (cfs.bytes[ cfs.index++ ] & 255);
 		// debug
 		//System.out.println( "Methodref: " + class_index + ", " + name_and_type_index );
-
-		ConstantPool_Methodref cp_info = new ConstantPool_Methodref();
-		cp_info.class_index = class_index;
-		cp_info.name_and_type_index = name_and_type_index;
-
-		return cp_info;
 	}
 
 	@Override
-	public void parseResolve(ClassFileState cfs) throws ClassFileException {
+	public void validate(ClassFileState cfs) throws ClassFileException {
 		cp_class = cp.getClass( class_index );
 		cp_name_and_type = cp.getNameAndType( name_and_type_index );
 		class_name = cp_class.name;
 	}
 
 	@Override
-	public void buildResolve() throws ClassFileException {
+	public void resolve() throws ClassFileException {
 		if ( index == 0 ) {
 			index = cp.constantpool_infolist.size();
 			cp.constantpool_infolist.add( this );
-			cp_class.buildResolve();
+			cp_class.resolve();
 			class_index = cp_class.index;
-			cp_name_and_type.buildResolve();
+			cp_name_and_type.resolve();
 			name_and_type_index = cp_name_and_type.index;
 		}
 	}
 
 	@Override
-	public void build(ByteArrayOutputStream bytes) throws IOException {
+	public void assemble(ByteArrayOutputStream bytes) throws IOException {
 		bytes.write( (byte)(tag & 255) );
 
 		bytes.write( (byte)(class_index >> 8) );

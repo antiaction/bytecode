@@ -111,9 +111,9 @@ public class Field extends BuildingBlockAbstract {
 
 	@Override
 	public void resolve() throws ClassFileException {
-		name_cp.buildResolve();
+		name_cp.resolve();
 		name_index = name_cp.index;
-		descriptor_cp.buildResolve();
+		descriptor_cp.resolve();
 		descriptor_index = descriptor_cp.index;
 		attributes.resolve();
 	}

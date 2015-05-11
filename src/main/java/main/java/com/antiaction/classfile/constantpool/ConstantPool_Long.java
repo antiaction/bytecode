@@ -13,7 +13,7 @@ import java.io.IOException;
 import com.antiaction.classfile.ClassFileException;
 import com.antiaction.classfile.ClassFileState;
 
-public class ConstantPool_Long extends IConstantPool_Info {
+public class ConstantPool_Long extends ConstantPool_Info {
 
 	public long l;
 
@@ -21,10 +21,9 @@ public class ConstantPool_Long extends IConstantPool_Info {
 		tag = ConstantPool.CONSTANT_Long;
 	}
 
-	public static IConstantPool_Info parseLong(ClassFileState cfs) throws ClassFileException {
+	@Override
+	public void disassemble(ClassFileState cfs) throws ClassFileException {
 		cfs.assert_unexpected_eof( 8 );
-
-		long l;
 		l = (long)(cfs.bytes[ cfs.index++ ] & 255) << 56;
 		l |= (long)(cfs.bytes[ cfs.index++ ] & 255) << 48;
 		l |= (long)(cfs.bytes[ cfs.index++ ] & 255) << 40;
@@ -33,22 +32,16 @@ public class ConstantPool_Long extends IConstantPool_Info {
 		l |= (long)(cfs.bytes[ cfs.index++ ] & 255) << 16;
 		l |= (long)(cfs.bytes[ cfs.index++ ] & 255) << 8;
 		l |= (long)cfs.bytes[ cfs.index++ ] & 255;
-
 		// debug
 		//System.out.println( "Long: " + l );
-
-		ConstantPool_Long cp_info = new ConstantPool_Long();
-		cp_info.l = l;
-
-		return cp_info;
 	}
 
 	@Override
-	public void parseResolve(ClassFileState cfs) throws ClassFileException {
+	public void validate(ClassFileState cfs) throws ClassFileException {
 	}
 
 	@Override
-	public void buildResolve() throws ClassFileException {
+	public void resolve() throws ClassFileException {
 		if ( index == 0 ) {
 			index = cp.constantpool_infolist.size();
 			cp.constantpool_infolist.add( this );
@@ -57,7 +50,7 @@ public class ConstantPool_Long extends IConstantPool_Info {
 	}
 
 	@Override
-	public void build(ByteArrayOutputStream bytes) throws IOException {
+	public void assemble(ByteArrayOutputStream bytes) throws IOException {
 		bytes.write( (byte)(tag & 255) );
 
 		bytes.write( (byte)(l >> 56) );

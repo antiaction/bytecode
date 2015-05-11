@@ -29,7 +29,7 @@ public class Parameter extends BuildingBlockAbstract {
 	@Override
 	public void resolve() throws ClassFileException {
 		// TODO check
-		name_cp.buildResolve();
+		name_cp.resolve();
 		name_index = name_cp.index;
 	}
 

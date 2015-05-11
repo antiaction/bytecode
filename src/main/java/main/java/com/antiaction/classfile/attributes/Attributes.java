@@ -182,7 +182,7 @@ public class Attributes extends BuildingBlockAbstract {
 		AttributeAbstract attribute;
 		for ( int i=0; i<attributes_list.size(); ++i ) {
 			attribute = attributes_list.get( i );
-			attribute.attribute_name_cp.buildResolve();
+			attribute.attribute_name_cp.resolve();
 			attribute.attribute_name_index = attribute.attribute_name_cp.index;
 			attribute.resolve();
 		}

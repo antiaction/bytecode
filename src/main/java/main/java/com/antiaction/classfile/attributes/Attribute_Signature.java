@@ -51,7 +51,7 @@ public class Attribute_Signature extends AttributeAbstract {
 
 	@Override
 	public void resolve() throws ClassFileException {
-		signature_cp.buildResolve();
+		signature_cp.resolve();
 		signature_index = signature_cp.index;
 	}
 

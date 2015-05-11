@@ -28,7 +28,9 @@ public class ConstantPool {
 	public static final int CONSTANT_Methodref = 10;
 	public static final int CONSTANT_InterfaceMethodref = 11;
 	public static final int CONSTANT_NameAndType = 12;
-	//public static final int CONSTANT_ = ;
+	public static final int CONSTANT_MethodHandle = 15;
+	public static final int CONSTANT_MethodType = 16;
+	public static final int CONSTANT_InvokeDynamic = 18;
 
 	public static final int CT_CONST = 1;
 	public static final int CT_UTF8 = 2;
@@ -52,7 +54,7 @@ public class ConstantPool {
 		cp_info2type[ CONSTANT_NameAndType ] = CT_NT;
 	}
 
-	public List<IConstantPool_Info> constantpool_infolist = null;
+	public List<ConstantPool_Info> constantpool_infolist = null;
 
 	protected List<ConstantPool_Utf8> utf8_constants = new ArrayList<ConstantPool_Utf8>();
 
@@ -78,7 +80,7 @@ public class ConstantPool {
 
 	public static ConstantPool createInstance() {
 		ConstantPool constantpool = new ConstantPool();
-		constantpool.constantpool_infolist = new ArrayList<IConstantPool_Info>();
+		constantpool.constantpool_infolist = new ArrayList<ConstantPool_Info>();
 		constantpool.constantpool_infolist.add( null );
 		return constantpool;
 	}
@@ -92,10 +94,10 @@ public class ConstantPool {
 		//System.out.println( "constant pool count: " + constant_pool_count );
 
 		ConstantPool constantpool = new ConstantPool();
-		constantpool.constantpool_infolist = new ArrayList<IConstantPool_Info>();
+		constantpool.constantpool_infolist = new ArrayList<ConstantPool_Info>();
 		constantpool.constantpool_infolist.add( null );
 
-		IConstantPool_Info cp_info = null;
+		ConstantPool_Info cp_info = null;
 
 		int constantpool_index = 1;
 
@@ -110,28 +112,32 @@ public class ConstantPool {
 
 			switch ( tag ) {
 			case CONSTANT_Utf8:
-				cp_info = ConstantPool_Utf8.parseUtf8( cfs );
+				cp_info = new ConstantPool_Utf8();
+				cp_info.disassemble( cfs );
 				cp_info.cp = constantpool;
 				cp_info.index = constantpool_index++;
 				constantpool.constantpool_infolist.add( cp_info );
 				constantpool.utf8_constants.add( (ConstantPool_Utf8)cp_info );
 				break;
 			case CONSTANT_Integer:
-				cp_info = ConstantPool_Integer.parseInteger( cfs );
+				cp_info = new ConstantPool_Integer();
+				cp_info.disassemble( cfs );
 				cp_info.cp = constantpool;
 				cp_info.index = constantpool_index++;
 				constantpool.constantpool_infolist.add( cp_info );
 				constantpool.integer_constants.add( (ConstantPool_Integer)cp_info );
 				break;
 			case CONSTANT_Float:
-				cp_info = ConstantPool_Float.parseFloat( cfs );
+				cp_info = new ConstantPool_Float();
+				cp_info.disassemble( cfs );
 				cp_info.cp = constantpool;
 				cp_info.index = constantpool_index++;
 				constantpool.constantpool_infolist.add( cp_info );
 				constantpool.float_constants.add( (ConstantPool_Float)cp_info );
 				break;
 			case CONSTANT_Long:
-				cp_info = ConstantPool_Long.parseLong( cfs );
+				cp_info = new ConstantPool_Long();
+				cp_info.disassemble( cfs );
 				cp_info.cp = constantpool;
 				cp_info.index = constantpool_index;
 				constantpool_index += 2;
@@ -140,7 +146,8 @@ public class ConstantPool {
 				constantpool.long_constants.add( (ConstantPool_Long)cp_info );
 				break;
 			case CONSTANT_Double:
-				cp_info = ConstantPool_Double.parseDouble( cfs );
+				cp_info = new ConstantPool_Double();
+				cp_info.disassemble( cfs );
 				cp_info.cp = constantpool;
 				cp_info.index = constantpool_index;
 				constantpool_index += 2;
@@ -149,47 +156,56 @@ public class ConstantPool {
 				constantpool.double_constants.add( (ConstantPool_Double)cp_info );
 				break;
 			case CONSTANT_Class:
-				cp_info = ConstantPool_Class.parseClass( cfs );
+				cp_info = new ConstantPool_Class();
+				cp_info.disassemble( cfs );
 				cp_info.cp = constantpool;
 				cp_info.index = constantpool_index++;
 				constantpool.constantpool_infolist.add( cp_info );
 				constantpool.class_constants.add( (ConstantPool_Class)cp_info );
 				break;
 			case CONSTANT_String:
-				cp_info = ConstantPool_String.parseString( cfs );
+				cp_info = new ConstantPool_String();
+				cp_info.disassemble( cfs );
 				cp_info.cp = constantpool;
 				cp_info.index = constantpool_index++;
 				constantpool.constantpool_infolist.add( cp_info );
 				constantpool.string_constants.add( (ConstantPool_String)cp_info );
 				break;
 			case CONSTANT_Fieldref:
-				cp_info = ConstantPool_Fieldref.parseFieldref( cfs );
+				cp_info = new ConstantPool_Fieldref();
+				cp_info.disassemble( cfs );
 				cp_info.cp = constantpool;
 				cp_info.index = constantpool_index++;
 				constantpool.constantpool_infolist.add( cp_info );
 				constantpool.fieldref_constants.add( (ConstantPool_Fieldref)cp_info );
 				break;
 			case CONSTANT_Methodref:
-				cp_info = ConstantPool_Methodref.parseMethodref( cfs );
+				cp_info = new ConstantPool_Methodref();
+				cp_info.disassemble( cfs );
 				cp_info.cp = constantpool;
 				cp_info.index = constantpool_index++;
 				constantpool.constantpool_infolist.add( cp_info );
 				constantpool.methodref_constants.add( (ConstantPool_Methodref)cp_info );
 				break;
 			case CONSTANT_InterfaceMethodref:
-				cp_info = ConstantPool_InterfaceMethodref.parseInterfaceMethodref( cfs );
+				cp_info = new ConstantPool_InterfaceMethodref();
+				cp_info.disassemble( cfs );
 				cp_info.cp = constantpool;
 				cp_info.index = constantpool_index++;
 				constantpool.constantpool_infolist.add( cp_info );
 				constantpool.interfacemethodref_constants.add( (ConstantPool_InterfaceMethodref)cp_info );
 				break;
 			case CONSTANT_NameAndType:
-				cp_info = ConstantPool_NameAndType.parseNameAndType( cfs );
+				cp_info = new ConstantPool_NameAndType();
+				cp_info.disassemble( cfs );
 				cp_info.cp = constantpool;
 				cp_info.index = constantpool_index++;
 				constantpool.constantpool_infolist.add( cp_info );
 				constantpool.nameandtype_constants.add( (ConstantPool_NameAndType)cp_info );
 				break;
+			case CONSTANT_MethodHandle:
+			case CONSTANT_MethodType:
+			case CONSTANT_InvokeDynamic:
 			default:
 				throw new ClassFileException( "Unknown constant pool info tag (" + tag + ")", cfs.index );
 			}
@@ -198,7 +214,7 @@ public class ConstantPool {
 		for ( int i=1; i<constantpool.constantpool_infolist.size(); ++i ) {
 			cp_info = constantpool.constantpool_infolist.get( i );
 			if ( cp_info != null ) {
-				cp_info.parseResolve( cfs );
+				cp_info.validate( cfs );
 			}
 		}
 
@@ -211,11 +227,13 @@ public class ConstantPool {
 		bytes.write( (byte)(constant_pool_count >> 8) );
 		bytes.write( (byte)(constant_pool_count & 255) );
 
-		IConstantPool_Info cp_info;
+		// TODO resolve
+
+		ConstantPool_Info cp_info;
 		for ( int i=1; i<constantpool_infolist.size(); ++i ) {
 			cp_info = constantpool_infolist.get( i );
 			if ( cp_info != null ) {
-				cp_info.build( bytes );
+				cp_info.assemble( bytes );
 			}
 		}
 	}
@@ -225,7 +243,7 @@ public class ConstantPool {
 			throw new ClassFileException( "cp_info index out of bounds" );
 		}
 
-		IConstantPool_Info cp_info = constantpool_infolist.get( index );
+		ConstantPool_Info cp_info = constantpool_infolist.get( index );
 		if ( !(cp_info instanceof ConstantPool_Utf8) ) {
 			throw new ClassFileException( "cp_info utf-8 type expected" );
 		}
@@ -268,7 +286,7 @@ public class ConstantPool {
 			throw new ClassFileException( "cp_info index out of bounds" );
 		}
 
-		IConstantPool_Info cp_info = constantpool_infolist.get( index );
+		ConstantPool_Info cp_info = constantpool_infolist.get( index );
 		if ( !(cp_info instanceof ConstantPool_Integer) ) {
 			throw new ClassFileException( "cp_info integer type expected" );
 		}
@@ -281,7 +299,7 @@ public class ConstantPool {
 			throw new ClassFileException( "cp_info index out of bounds" );
 		}
 
-		IConstantPool_Info cp_info = constantpool_infolist.get( index );
+		ConstantPool_Info cp_info = constantpool_infolist.get( index );
 		if ( !(cp_info instanceof ConstantPool_Float) ) {
 			throw new ClassFileException( "cp_info float type expected" );
 		}
@@ -294,7 +312,7 @@ public class ConstantPool {
 			throw new ClassFileException( "cp_info index out of bounds" );
 		}
 
-		IConstantPool_Info cp_info = constantpool_infolist.get( index );
+		ConstantPool_Info cp_info = constantpool_infolist.get( index );
 		if ( !(cp_info instanceof ConstantPool_Long) ) {
 			throw new ClassFileException( "cp_info long type expected" );
 		}
@@ -307,7 +325,7 @@ public class ConstantPool {
 			throw new ClassFileException( "cp_info index out of bounds" );
 		}
 
-		IConstantPool_Info cp_info = constantpool_infolist.get( index );
+		ConstantPool_Info cp_info = constantpool_infolist.get( index );
 		if ( !(cp_info instanceof ConstantPool_Double) ) {
 			throw new ClassFileException( "cp_info double type expected" );
 		}
@@ -320,7 +338,7 @@ public class ConstantPool {
 			throw new ClassFileException( "cp_info index out of bounds" );
 		}
 
-		IConstantPool_Info cp_info = constantpool_infolist.get( index );
+		ConstantPool_Info cp_info = constantpool_infolist.get( index );
 		if ( !(cp_info instanceof ConstantPool_Class) ) {
 			throw new ClassFileException( "cp_info class type expected" );
 		}
@@ -344,7 +362,7 @@ public class ConstantPool {
 			throw new ClassFileException( "cp_info index out of bounds" );
 		}
 
-		IConstantPool_Info cp_info = constantpool_infolist.get( index );
+		ConstantPool_Info cp_info = constantpool_infolist.get( index );
 		if ( !(cp_info instanceof ConstantPool_Class) ) {
 			throw new ClassFileException( "cp_info class type expected" );
 		}
@@ -388,7 +406,7 @@ public class ConstantPool {
 			throw new ClassFileException( "cp_info index out of bounds" );
 		}
 
-		IConstantPool_Info cp_info = constantpool_infolist.get( index );
+		ConstantPool_Info cp_info = constantpool_infolist.get( index );
 		if ( !(cp_info instanceof ConstantPool_NameAndType) ) {
 			throw new ClassFileException( "cp_info name_and_type type expected" );
 		}
@@ -396,12 +414,12 @@ public class ConstantPool {
 		return (ConstantPool_NameAndType)cp_info;
 	}
 
-	public IConstantPool_Info getConstantValue(int index) throws ClassFileException {
+	public ConstantPool_Info getConstantValue(int index) throws ClassFileException {
 		if ( index <= 0 || index >= constantpool_infolist.size() ) {
 			throw new ClassFileException( "cp_info index out of bounds" );
 		}
 
-		IConstantPool_Info cp_info = constantpool_infolist.get( index );
+		ConstantPool_Info cp_info = constantpool_infolist.get( index );
 
 		if ( cp_info2type[ cp_info.tag ] != CT_CONST ) {
 			System.out.println( cp_info.tag );
