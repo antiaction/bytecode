@@ -13,7 +13,6 @@ import java.io.RandomAccessFile;
 
 import com.antiaction.classfile.ClassFile;
 import com.antiaction.classfile.ClassFileException;
-import com.antiaction.classfile.bytecode.BytecodeException;
 
 public class Test1 {
 
@@ -59,7 +58,7 @@ public class Test1 {
 				//parseDir( file );
 			}
 			else if ( file.isFile() ) {
-				classfile = parseClass( file );
+				classfile = ParserHelpers.parseClass( file );
 				if ( classfile != null ) {
 					try {
 						bytes = classfile.assemble();
@@ -77,34 +76,6 @@ public class Test1 {
 				}
 			}
 		}
-	}
-
-	public ClassFile parseClass(File file) {
-		ClassFile classfile = null;
-		try {
-			classfile = ClassFile.disassembleClassFile( file );
-		}
-		catch (ClassFileException e) {
-			e.printStackTrace();
-		}
-		catch (BytecodeException e) {
-			e.printStackTrace();
-		}
-		return classfile;
-	}
-
-	public ClassFile parseClass(String filename) {
-		ClassFile classfile = null;
-		try {
-			classfile = ClassFile.disassembleClassFile( filename );
-		}
-		catch (ClassFileException e) {
-			e.printStackTrace();
-		}
-		catch (BytecodeException e) {
-			e.printStackTrace();
-		}
-		return classfile;
 	}
 
 }

@@ -70,12 +70,12 @@ public class Test2 {
 						bytes_new = classfile.assemble();
 						if ( bytes_new != null ) {
 							++built;
-							if ( compare( bytes_org, bytes_new ) ) {
+							if ( ParserHelpers.compare( bytes_org, bytes_new ) ) {
 								++equal;
 							}
 							else {
 								System.out.println( file.getName() + " " + bytes_org.length + " " + bytes_new.length );
-								diff( bytes_org, bytes_new );
+								ParserHelpers.diff( bytes_org, bytes_new );
 								System.out.println( classfile.toString() );
 								++diff;
 							}
@@ -93,56 +93,6 @@ public class Test2 {
 					e.printStackTrace();
 				}
 			}
-		}
-	}
-
-	public boolean compare(byte[] bytes1, byte[] bytes2) {
-		boolean res;
-		int index;
-		if ( bytes1.length == bytes2.length ) {
-			index = 0;
-			res = true;
-			while ( index < bytes1.length && res ) {
-				if ( index < bytes1.length ) {
-					if ( bytes1[ index ] != bytes2[ index ] ) {
-						res = false;
-					}
-					else {
-						++index;
-					}
-				}
-			}
-		}
-		else {
-			res = false;
-		}
-		return res;
-	}
-
-	public void diff(byte[] bytes1, byte[] bytes2) {
-		boolean b;
-		int index;
-		if ( bytes1.length == bytes2.length ) {
-			index = 0;
-			b = true;
-			while ( b ) {
-				if ( index < bytes1.length ) {
-					if ( bytes1[ index ] != bytes2[ index ] ) {
-						System.out.println( index + " " + bytes1[ index ] + " " + bytes2[ index ] );
-						//b = false;
-						++index;
-					}
-					else {
-						++index;
-					}
-				}
-				else {
-					b = false;
-				}
-			}
-		}
-		else {
-			b = false;
 		}
 	}
 
